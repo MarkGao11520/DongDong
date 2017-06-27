@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+			<script>
+                function back() {
+                    window.history.go(-1);
+                }
+			</script>
+		</div>
+	</div>
+
+	<table  id="datagrid" class="easyui-datagrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true
+				,rownumbers:true,idField:'tracid',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'billcode',width:'15%'">单号</th>
+			<th data-options="field:'statusafter',width:'15%',formatter:formatdef">变更之前状态</th>
+			<th data-options="field:'statusbefore',width:'15%',formatter:formatdef">变更之后状态</th>
+			<th data-options="field:'changedateString',width:'15%'">变更日期</th>
+			<th data-options="field:'uname',width:'15%'">工作人员</th>
+			<th data-options="field:'notes',width:'15%'">注释</th>
+		</tr>
+		</thead>
+	</table>
+
+	<script th:inline="javascript">
+		var billcode = [[${billcode}]];
+		var url;
+		if(billcode!=null){
+			url = 'jsonExpressTracingList?billcode='+billcode;
+		}else {
+			url = 'jsonExpressTracingList'
+		}
+		$(function() {
+			$('#datagrid').datagrid({
+				url:url
+			});
+		})
+
+	</script>
+</body>
+<script type="text/javascript" src="../crm/js/Express/expresstracing/expressTracingList.js"></script>
+
+</html>

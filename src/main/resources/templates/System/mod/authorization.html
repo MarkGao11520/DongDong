@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title></title>
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	  <link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+	  <link rel="stylesheet" href="../easyui/themes/icon.css" />
+	  <script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	  <script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+	  <script type="text/javascript"
+			  src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+	 <script type="text/javascript" src="../crm/js/System/position/authorization.js"></script>
+  </head>
+
+  <body>
+
+
+  <script th:inline="javascript">
+      $(function() {
+		  var list = [[${PmodDtoList}]];
+		  var positionid = [[${positionid}]];
+		  var appid = [[${appid}]];
+          xianshi(list,positionid,appid);
+      });
+  </script>
+
+  <div th:each="var:${PmodDtoList }">
+	  <input  th:if="${var.checked }" checked="checked"  type = "checkbox" name = "checkedmodids" th:id="${var.modid }"  th:onclick="'check(this,\''+${var.modid }+'\');'" th:value="${var.modid }" />
+	  <input  th:if="${!var.checked }"  type = "checkbox" name = "modids" th:id="${var.modid }" th:onclick="'check(this,\''+${var.modid }+'\');'" th:value="${var.modid }" />
+	  <H4>  <a th:id ="'a'+${var.modid }"  th:href="'javascript:test(\''+${var.modid }+'\',\''+${var.modid }+'\',\''+${positionid}+'\',\''+${appid}+'\')'" ><span th:text="${var.modname }"></span></a> </H4>
+	  <form th:id = "'mods'+${var.modid }"  action="">
+	  </form>
+  </div>
+
+  <input type="button" th:onclick="'submit(\''+${positionid}+'\',\''+${appid}+'\');'" value="提交" />
+  <input type="button" onclick="back()" value="返回"/>
+  <script>
+      function back() {
+          window.history.go(-1);
+      }
+  </script>
+  
+
+
+  </body>
+</html>

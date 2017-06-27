@@ -1,0 +1,355 @@
+/* 布局 */
+@media (min-width: 768px) {
+	.main-nav .container-fluid {
+		padding-left: 0px;
+	}
+	.main-nav .navbar-header {
+		width: 220px;
+		padding-left: 30px;
+	}
+	.main-nav .navbar-header .navbar-brand {
+		font-size: 26px;
+	}
+	#sidebar {
+		padding: 0px;
+		position: absolute;
+		top: 50px;
+		bottom: 0;
+		overflow: auto;
+		background: #eee;
+		width: 220px;
+	}
+	#sidebar .navside {
+		border-radius: 0;
+	}
+	#main {
+		padding: 0px;
+		position: absolute;
+		top: 51px;
+		bottom: 0;
+		right: 0;
+		left: 220px;
+		width: auto;
+	}
+	/* 面包屑导航 */
+	#main .breadcrumb {
+		border-radius: 0;
+		margin-bottom: 0;
+		background: #f8f8f8;
+	}
+	#main .breadcrumb li {
+		padding: 3px 0 2px 0;
+	}
+	#main .navbar {
+		border-radius: 0;
+	}
+	/* 标签切换 */
+	.ct-tab-nav {
+		min-height: 20px;
+		background: #fff;
+		border-left: 0;
+		border-top: 0;
+	}
+	.ct-tab-nav .navbar-left {
+		border-right: 1px solid #eee;
+	}
+	.ct-tab-nav .navbar-right {
+		/*border-left: 1px solid #eee;*/
+	}
+	.ct-tab-nav .nav>li>a {
+		padding: 9px 10px;
+		background: #fff;
+		margin-bottom: -1px;
+		/*border-bottom: 1px solid #eee;*/
+	}
+	.ct-tab-nav .nav>li>a:hover {
+		background-color: #eee;
+	}
+	.ct-tab-wrap {
+		width: auto;
+		display: inline-block;
+		overflow-y: hidden;
+		overflow-x: hidden;
+		position: absolute;
+		left: 22px;
+		right: 0;
+		height: 100%;
+	}
+	.ct-tab-wrap .ct-tab {
+		position: relative;
+		left: 0;
+		right: 0;
+		width: 100%;
+		/*border-bottom: 1px solid #EEEEEE;*/
+	}
+	.ct-tab-wrap .ct-tab>li.active>a {
+		padding-bottom: 11px;
+		/*border-left: 1px solid #0099CC;*/
+		/*border: 1px solid #0099CC;*/
+		padding: 9px 9px 11px;
+		border-radius: 4px;
+		background-color: #fff !important;
+		color: #000;
+		box-shadow: 0px 4px 6px gray;
+		z-index: 100;
+	}
+	.ct-tab-nav .ct-tab>li:first-child.active>a {
+		border-left: 0px;
+	}
+	.dashboard {
+		padding-top: 20px;
+	}
+	.ct-tab-nav {
+		margin-top: 0px;
+	}
+	.ct-tab-content>.tab-pane {
+		position: absolute;
+		top: 41px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+	.ct-tab-content #home {
+		position: absolute;
+		top: 41px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		overflow-y: scroll;
+		margin-bottom: 20px;
+	}
+	.ct-tab-content #home .panel-body {
+		height: 300px;
+		overflow-y: scroll;
+	}
+}
+
+@media (max-width: 768px) {
+	#sidebar,
+	#main {
+		padding: 0;
+	}
+	.main-nav .container-fluid {
+		padding: 0px;
+	}
+	#main .breadcrumb {
+		border-radius: 0;
+		margin-bottom: 0;
+		background: #f8f8f8;
+	}
+	.dashboard {
+		padding-top: 20px;
+	}
+}
+
+
+/* 全局 */
+
+body {
+	font-family: 'Microsoft YaHei', 'Helvetica Neue', sans-serif, SimHei;
+	-webkit-font-smoothing: antialiased;
+	background: #ffffff;
+}
+
+body.admin_index_index {
+	overflow: hidden;
+}
+a:focus{outline:none !important;}
+
+/* TAB */
+
+.nav-tabs.nav>li>a {
+	padding: 8px 25px;
+	margin-right: 0;
+}
+
+.nav-tabs.nav>li>a:hover,
+.nav-tabs.nav>li.active>a {
+	border-top: 3px solid #2699ed;
+	padding-top: 6px;
+}
+
+@media (max-width: 768px) {
+	.nav-tabs.nav>li>a {
+		padding: 8px 18px;
+	}
+}
+
+
+/* 主导航 */
+
+.navbar-header-default {
+	display: none;
+}
+
+.navbar-header-inverse {
+	background: #047BA2;
+	background: -webkit-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+	background: -moz-linear-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+	background: -o-linear-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+	background: -ms-linear-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+}
+
+/*左上logo区颜色*/
+
+.navbar-header-inverse .navbar-brand span {
+	color: #fff !important;
+}
+
+.main-nav {
+	color: #fff;
+	margin-bottom: 0;
+	background-color: #2699ed;
+	border-width: 0;
+}
+
+.main-nav .navbar-collapse {
+	border-color: #ccc;
+}
+
+.main-nav .navbar-nav>li>a {
+	border: 0;
+	color: #fff !important;
+}
+
+.main-nav .navbar-nav>li>a:hover,
+.main-nav .navbar-nav>li.active>a,
+.main-nav .navbar-nav>li.active>a:focus,
+.main-nav .navbar-nav>li.active>a:hover,
+.main-nav .navbar-nav>li.open>a,
+.main-nav .navbar-nav>li.open>a:focus,
+.main-nav .navbar-nav>li.open>a:hover {
+	background-color: #0B99C8;
+	color: #656D78;
+	box-shadow: 0px -2px 6px #0B6C8C;
+	/*border-radius: 4px;*/
+}
+
+
+/*鼠标选中导航栏以后变色*/
+
+@media (min-width: 768px) {
+	.main-nav .nav>li>a {
+		padding: 15px 15px 15px 15px;
+	}
+}
+
+@media (max-width: 768px) {
+	.main-nav .navbar-toggle {
+		border: 0;
+	}
+	.main-nav .navbar-toggle:focus,
+	.main-nav .navbar-toggle:hover {
+		background-color: #2699ed;
+	}
+	.main-nav .navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+	.main-nav .navbar-nav .open .dropdown-menu>li>a {
+		background-color: #0B99C8;
+		border-color: #fff;
+		color: #fff;
+	}
+	.main-nav .navbar-nav .open .dropdown-menu>li>a:hover {
+		background-color: #fff;
+		border-color: #fff;
+		color: #333;
+	}
+}
+
+
+/* 左侧导航 */
+
+#sidebar .navside.navside-default {
+	border: 0;
+}
+
+#sidebar,
+#sidebar .navside.navside-default .navside-first>li>ul {
+	background: #177594;
+}
+
+#sidebar .navside.navside-default .navside-nav>li>a:hover {
+	background-color: #098AB5;
+	box-shadow: 0px -2px 10px #066381;
+}
+/*鼠标悬浮左侧导航*/
+
+#sidebar .navside.navside-default .navside-first>li>ul a {
+	color: #fff;
+}
+
+#sidebar .navside.navside-default .navside-first>li>a {
+	border: 0;
+	/* background: #394555; */
+	background: #047BA2;
+	background: -webkit-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+	background: -moz-linear-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+	background: -o-linear-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+	background: -ms-linear-gradient(linear, 0% 0%, 10% 90%, from(#005D7B), to(#047BA2));
+	box-shadow: 0px -2px 6px #005D7B;
+	color: #fff;
+}
+
+#sidebar .navside.navside-default .nav>li>a .fa {
+	color: #aeb9c2;
+	padding-right: 8px;
+}
+
+#sidebar .navside.navside-default .navside-nav>li>a:hover .fa {
+	color: #fff;
+}
+
+#sidebar .navside.navside-default .navside-nav>.active> a,
+#sidebar .navside.navside-default .navside-nav>.active> a .fa,
+#sidebar .navside.navside-default .navside-nav>.active> a:hover {
+	color: #fff;
+	background-color: #2699ed;
+}
+
+
+/* 页面底部版权 */
+
+.footer {
+	position: fixed;
+	left: 220px;
+	right: 0;
+	bottom: 0;
+}
+
+.footer .navbar {
+	min-height: 10px;
+	border-radius: 0px;
+	margin-bottom: 0px;
+}
+
+.footer .navbar .navbar-brand {
+	padding: 1px 5px;
+	height: 17px;
+	font-size: 12px;
+	color: #999;
+}
+
+.footer .navbar .navbar-nav> li:first-child> a {
+	padding-left: 0px;
+}
+
+.footer .navbar .navbar-nav> li> a {
+	color: #999;
+	font-size: 11px;
+	padding: 0px 10px;
+}
+
+
+.header-bg{background-color: #0B99C8;}
+/*头部整体颜色*/
+.zerui-logo{max-width: 300px;text-align: center;}
+/*logo*/
+.quit-right{padding-right: 30px;}
+/*右上角退出*/
+.icon-width{width: 14px;height: 14px !important;}
+/*图标*/
+.arrows-img{width: 16px;height: 16px !important;}
+/*箭头图片*/
+.photo-radius {border: 2px solid #fff;border-radius: 50%;height: 40px;width: 40px;}
+/*头像*/

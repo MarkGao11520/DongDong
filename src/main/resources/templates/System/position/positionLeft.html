@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+
+    <title></title>
+    
+
+  </head>
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+  <body>
+  
+  企业列表：
+<ul id ="orgList" class="easyui-tree"  ></ul>
+  <script th:inline="javascript">
+	  $('#orgList').tree({
+		  url:'../CompanyManagent/jsonCompanyList',
+		  onSelect: function(rec){
+			  window.parent.deptFrame.location.href =url4(rec.id);
+		  }
+	  })
+  </script>
+  <script type="text/javascript" src="../crm/js/System/position/position.js"></script>
+
+  </body>
+</html>

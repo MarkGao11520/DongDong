@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="pull-left">
+				<a href="addExpressSendFeeInput"><input type="button" class="btn btn-primary" value="添加费用" /></a>
+				<a href="javascript:deleteall()"><input type="button" class="btn btn-danger" value="删除" /></a>
+			</div>
+		</div>
+	</div>
+
+	<table  id="datagrid" class="easyui-datagrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true
+				,rownumbers:true,idField:'sendid',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'sendid',width:'5%',formatter:checkboxs"></th>
+			<th data-options="field:'sendfee',width:'10%'">派送费用</th>
+			<th data-options="field:'notes',width:'10%'">备注</th>
+			<th data-options="field:'adddateString',width:'20%'">添加时间</th>
+			<th data-options="field:'uid',width:'10%'">用户id</th>
+			<th data-options="field:'isdel',width:'30%' ,formatter:option">操作</th>
+		</tr>
+		</thead>
+	</table>
+	<script th:inline="javascript">
+		var fdid = [[${fdid}]];
+		var url;
+		if(fdid!=null){
+			url = 'jsonExpressSendFeeList?fdid='+fdid;
+		}else {
+			url = 'jsonExpressSendFeeList'
+		}
+		$(function() {
+			$('#datagrid').datagrid({
+				url:url
+			});
+		})
+
+	</script>
+</body>
+<script type="text/javascript" src="../crm/js/Express/expressFdex/expressSendFeeList.js">
+
+</script>
+
+</html>

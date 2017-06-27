@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<http>
+    <headers defaults-disabled="true">
+
+        <cache-control/>
+
+    </headers>
+</http>
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>首页</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <meta name="author" content="c"/>
+    <meta name="keywords" content="泽瑞"/>
+    <meta name="description" content="后台管理"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-title" content=""/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <link th:rel="stylesheet" th:href="@{crm/css/admin.css}"/>
+    <link th:rel="stylesheet" th:href="@{crm/css/animate.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{crm/css/lyui.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{crm/css/pace-theme-flash.css}"/>
+    <script th:src="@{crm/js/jquery.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{crm/js/pace.min.js}" type="text/javascript" charset="utf-8"
+            data-pace-options="{&quot;ajax&quot;:true}"></script>
+    <script th:src="@{crm/js/System/user/user.js}" th:inline="javascript" type="text/javascript"></script>
+    <script th:inline="javascript">
+        var appList = [[${appList}]];
+        appendMod(appList[0].appid);
+    </script>
+</head>
+<body class="admin_index_index  pace-done">
+<div class="pace  pace-inactive" style="padding-right: 15;">
+    <div class="pace-progress" data-progress-text="100%"
+         data-progress="99" style="width: 100%;">
+        <div class="pace-progress-inner"></div>
+    </div>
+    <div class="pace-activity"></div>
+</div>
+
+<div class="clearfix full-header">
+    <!-- 顶部导航 -->
+    <div class="navbar navbar-default navbar-fixed-top main-nav"
+         role="navigation">
+        <div class="container-fluid">
+            <div>
+                <div class="navbar-header navbar-header-inverse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse-top">
+                        <span class="sr-only">切换导航</span> <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="javascript:void()">
+                        <img class="logo zerui-logo" src="crm/img/logo3.png"/></a>
+
+                </div>
+                <div class="collapse navbar-collapse navbar-collapse-top header-bg">
+                    <ul id="s" class="nav navbar-nav">
+                        <li th:each="var:${appList}"><a th:href="'javascript:appendMod(\''+${var.appid}+'\')'"> <img
+                                src="crm/img/settings.png" class="icon-width"/> <span
+                                th:text="${var.appshortname}"></span>
+                        </a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a  href="#"
+                               style="padding: 5px;">
+                            <div>
+                                <img src="crm/img/logo.png" class="photo-radius"/>
+                            </div>
+                        </a></li>
+                        <!--头像-->
+                        <li class="dropdown quit-right"><a href="" class="dropdown-toggle" data-toggle="dropdown"><span
+                                sec:authentication="name"></span>
+                            <b class="caret"></b>
+                        </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a  href="javascript:openUpdatePassDiv()">修改密码</a></li>
+                                <li>
+                                    <a href="javascript:logout()">退出</a> </li>
+                            </ul>
+                        </li>
+                        <form id="logout" th:action="@{/logout}" method="post">
+                        </form>
+                        <script>
+                            function logout() {
+                                $('#logout').submit();
+                            }
+                        </script>
+                        <!--退出-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix full-container" id="full-container">
+    <input type="hidden" name="check_version_url"
+           value="/admin2.php?s=/admin/update/checkversion.html"/>
+    <div class="container-fluid with-top-navbar"
+         style="height: 100%;overflow: hidden;">
+        <div class="row" style="height: 100%;">
+            <!-- 左侧导航 -->
+            <div id="sidebar" class="col-xs-12 col-sm-3 sidebar tab-content">
+                <!-- 模块菜单 -->
+                <div role="tabpanel" class="tab-pane fade active in" id="module1">
+                    <nav class="navside navside-default" role="navigation">
+                        <ul class="nav navside-nav navside-first" id="sidebarul">
+
+
+                        </ul>
+                    </nav>
+                </div>
+                <!--第一个左侧导航结束-->
+            </div>
+            <!-- 左侧内容结束 -->
+
+            <div id="main" class="col-xs-12 col-sm-9 main"
+                 style="padding-right: 0;">
+                <!-- 多标签后台 -->
+                <nav class="navbar navbar-default ct-tab-nav" role="navigation">
+                    <div class="collapse navbar-collapse" style="padding: 0;">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="#" id="tab-left"> <img
+                                    src="crm/img/arrows01.png" class="arrows-img"/>
+                            </a></li>
+                        </ul>
+                        <div class="ct-tab-wrap clearfix">
+                            <ul class="nav navbar-nav nav-close ct-tab"
+                                style="width: 2207px;">
+                                <li href="#home" role="tab" data-toggle="tab"><a href="">
+											<span> <img src="crm/img/index.png"
+                                                        class="icon-width"/> 首页
+										</span>
+                                </a></li>
+                            </ul>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right"
+                            style="z-index: 100;position: absolute;right: 0;background: white;">
+                            <li><a href="#" id="tab-right"> <img
+                                    src="crm/img/arrows02.png" class="arrows-img"/>
+                            </a></li>
+                            <li class="dropdown"><a href="#" class="close-all">关闭所有</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <style type="text/css">
+                    .close-btn {
+                        border: 1px solid rgba(0, 0, 0, 0);
+                    }
+
+                    .close-btn:hover {
+                        border-radius: 4px;
+                        border: #ccc 1px solid;
+                        height: 38px;
+                        position: relative;
+                    }
+                </style>
+                <!-- 多标签后台内容部分 -->
+                <div  class="tab-content ct-tab-content" style="height: 100%;">
+                    <!-- 首页 -->
+                    <div id="updatePassDiv"  hidden="hidden" class="row" style="width: 100%;height: 300px;position: absolute;z-index: 1;margin-top: 0px">
+                        <div class="col-xs-3"></div>
+                        <div class="col-xs-6" style="height: 100%;">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">修改密码</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="input-group" style="padding: 10px">
+                                        <span class="input-group-addon">旧密码</span>
+                                        <input id="oldP" type="password" class="form-control" placeholder="请输入旧密码" />
+                                    </div>
+                                    <div class="input-group" style="padding: 10px">
+                                        <span class="input-group-addon">新密码</span>
+                                        <input id="newP" type="password" class="form-control" placeholder="请输入新密码" />
+                                    </div>
+                                    <div class="input-group" style="padding: 10px">
+                                        <span class="input-group-addon">确认</span>
+                                        <input id="newP1" type="password" class="form-control" placeholder="重复新密码" />
+                                    </div>
+                                    <div style="width: 60%;margin: 0 auto">
+                                    <button type="button" onclick="updatePassword()" style="width: 45%;" class="btn btn-primary ">提交</button>
+                                    <button type="button" onclick="closeUpdateDiv()" class="btn btn-danger" style="width: 45%;">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-3"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                        <div class="dashboard clearfix">
+                            <div class="col-xs-12 col-sm-6 col-lg-6 ct-update">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="update pull-right"></div>
+                                        系统信息
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-condensed">
+                                            <tbody>
+                                            <tr>
+                                                <td>版本</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>产品型号</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>官方正版授权</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>核心框架</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>服务器操作系统</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>运行环境</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>PHP版本</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>MYSQL版本</td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-lg-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="panel-actions"></div>
+                                        产品团队
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-condensed">
+                                            <tbody>
+                                            <tr>
+                                                <td>网站标题</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>项目开发</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>框架</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>官方网址</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>公司地址</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>核心团队</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>官方QQ群</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>联系我们</td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 后台首页小工具 -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix footer hidden-xs">
+                    <div class="navbar navbar-default" role="navigation">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" target="_blank"
+                                   href="javascript:void()"> <span>泽瑞科技</span>
+                                </a>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-collapse-bottom">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="javascript:void()" class="text-muted"
+                                           target="_blank"> <span>©版权所有天津泽瑞科技有限公司
+													津ICP备16006638号</span>
+                                    </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{crm/js/lyui.min.js}" type="text/javascript"></script>
+<script th:src="@{crm/js/admin.js}" type="text/javascript" ></script>
+</body>
+
+</html>

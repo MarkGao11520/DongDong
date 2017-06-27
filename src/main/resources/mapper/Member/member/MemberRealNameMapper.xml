@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.member.MemberRealNameMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.member.MemberRealName" >
+    <id column="mId" property="mid" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="IDNum" property="idnum" jdbcType="VARCHAR" />
+    <result column="Issuer" property="issuer" jdbcType="VARCHAR" />
+    <result column="validDate" property="validdate" jdbcType="VARCHAR" />
+    <result column="IDFrontUrl" property="idfronturl" jdbcType="VARCHAR" />
+    <result column="IDBack" property="idback" jdbcType="VARCHAR" />
+    <result column="handID" property="handid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="submitDate" property="submitdate" jdbcType="TIMESTAMP" />
+    <result column="checkDate" property="checkdate" jdbcType="TIMESTAMP" />
+    <result column="updateDate" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="submitSum" property="submitsum" jdbcType="INTEGER" />
+    <result column="uId" property="uid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mId, address, IDNum, Issuer, validDate, IDFrontUrl, IDBack, handID, status, submitDate, 
+    checkDate, updateDate, submitSum, uId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_realname
+    where mId = #{mid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_realname
+    where mId = #{mid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.member.MemberRealName" >
+    insert into t_member_realname (mId, address, IDNum, 
+      Issuer, validDate, IDFrontUrl, 
+      IDBack, handID, status, 
+      submitDate, checkDate, updateDate, 
+      submitSum, uId)
+    values (#{mid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{idnum,jdbcType=VARCHAR}, 
+      #{issuer,jdbcType=VARCHAR}, #{validdate,jdbcType=VARCHAR}, #{idfronturl,jdbcType=VARCHAR}, 
+      #{idback,jdbcType=VARCHAR}, #{handid,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{submitdate,jdbcType=TIMESTAMP}, #{checkdate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, 
+      #{submitsum,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.member.MemberRealName" >
+    insert into t_member_realname
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mId,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="idnum != null" >
+        IDNum,
+      </if>
+      <if test="issuer != null" >
+        Issuer,
+      </if>
+      <if test="validdate != null" >
+        validDate,
+      </if>
+      <if test="idfronturl != null" >
+        IDFrontUrl,
+      </if>
+      <if test="idback != null" >
+        IDBack,
+      </if>
+      <if test="handid != null" >
+        handID,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="submitdate != null" >
+        submitDate,
+      </if>
+      <if test="checkdate != null" >
+        checkDate,
+      </if>
+      <if test="updatedate != null" >
+        updateDate,
+      </if>
+      <if test="submitsum != null" >
+        submitSum,
+      </if>
+      <if test="uid != null" >
+        uId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null" >
+        #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="issuer != null" >
+        #{issuer,jdbcType=VARCHAR},
+      </if>
+      <if test="validdate != null" >
+        #{validdate,jdbcType=VARCHAR},
+      </if>
+      <if test="idfronturl != null" >
+        #{idfronturl,jdbcType=VARCHAR},
+      </if>
+      <if test="idback != null" >
+        #{idback,jdbcType=VARCHAR},
+      </if>
+      <if test="handid != null" >
+        #{handid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="submitdate != null" >
+        #{submitdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkdate != null" >
+        #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitsum != null" >
+        #{submitsum,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.member.MemberRealName" >
+    update t_member_realname
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null" >
+        IDNum = #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="issuer != null" >
+        Issuer = #{issuer,jdbcType=VARCHAR},
+      </if>
+      <if test="validdate != null" >
+        validDate = #{validdate,jdbcType=VARCHAR},
+      </if>
+      <if test="idfronturl != null" >
+        IDFrontUrl = #{idfronturl,jdbcType=VARCHAR},
+      </if>
+      <if test="idback != null" >
+        IDBack = #{idback,jdbcType=VARCHAR},
+      </if>
+      <if test="handid != null" >
+        handID = #{handid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="submitdate != null" >
+        submitDate = #{submitdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkdate != null" >
+        checkDate = #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitsum != null" >
+        submitSum = #{submitsum,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uId = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mId = #{mid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.member.MemberRealName" >
+    update t_member_realname
+    set address = #{address,jdbcType=VARCHAR},
+      IDNum = #{idnum,jdbcType=VARCHAR},
+      Issuer = #{issuer,jdbcType=VARCHAR},
+      validDate = #{validdate,jdbcType=VARCHAR},
+      IDFrontUrl = #{idfronturl,jdbcType=VARCHAR},
+      IDBack = #{idback,jdbcType=VARCHAR},
+      handID = #{handid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      submitDate = #{submitdate,jdbcType=TIMESTAMP},
+      checkDate = #{checkdate,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      submitSum = #{submitsum,jdbcType=INTEGER},
+      uId = #{uid,jdbcType=INTEGER}
+    where mId = #{mid,jdbcType=INTEGER}
+  </update>
+</mapper>

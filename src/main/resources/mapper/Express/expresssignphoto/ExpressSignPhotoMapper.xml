@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.expresssignphoto.ExpressSignPhotoMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.expresssignphoto.ExpressSignPhoto" >
+    <id column="phID" property="phid" jdbcType="INTEGER" />
+    <result column="phName" property="phname" jdbcType="VARCHAR" />
+    <result column="phURL" property="phurl" jdbcType="VARCHAR" />
+    <result column="addDate" property="adddate" jdbcType="TIMESTAMP" />
+    <result column="addDate" property="adddateString" jdbcType="VARCHAR" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    phID, phName, phURL, addDate, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_express_signphoto
+    where phID = #{phid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_express_signphoto
+    where phID = #{phid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.expresssignphoto.ExpressSignPhoto" >
+    insert into t_express_signphoto (phID, phName, phURL, 
+      addDate, isdel)
+    values (#{phid,jdbcType=INTEGER}, #{phname,jdbcType=VARCHAR}, #{phurl,jdbcType=VARCHAR}, 
+      #{adddate,jdbcType=TIMESTAMP}, #{isdel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.expresssignphoto.ExpressSignPhoto" >
+    insert into t_express_signphoto
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phid != null" >
+        phID,
+      </if>
+      <if test="phname != null" >
+        phName,
+      </if>
+      <if test="phurl != null" >
+        phURL,
+      </if>
+      <if test="adddate != null" >
+        addDate,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phid != null" >
+        #{phid,jdbcType=INTEGER},
+      </if>
+      <if test="phname != null" >
+        #{phname,jdbcType=VARCHAR},
+      </if>
+      <if test="phurl != null" >
+        #{phurl,jdbcType=VARCHAR},
+      </if>
+      <if test="adddate != null" >
+        #{adddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.expresssignphoto.ExpressSignPhoto" >
+    update t_express_signphoto
+    <set >
+      <if test="phname != null" >
+        phName = #{phname,jdbcType=VARCHAR},
+      </if>
+      <if test="phurl != null" >
+        phURL = #{phurl,jdbcType=VARCHAR},
+      </if>
+      <if test="adddate != null" >
+        addDate = #{adddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where phID = #{phid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.expresssignphoto.ExpressSignPhoto" >
+    update t_express_signphoto
+    set phName = #{phname,jdbcType=VARCHAR},
+      phURL = #{phurl,jdbcType=VARCHAR},
+      addDate = #{adddate,jdbcType=TIMESTAMP},
+      isdel = #{isdel,jdbcType=INTEGER}
+    where phID = #{phid,jdbcType=INTEGER}
+  </update>
+  
+  <!--获取列表  -->
+  <select id="selectExpressSignPhotoList"  resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_express_signphoto e
+    WHERE
+    isdel = 0
+    <if test="expressDto.rows>0">
+      limit #{expressDto.page,jdbcType=INTEGER},#{expressDto.rows,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--获取数量  -->
+  <select id="selectExpressSignPhotoCount"  resultType="java.lang.Integer" >
+    SELECT
+    COUNT(e.phID)
+    FROM
+    t_express_signphoto e
+    WHERE
+    isdel = 0
+  </select>
+
+  <!--查找最大id-->
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select max(e.phID) from t_express_signphoto e ;
+  </select>
+</mapper>

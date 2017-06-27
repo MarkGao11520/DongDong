@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>会员信息管理</title>
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="pull-left">
+				<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+				<script>
+                    function back() {
+                        window.history.go(-1);
+                    }
+				</script>
+			</div>
+
+			<div class="pull-right">
+				<form class="form-search" >
+					<input type="text" class="form-control search" name="userName" id="userName" placeholder="请输入关键字/或者用户名" />
+					<button type="button" onclick="javascript:obtainMemberBCByUName()" class="btn " style="width: 60px;">搜索</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<table  id="datagrid" class="easyui-datagrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true
+				,rownumbers:true,idField:'bcid',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'bccode',width:'10%'">卡号</th>
+			<th data-options="field:'username',width:'10%'">卡主姓名</th>
+			<th data-options="field:'usertele',width:'10%'">卡主手机号</th>
+			<th data-options="field:'bcpassword',width:'10%'">卡密码</th>
+			<th data-options="field:'status',width:'10%',formatter:format">状态</th>
+			<th data-options="field:'isdefault',width:'10%',formatter:formatdef">是否默认</th>
+			<th data-options="field:'bcname',width:'10%'">银行名称</th>
+			<th data-options="field:'mid',width:'10%'">会员id</th>
+			<th data-options="field:'adddateString',width:'15%'">添加日期</th>
+		</tr>
+		</thead>
+	</table>
+	<script th:inline="javascript">
+		var mid = [[${mid}]];
+		var url;
+		if(mid!=null){
+			url = 'jsonBcList?mid='+mid;
+		}else {
+			url = 'jsonBcList'
+		}
+		$(function() {
+			$('#datagrid').datagrid({
+				url:url
+			});
+		})
+
+	</script>
+</body>
+<script type="text/javascript" src="../crm/js/Member/memberbc/memberBc.js">
+
+</script>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>地区</title>
+		<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+		<style type="text/css">
+			body {
+				margin: 30px;
+			}
+			*:focus{outline: none !important;}
+		</style>
+	</head>
+
+	<body>
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<form th:action="${code.url}+'Area'" th:object="${updateArea}" method="post">
+				    <input name="aid" type="text" hidden = "hidden"  th:value="${updateArea.aid}"/>
+					<div class="form-group">
+						<label>地区名称</label>
+						<input name="aname" type="text" class="form-control" th:value="${updateArea.aname}"/>
+					</div>
+					<div class="form-group">
+						<label>代码</label>
+						<input name="code" type="text" class="form-control" th:value="${updateArea.code}" />
+					</div>
+					
+					
+					<div class="form-group">
+						<label>地区类别</label>
+						<select name="zonetype">
+
+							<div th:if="${updateArea.zonetype=='1'}">
+								<option  selected = "selected" value="1">省级</option>
+								<option  value="2">市级</option>
+								<option  value="3">县级</option>
+							</div>
+							<div th:if="${updateArea.zonetype=='2'}">
+								<option  selected = "selected" value="2">市级</option>
+								<option  value="1">省级</option>
+								<option value="3">县级</option>
+							</div>
+							<div th:if="${updateArea.zonetype=='3'}">
+								<option  selected = "selected" value="3">县级</option>
+								<option  value="1">省级</option>
+								<option   value="2">市级</option>
+							</div>
+
+						</select>
+					</div>
+					<!--<%&#45;&#45; <div class="form-group">-->
+						<!--<label>顺序</label>-->
+						<!--<input name="sortsum" type="text" class="form-control" value="${updateArea.sortsum}"/>-->
+					<!--</div> &#45;&#45;%>-->
+					<div class="form-group">
+						<label>父级城市</label>
+						<div th:if="${not #lists.isEmpty(plist)}">
+						<select name="pid">
+							<div th:each="var:${plist}">
+									<option th:if="${var.pid==updateArea.pid}" th:selected = "selected" th:value="${var.pid}"><span th:text="${var.pname}"></span></option>
+									<option th:if="${var.pid!=updateArea.pid}" th:value="${var.pid}"><span th:text="${var.pname}"></span> </option>
+							</div>
+						</select>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-primary" value="提交" />
+					<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+					<script>
+                        function back() {
+                            window.history.go(-1);
+                        }
+					</script>
+				</form>
+			</div>
+		</div>
+	</body>
+
+</html>

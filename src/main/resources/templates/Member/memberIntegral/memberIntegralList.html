@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>会员信息管理</title>
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+			<script>
+                function back() {
+                    window.history.go(-1);
+                }
+			</script>
+
+		</div>
+	</div>
+
+	<table  id="datagrid" class="easyui-datagrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true
+				,rownumbers:true,idField:'mid',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'cardnum',width:'10%'">卡号</th>
+			<th data-options="field:'carddateString',width:'10%'">办卡日期</th>
+			<th data-options="field:'notes',width:'10%'">备注</th>
+			<th data-options="field:'integralaccess',width:'10%'">积分获取途径</th>
+			<th data-options="field:'amount',width:'10%'">金额</th>
+			<th data-options="field:'integral',width:'10%'">积分</th>
+			<th data-options="field:'integralsum',width:'10%'">总积分</th>
+			<th data-options="field:'vaildateString',width:'15%'">有限期</th>
+		</tr>
+		</thead>
+	</table>
+
+	<script th:inline="javascript">
+		var mid = [[${mid}]];
+		var url;
+		if(mid!=null){
+			url = 'jsonIntegralList?mid='+mid;
+		}else {
+			url = 'jsonIntegralList'
+		}
+		$(function() {
+			$('#datagrid').datagrid({
+				url:url
+			});
+		})
+
+	</script>
+</body>
+
+</html>

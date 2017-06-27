@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.expresstracing.ExpressTracingMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.expresstracing.ExpressTracing" >
+    <id column="tracID" property="tracid" jdbcType="INTEGER" />
+    <result column="billCode" property="billcode" jdbcType="VARCHAR" />
+    <result column="statusBefore" property="statusbefore" jdbcType="INTEGER" />
+    <result column="statusAfter" property="statusafter" jdbcType="INTEGER" />
+    <result column="changeDate" property="changedate" jdbcType="TIMESTAMP" />
+    <result column="changeDate" property="changedateString" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="CHAR" />
+    <result column="billID" property="billid" jdbcType="INTEGER" />
+    <result column="uId" property="uid" jdbcType="INTEGER" />
+    <result column="realName" property="uname" jdbcType="VARCHAR" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tracID, billCode, statusBefore, statusAfter, changeDate, notes, billID, uId, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_express_tracing
+    where tracID = #{tracid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_express_tracing
+    where tracID = #{tracid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.expresstracing.ExpressTracing" >
+    insert into t_express_tracing (tracID, billCode, statusBefore, 
+      statusAfter, changeDate, notes, 
+      billID, uId, isdel)
+    values (#{tracid,jdbcType=INTEGER}, #{billcode,jdbcType=VARCHAR}, #{statusbefore,jdbcType=INTEGER}, 
+      #{statusafter,jdbcType=INTEGER}, #{changedate,jdbcType=TIMESTAMP}, #{notes,jdbcType=CHAR}, 
+      #{billid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{isdel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.expresstracing.ExpressTracing" >
+    insert into t_express_tracing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tracid != null" >
+        tracID,
+      </if>
+      <if test="billcode != null" >
+        billCode,
+      </if>
+      <if test="statusbefore != null" >
+        statusBefore,
+      </if>
+      <if test="statusafter != null" >
+        statusAfter,
+      </if>
+      <if test="changedate != null" >
+        changeDate,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="billid != null" >
+        billID,
+      </if>
+      <if test="uid != null" >
+        uId,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tracid != null" >
+        #{tracid,jdbcType=INTEGER},
+      </if>
+      <if test="billcode != null" >
+        #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="statusbefore != null" >
+        #{statusbefore,jdbcType=INTEGER},
+      </if>
+      <if test="statusafter != null" >
+        #{statusafter,jdbcType=INTEGER},
+      </if>
+      <if test="changedate != null" >
+        #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=CHAR},
+      </if>
+      <if test="billid != null" >
+        #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.expresstracing.ExpressTracing" >
+    update t_express_tracing
+    <set >
+      <if test="billcode != null" >
+        billCode = #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="statusbefore != null" >
+        statusBefore = #{statusbefore,jdbcType=INTEGER},
+      </if>
+      <if test="statusafter != null" >
+        statusAfter = #{statusafter,jdbcType=INTEGER},
+      </if>
+      <if test="changedate != null" >
+        changeDate = #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=CHAR},
+      </if>
+      <if test="billid != null" >
+        billID = #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uId = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tracID = #{tracid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.expresstracing.ExpressTracing" >
+    update t_express_tracing
+    set billCode = #{billcode,jdbcType=VARCHAR},
+      statusBefore = #{statusbefore,jdbcType=INTEGER},
+      statusAfter = #{statusafter,jdbcType=INTEGER},
+      changeDate = #{changedate,jdbcType=TIMESTAMP},
+      notes = #{notes,jdbcType=CHAR},
+      billID = #{billid,jdbcType=INTEGER},
+      uId = #{uid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=INTEGER}
+    where tracID = #{tracid,jdbcType=INTEGER}
+  </update>
+  
+  <!--获取列表  -->
+  <select id="selectExpressTracingList"  resultMap="BaseResultMap">
+    SELECT
+    e.tracID, e.billCode, e.statusBefore, e.statusAfter, e.changeDate, e.notes, e.billID, e.uId, e.isdel,u.realName
+    FROM
+    t_express_tracing e
+    LEFT JOIN t_bas_user_property u ON e.uId = u.uId
+    WHERE
+    e.isdel = 0
+    <if test="expressTracingDto.billcode!=null">
+      AND e.billCode = #{expressTracingDto.billcode,jdbcType=INTEGER}
+    </if>
+    <if test="expressDto.rows>0">
+      limit #{expressDto.page,jdbcType=INTEGER},#{expressDto.rows,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--获取数量  -->
+  <select id="selectExpressTracingCount"  resultType="java.lang.Integer" >
+    SELECT
+    COUNT(e.tracID)
+    FROM
+    t_express_tracing e
+    WHERE
+    isdel = 0
+    <if test="expressTracingDto.billcode!=null">
+      AND e.billCode = #{expressTracingDto.billcode,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--查找最大id-->
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select max(e.tracID) from t_express_tracing e ;
+  </select>
+</mapper>

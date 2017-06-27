@@ -1,0 +1,30 @@
+<!DOCTYPE HTML >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title></title>
+    <link rel="stylesheet" href="../easyui/themes/metro/easyui.css"/>
+    <link rel="stylesheet" href="../easyui/themes/icon.css"/>
+    <script type="text/javascript" src="../easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript"
+            src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+
+<body>
+
+应用列表：
+<ul class="easyui-tree">
+    <li th:each="var:${PMappList}">
+    <a th:if="${positionid==null }" th:href="@{../modController/modList(appid=${var.appid})}" target = "rightFrame"><span th:text="${var.appname}"></span></a>
+    <a th:if="${positionid!=null }" th:href="'javascript:authPage(\''+${var.appid}+'\')'"><span th:text="${var.appname}"></span> </a>
+    </li>
+</ul>
+<script th:inline="javascript">
+    function authPage(app) {
+        window.parent.rightFrame1.location.href=url3([[${positionid}]],app);
+    }
+</script>
+<script th:inline="javascript" type="text/javascript" src="../crm/js/System/mod/modlist.js"></script>
+</body>
+</html>

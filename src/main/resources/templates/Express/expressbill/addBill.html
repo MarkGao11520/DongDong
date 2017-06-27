@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css"/>
+    <style type="text/css">
+        body {
+            margin: 30px;
+        }
+
+        *:focus {
+            outline: none !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+    <link rel="stylesheet" href="../easyui/themes/icon.css" />
+    <script type="text/javascript" src="../easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript"
+            src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+
+<body>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <form th:action="${code.url}+'ExpressBill'" method="post" th:object="${updateBill}">
+            <input name="billid" type="text" hidden="hidden" th:value="${updateBill.billid}"/>
+            <div class="form-group">
+                <label>单号</label>
+                <input name="billcode" type="text" class="form-control" th:value="${updateBill.billcode}"/>
+            </div>
+            <div class="form-group">
+                <label>收件人姓名</label>
+                <input name="revname" id="revname" type="text" class="form-control" th:value="${updateBill.revname}"/>
+            </div>
+            <div class="form-group">
+                <label>收件人地址</label>
+                <input name="revaddress" id="revaddress" type="text" class="form-control" th:value="${updateBill.revaddress}"/>
+            </div>
+            <div class="form-group">
+                <label>收件人电话</label>
+                <input name="revphone" id="revphone" type="text" style="height: 40px;width: 100%" class="form-control" th:value="${updateBill.revphone}"/>
+            </div>
+            <script>
+                $('#revphone').combobox({
+                    prompt:'输入关键字后自动搜索',
+                    required:true,
+                    mode:'remote',
+                    valueField:'id',
+                    textField:'text',
+                    url:'../memberController/getEquipmentList',
+                    editable:true,
+                    hasDownArrow:false,
+                    onBeforeLoad: function(param){
+                        if(param == null || param.q == null || param.q.replace(/ /g, '') == ''){
+                            var value = $(this).combobox('getValue');
+                            if(value){// 修改的时候才会出现q为空而value不为空
+                                param.id = value;
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                });
+                $("#revphone").combobox().next().children(":text").blur(function(){
+                    $.ajax({
+                        url : '../memberController/mobile/obationMemberNameAndAddressByPhone',
+                        data : {
+                            "phone" : $("#revphone").combobox('getValue')
+                        },
+                        success:function(result){
+                            $('#revname').val(result.membername);
+                            $('#revaddress').val(result.memberaddress);
+                        }
+                    })
+                });
+            </script>
+            <div class="form-group">
+                <label>发件人姓名</label>
+                <input name="sendname" id="sendname" type="text" class="form-control" th:value="${updateBill.sendname}"/>
+            </div>
+            <div class="form-group">
+                <label>发件人地址</label>
+                <input name="sendaddress" id="sendaddress" type="text" onblur="test()"  class="form-control" th:value="${updateBill.sendaddress}"/>
+            </div>
+            <div class="form-group">
+                <label>发件人电话</label>
+                <input name="sendphone" id="sendphone" onblur="test()" type="text" style="height: 40px;width: 100%" class="form-control" th:value="${updateBill.sendphone}"/>
+            </div>
+            <script>
+                $('#sendphone').combobox({
+                    prompt:'输入关键字后自动搜索',
+                    required:true,
+                    mode:'remote',
+                    valueField:'id',
+                    textField:'text',
+                    url:'../memberController/getEquipmentList',
+                    editable:true,
+                    hasDownArrow:false,
+                    onBeforeLoad: function(param){
+                        if(param == null || param.q == null || param.q.replace(/ /g, '') == ''){
+                            var value = $(this).combobox('getValue');
+                            if(value){// 修改的时候才会出现q为空而value不为空
+                                param.id = value;
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                });
+                $("#sendphone").combobox().next().children(":text").blur(function(){
+                    $.ajax({
+                        url : '../memberController/mobile/obationMemberNameAndAddressByPhone',
+                        data : {
+                            "phone" : $("#sendphone").combobox('getValue')
+                        },
+                        success:function(result){
+//                            alert(result);
+//                            alert(result.membername);
+//                            alert(result.memberaddress);
+                           $('#sendname').val(result.membername);
+                          $('#sendaddress').val(result.memberaddress);
+                        }
+                    })
+                });
+            </script>
+            <div class="form-group">
+                <label>是否易碎</label>
+                <select name="isfragile">
+                    <div th:if="${updateBill.isfragile == 1 }">
+                        <option value="1" selected="selected">是</option>
+                        <option value="0">否</option>
+                    </div>
+                    <div th:if="${updateBill.isfragile != 1 }">
+                        <option value="0" selected="selected">否</option>
+                        <option value="1">是</option>
+                    </div>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>托运物</label>
+                <input name="cargo" type="text" class="form-control" th:value="${updateBill.cargo}"/>
+            </div>
+            <div class="form-group">
+                <label>运费</label>
+                <input name="freight" type="text" class="form-control" th:value="${updateBill.freight}"/>
+            </div>
+            <div class="form-group">
+                <label>付款方式</label>
+                <select name="payment">
+                    <div th:if="${updateBill.payment == -10 }">
+                        <option value="-10" th:selected="selected">到付</option>
+                        <option value="10">现金</option>
+                        <option value="20">支付宝</option>
+                        <option value="30">微信</option>
+                        <option value="40">银联</option>
+                    </div>
+                    <div th:if="${updateBill.payment == 10 }">
+                        <option value="-10">到付</option>
+                        <option value="10" th:selected="selected">现金</option>
+                        <option value="20">支付宝</option>
+                        <option value="30">微信</option>
+                        <option value="40">银联</option>
+                    </div>
+                    <div th:if="${updateBill.payment == 20 }">
+                        <option value="-10">到付</option>
+                        <option value="10">现金</option>
+                        <option value="20" th:selected="selected">支付宝</option>
+                        <option value="30">微信</option>
+                        <option value="40">银联</option>
+                    </div>
+                    <div th:if="${updateBill.payment == 30 }">
+                        <option value="-10">到付</option>
+                        <option value="10">现金</option>
+                        <option value="20">支付宝</option>
+                        <option value="30" th:selected="selected">微信</option>
+                        <option value="40">银联</option>
+                    </div>
+                    <div th:if="${updateBill.payment == 40 }">
+                        <option value="-10">到付</option>
+                        <option value="10">现金</option>
+                        <option value="20">支付宝</option>
+                        <option value="30">微信</option>
+                        <option value="40" th:selected="selected">银联</option>
+                    </div>
+                    <div th:if="${updateBill.payment == 40 }">
+                        <option value="-10">到付</option>
+                        <option value="10">现金</option>
+                        <option value="20">支付宝</option>
+                        <option value="30">微信</option>
+                        <option value="40" th:selected="selected">银联</option>
+                    </div>
+                    <div th:if="${updateBill.payment != 40 }">
+                        <div th:if="${updateBill.payment != 30 }">
+                            <div th:if="${updateBill.payment != 20 }">
+                                <div th:if="${updateBill.payment != 10 }">
+                                    <div th:if="${updateBill.payment != -10 }">
+                                        <option value="-10">到付</option>
+                                        <option value="10">现金</option>
+                                        <option value="20">支付宝</option>
+                                        <option value="30">微信</option>
+                                        <option value="40" th:selected="selected">银联</option>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>申明价值</label>
+                <input name="claimvalue" type="text" class="form-control" th:value="${updateBill.claimvalue}"/>
+            </div>
+            <div class="form-group">
+                <label>代收货款</label>
+                <input name="cargomoney" type="text" class="form-control" th:value="${updateBill.cargomoney}"/>
+            </div>
+            <div class="form-group">
+                <label>备注</label>
+                <input name="notes" type="text" class="form-control" th:value="${updateBill.notes}"/>
+            </div>
+            <div class="form-group">
+                <label>仓位号</label>
+                <input name="positionno" type="text" class="form-control" th:value="${updateBill.positionno}"/>
+            </div>
+            <div class="form-group">
+                <label>序列号</label>
+                <input name="serialno" type="text" class="form-control" th:value="${updateBill.serialno}"/>
+            </div>
+            <div class="form-group">
+                <label>状态</label>
+                <select name="stauts">
+                    <div th:if="${updateBill.stauts != 100 }">
+                        <option value="100">待收件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts == 100 }">
+                        <option selected="selected" value="100">待收件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts != 200 }">
+                        <option value="200">已收件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts == 200 }">
+                        <option selected="selected" value="200">已收件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts != 300 }">
+                        <option value="300">快递员收件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts == 300 }">
+                        <option selected="selected" value="300">快递员收件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts != 400 }">
+                        <option value="400">异常件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts == 400 }">
+                        <option selected="selected" value="400">异常件</option>
+                    </div>
+                    <div th:if="${updateBill.stauts != 500 }">
+                        <option value="500">待签收</option>
+                    </div>
+                    <div th:if="${updateBill.stauts == 500 }">
+                        <option selected="selected" value="500">带签收</option>
+                    </div>
+                    <div th:if="${updateBill.stauts != 600 }">
+                        <option value="600">派送中</option>
+                    </div>
+                    <div th:if="${updateBill.stauts == 600 }">
+                        <option selected="selected" value="600">派送中</option>
+                    </div>
+                    <div th:if="${updateBill.stauts != 700 }">
+                        <option value="700">已签收</option>
+                    </div>
+                    <div th:if="${updateBill.stauts == 700 }">
+                        <option selected="selected" value="700">已签收</option>
+                    </div>
+                </select>
+            </div>
+            <input type="submit" class="btn btn-primary" value="提交"/>
+            <input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+            <script>
+                function back() {
+                    window.history.go(-1);
+                }
+            </script>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

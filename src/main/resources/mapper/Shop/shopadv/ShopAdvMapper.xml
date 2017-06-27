@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.shopadv.ShopAdvMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.shopadv.ShopAdv" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ap_id" property="apId" jdbcType="BIGINT" />
+    <result column="adv_title" property="advTitle" jdbcType="VARCHAR" />
+    <result column="adv_url" property="advUrl" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="BIGINT" />
+    <result column="end_date" property="endDate" jdbcType="BIGINT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="click_num" property="clickNum" jdbcType="INTEGER" />
+    <result column="is_allow" property="isAllow" jdbcType="INTEGER" />
+    <result column="res_url" property="resUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ap_id, adv_title, adv_url, start_date, end_date, sort, click_num, is_allow, res_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_adv
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_adv
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdv" >
+    insert into shop_adv (id, ap_id, adv_title, 
+      adv_url, start_date, end_date, 
+      sort, click_num, is_allow, 
+      res_url)
+    values (#{id,jdbcType=BIGINT}, #{apId,jdbcType=BIGINT}, #{advTitle,jdbcType=VARCHAR}, 
+      #{advUrl,jdbcType=VARCHAR}, #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, 
+      #{sort,jdbcType=INTEGER}, #{clickNum,jdbcType=INTEGER}, #{isAllow,jdbcType=INTEGER}, 
+      #{resUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdv" >
+    insert into shop_adv
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="apId != null" >
+        ap_id,
+      </if>
+      <if test="advTitle != null" >
+        adv_title,
+      </if>
+      <if test="advUrl != null" >
+        adv_url,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="clickNum != null" >
+        click_num,
+      </if>
+      <if test="isAllow != null" >
+        is_allow,
+      </if>
+      <if test="resUrl != null" >
+        res_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="apId != null" >
+        #{apId,jdbcType=BIGINT},
+      </if>
+      <if test="advTitle != null" >
+        #{advTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="advUrl != null" >
+        #{advUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=BIGINT},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=BIGINT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="clickNum != null" >
+        #{clickNum,jdbcType=INTEGER},
+      </if>
+      <if test="isAllow != null" >
+        #{isAllow,jdbcType=INTEGER},
+      </if>
+      <if test="resUrl != null" >
+        #{resUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdv" >
+    update shop_adv
+    <set >
+      <if test="apId != null" >
+        ap_id = #{apId,jdbcType=BIGINT},
+      </if>
+      <if test="advTitle != null" >
+        adv_title = #{advTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="advUrl != null" >
+        adv_url = #{advUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=BIGINT},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=BIGINT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="clickNum != null" >
+        click_num = #{clickNum,jdbcType=INTEGER},
+      </if>
+      <if test="isAllow != null" >
+        is_allow = #{isAllow,jdbcType=INTEGER},
+      </if>
+      <if test="resUrl != null" >
+        res_url = #{resUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdv" >
+    update shop_adv
+    set ap_id = #{apId,jdbcType=BIGINT},
+      adv_title = #{advTitle,jdbcType=VARCHAR},
+      adv_url = #{advUrl,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=BIGINT},
+      end_date = #{endDate,jdbcType=BIGINT},
+      sort = #{sort,jdbcType=INTEGER},
+      click_num = #{clickNum,jdbcType=INTEGER},
+      is_allow = #{isAllow,jdbcType=INTEGER},
+      res_url = #{resUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<http>
+	<headers defaults-disabled="true">
+
+		<cache-control/>
+
+	</headers>
+</http>
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>登录</title>
+		<!--<Link Rel="SHORTCUT ICON" href="../crm/img/favicon.ico" />-->
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
+		<!--<link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />-->
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="logo">
+				<img src="css/logo2.png" width="240px" />
+			</div>
+			<h1 class="font">后台管理登录</h1>
+			<form th:action="@{/login}" action="login" method="post">
+				<div class="group group-top">
+					<input type="text" name="username" id="user" value="" class="input" placeholder="帐&nbsp;&nbsp;&nbsp;号" />
+					<span id="user1" style="color: red;">
+					</span>
+				</div>
+				<!--用户名-->
+				<div class="group">
+					<!--<span>密码：</span>-->
+					<input type="password" name="password" id="psw" class="input" placeholder="密&nbsp;&nbsp;&nbsp;码" />
+				</div>
+				<!--密码-->
+
+				<p th:if="${param.error }" align="center">
+					无效的账号和密码
+				</p>
+
+				<p th:if="${param.logout}" align="center">
+					您已注销
+				</p>
+
+
+				<div class="group">
+					<input type="submit" name="" id="btn" value="登&nbsp;录" class="btn" />
+				</div>
+
+				<!--登录按钮-->
+				<!--隐藏-->
+				<div class="copyright">
+					<span > 
+						©版权所有天津泽瑞科技有限公司 津ICP备16006638号<br />
+						Copyright © 2016 - 2017 zeruitech.com Inc. All Rights Reserved.
+					</span>
+				</div>
+				<!--版权-->
+			</form>
+		</div>
+	</body>
+
+</html>

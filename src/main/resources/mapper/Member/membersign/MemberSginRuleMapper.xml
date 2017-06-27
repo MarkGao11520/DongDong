@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.membersign.MemberSginRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.membersign.MemberSginRule" >
+    <id column="srId" property="srid" jdbcType="INTEGER" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    srId, day, integral
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_sgin_rule
+    where srId = #{srid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_sgin_rule
+    where srId = #{srid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.membersign.MemberSginRule" >
+    insert into t_member_sgin_rule (srId, day, integral
+      )
+    values (#{srid,jdbcType=INTEGER}, #{day,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.membersign.MemberSginRule" >
+    insert into t_member_sgin_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="srid != null" >
+        srId,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="srid != null" >
+        #{srid,jdbcType=INTEGER},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.membersign.MemberSginRule" >
+    update t_member_sgin_rule
+    <set >
+      <if test="day != null" >
+        day = #{day,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where srId = #{srid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.membersign.MemberSginRule" >
+    update t_member_sgin_rule
+    set day = #{day,jdbcType=INTEGER},
+      integral = #{integral,jdbcType=INTEGER}
+    where srId = #{srid,jdbcType=INTEGER}
+  </update>
+
+  <!--获取签到积分规则列表  -->
+  <select id="selectMemberSignRuleList" parameterType="com.zrkj.ecp.dto.membersign.MemberSignRuleDto" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_member_sgin_rule e
+    WHERE
+    isdel = 0
+    <if test="rows>0">
+      limit #{page,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--获取签到积分规则数量  -->
+  <select id="selectMemberSignRuleCount"  parameterType="com.zrkj.ecp.dto.membersign.MemberSignRuleDto" resultType="java.lang.Integer" >
+    SELECT
+    COUNT(e.srId)
+    FROM
+    t_member_sgin_rule e
+    WHERE
+    isdel = 0
+  </select>
+
+  <!--查找最大id-->
+  <select id="selectMaxAid" resultType="java.lang.Integer">
+    select max(e.srId) from t_member_sgin_rule e ;
+  </select>
+</mapper>

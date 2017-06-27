@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.position.BasPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.position.BasPosition" >
+    <id column="positionId" property="positionid" jdbcType="INTEGER" />
+    <result column="ppositionId" property="ppositionid" jdbcType="INTEGER" />
+    <result column="positionName" property="positionname" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="quota" property="quota" jdbcType="INTEGER" />
+    <result column="posOrder" property="posorder" jdbcType="INTEGER" />
+    <result column="cId" property="cid" jdbcType="INTEGER" />
+    <result column="dId" property="did" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    positionId, ppositionId, positionName, notes, disabled, quota, posOrder, cId, dId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bas_position
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bas_position
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.position.BasPosition" >
+    insert into t_bas_position (positionId, ppositionId, positionName, 
+      notes, disabled, quota, 
+      posOrder, cId, dId)
+    values (#{positionid,jdbcType=INTEGER}, #{ppositionid,jdbcType=INTEGER}, #{positionname,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{disabled,jdbcType=INTEGER}, #{quota,jdbcType=INTEGER}, 
+      #{posorder,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{did,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.position.BasPosition" >
+    insert into t_bas_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="positionid != null" >
+        positionId,
+      </if>
+      <if test="ppositionid != null" >
+        ppositionId,
+      </if>
+      <if test="positionname != null" >
+        positionName,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="quota != null" >
+        quota,
+      </if>
+      <if test="posorder != null" >
+        posOrder,
+      </if>
+      <if test="cid != null" >
+        cId,
+      </if>
+      <if test="did != null" >
+        dId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="positionid != null" >
+        #{positionid,jdbcType=INTEGER},
+      </if>
+      <if test="ppositionid != null" >
+        #{ppositionid,jdbcType=INTEGER},
+      </if>
+      <if test="positionname != null" >
+        #{positionname,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="quota != null" >
+        #{quota,jdbcType=INTEGER},
+      </if>
+      <if test="posorder != null" >
+        #{posorder,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.position.BasPosition" >
+    update t_bas_position
+    <set >
+      <if test="ppositionid != null" >
+        ppositionId = #{ppositionid,jdbcType=INTEGER},
+      </if>
+      <if test="positionname != null" >
+        positionName = #{positionname,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="quota != null" >
+        quota = #{quota,jdbcType=INTEGER},
+      </if>
+      <if test="posorder != null" >
+        posOrder = #{posorder,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cId = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="did != null" >
+        dId = #{did,jdbcType=INTEGER},
+      </if>
+       <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER}
+      </if>
+    </set>
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.position.BasPosition" >
+    update t_bas_position
+    set ppositionId = #{ppositionid,jdbcType=INTEGER},
+      positionName = #{positionname,jdbcType=VARCHAR},
+      notes = #{notes,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      quota = #{quota,jdbcType=INTEGER},
+      posOrder = #{posorder,jdbcType=INTEGER},
+      cId = #{cid,jdbcType=INTEGER},
+      dId = #{did,jdbcType=INTEGER}
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </update>
+  
+  <!--查找最大id  -->
+    <select id ="selectMaxid" resultType="java.lang.Integer">
+		SELECT
+			max(e.positionId)
+		FROM
+			t_bas_position e
+  </select>
+  
+    <!--获取岗位列表-->
+    <select id="selectPositionList" parameterType="com.zrkj.ecp.dto.position.PositionDto" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM
+			t_bas_position  e
+		WHERE
+			e.isdel = 0
+        <if test="ppositionid==null">
+            AND e.posOrder = 1
+        </if>
+        <if test="ppositionid!=null">
+            AND e.ppositionId = #{ppositionid,jdbcType=INTEGER}
+        </if>
+		 AND e.cId = #{cid,jdbcType=INTEGER}
+		 AND e.dId = #{did,jdbcType=INTEGER}
+		<if test="positionName!=null">
+		AND e.positionName LIKE #{positionName,jdbcType=VARCHAR}
+		</if>
+		 LIMIT #{page,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </select>
+    
+    <!-- 根据父节点查找 -->
+     <select id="selectPositionListByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM
+			t_bas_position  e
+		WHERE
+			e.isdel = 0
+		AND e.ppositionId = #{ppositionid,jdbcType=INTEGER}
+    </select>
+    
+    <!--根据父节点查找dto  -->
+    <select id="selectPpositionDtoListByPid" parameterType="java.lang.Integer" resultType="com.zrkj.ecp.dto.position.PpositionDto">
+		SELECT
+			e.positionId as positionid,
+			e.positionName as positionname
+		FROM
+			t_bas_position  e
+		WHERE
+			e.isdel = 0
+		AND e.ppositionId = #{ppositionid,jdbcType=INTEGER}
+		or e.positionId = #{ppositionid,jdbcType=INTEGER}
+		or e.positionId = (select t.ppositionId from t_bas_position  t where t.positionId =  #{ppositionid,jdbcType=INTEGER})
+		or e.ppositionId = (select t.ppositionId from t_bas_position  t where t.positionId =  #{ppositionid,jdbcType=INTEGER})
+    </select>
+    
+        <!--根据父节点查找dto  -->
+    <select id="selectPositionDtoListByDid" parameterType="java.lang.Integer" resultType="com.zrkj.ecp.dto.position.PpositionDto">
+		SELECT
+			e.positionId as positionid,
+			e.positionName as positionname
+		FROM
+			t_bas_position  e
+		WHERE
+			e.isdel = 0
+		AND e.dId = #{did,jdbcType=INTEGER}
+    </select>
+    
+     <!--获取总记录数-->
+  <select id="selectPositionCount" parameterType="com.zrkj.ecp.dto.position.PositionDto" resultType="java.lang.Integer">
+    	SELECT
+			count(e.positionId)
+		FROM
+			t_bas_position  e
+		WHERE
+			e.isdel = 0
+		 AND e.posOrder = 1
+		 AND e.cId = #{cid,jdbcType=INTEGER}
+		 AND e.dId = #{did,jdbcType=INTEGER}
+		<if test="positionName!=null">
+		AND e.positionName LIKE #{positionName,jdbcType=VARCHAR}
+		</if>
+  </select>
+  
+  <!--根据id查找分级结构  -->
+  <select id="selectPositionOrderById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			e.posOrder
+		FROM
+			t_bas_position e
+		WHERE
+			e.positionId = #{positionid,jdbcType=INTEGER}
+  </select>
+   <!-- 查找是否有子id -->
+  <select id="selectCountByPid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.positionId)
+FROM
+	t_bas_position e
+WHERE
+	e.ppositionId = #{positionid,jdbcType=INTEGER}
+  </select>
+   <select id="selectCountByMRFK" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.positionId)
+FROM
+	t_bas_role_mod e
+WHERE
+   e.isdel = 0
+and	e.positionId = #{positionid,jdbcType=INTEGER}
+  </select>
+</mapper>

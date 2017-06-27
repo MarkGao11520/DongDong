@@ -1,0 +1,23 @@
+<html>
+  <head>
+
+    <title>My JSP 'left.jsp' starting page</title>
+  </head>
+ <link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+  <body>
+  
+  企业列表：
+<ul id ="" class="easyui-tree" 
+ 		data-options="url:'../CompanyManagent/jsonCompanyList',
+ 					 onSelect: function(rec){   
+                            			window.parent.rightFrame.location.href ='../smsRecordController/SmsRecordList?cid='+rec.id;
+           								} 	"		
+       				  ></ul> 
+  </body>
+</html>

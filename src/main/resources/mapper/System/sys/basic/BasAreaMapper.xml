@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.sys.basic.BasAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.sys.basic.BasArea" >
+    <id column="aId" property="aid" jdbcType="INTEGER" />
+    <result column="aName" property="aname" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="zoneType" property="zonetype" jdbcType="INTEGER" />
+    <result column="sortSum" property="sortsum" jdbcType="INTEGER" />
+    <result column="pId" property="pid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    aId, aName, code, zoneType, sortSum, pId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bas_area
+    where aId = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bas_area
+    where aId = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.sys.basic.BasArea" >
+    insert into t_bas_area (aId, aName, code, 
+      zoneType, sortSum, pId
+      )
+    values (#{aid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{zonetype,jdbcType=INTEGER}, #{sortsum,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.sys.basic.BasArea" >
+    insert into t_bas_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aId,
+      </if>
+      <if test="aname != null" >
+        aName,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="zonetype != null" >
+        zoneType,
+      </if>
+      <if test="sortsum != null" >
+        sortSum,
+      </if>
+      <if test="pid != null" >
+        pId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="zonetype != null" >
+        #{zonetype,jdbcType=INTEGER},
+      </if>
+      <if test="sortsum != null" >
+        #{sortsum,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.sys.basic.BasArea" >
+    update t_bas_area
+    <set >
+      <if test="aname != null" >
+        aName = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="zonetype != null" >
+        zoneType = #{zonetype,jdbcType=INTEGER},
+      </if>
+      <if test="sortsum != null" >
+        sortSum = #{sortsum,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pId = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where aId = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.sys.basic.BasArea" >
+    update t_bas_area
+    set aName = #{aname,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      zoneType = #{zonetype,jdbcType=INTEGER},
+      sortSum = #{sortsum,jdbcType=INTEGER},
+      pId = #{pid,jdbcType=INTEGER}
+    where aId = #{aid,jdbcType=INTEGER}
+  </update>
+
+  <!--查找最大id-->
+  <select id="selectMaxAid" resultType="java.lang.Integer">
+    select max(e.aId) from t_bas_area e ;
+  </select>
+
+  <!--获取根节点地区-->
+  <select id="selectPareaList" resultType="com.zrkj.ecp.dto.sys.basic.PAreaDto">
+    SELECT
+        e.aName AS pname,
+        e.aId AS pid
+    FROM
+        t_bas_area e
+    WHERE
+     e.isdel = 0
+    and e.zoneType = 1
+  </select>
+  
+  <!--获取父节点地区-->
+   <select id="selectPareaListByPid" resultType="com.zrkj.ecp.dto.sys.basic.PAreaDto" parameterType="java.lang.Integer">
+    SELECT
+        e.aName AS pname,
+        e.aId AS pid
+    FROM
+        t_bas_area e
+    WHERE
+     e.isdel = 0
+    and e.pId = #{aid,jdbcType=INTEGER}
+  </select>
+  
+   <!--获取父节点地区-->
+   <select id="selectAllPareaListByPid" resultType="com.zrkj.ecp.dto.sys.basic.PAreaDto" parameterType="java.lang.Integer">
+    SELECT
+        e.aName AS pname,
+        e.aId AS pid
+    FROM
+        t_bas_area e
+    WHERE
+     e.isdel = 0
+		and e.aId =#{aid,jdbcType=INTEGER}
+		or e.pId =#{aid,jdbcType=INTEGER}
+		or e.aId = ( select DISTINCT t.pId from t_bas_area t where t.aId = #{aid,jdbcType=INTEGER})
+		or e.pId = ( select DISTINCT t.pId from t_bas_area t where t.aId = #{aid,jdbcType=INTEGER})
+  </select>
+
+  <!--获取地区列表-->
+  <select id="selectAreaList" parameterType="com.zrkj.ecp.dto.sys.basic.AreaDto" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    t_bas_area e
+    WHERE
+     e.isdel = 0
+  <if test="aid==null">
+   and e.zoneType = 1
+  </if>
+      <if test="aid!=null">
+   and e.pId = #{aid,jdbcType=INTEGER}
+      </if>
+    <if test="aname!=null">
+      and
+      e.aName LIKE #{aname,jdbcType=VARCHAR}
+    </if>
+   
+    
+      limit #{page,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    
+  </select>
+  
+  <!--根据pid获得list  -->
+  <select id="selectAreaListbypid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    t_bas_area e
+    WHERE
+     e.isdel = 0
+    and e.pId = #{aid,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查找是否有子id -->
+  <select id="selectCountByPid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.aId)
+FROM
+	t_bas_area e
+WHERE
+	e.pId = #{aid,jdbcType=INTEGER}
+  </select>
+   <select id="selectCountByFK" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.cId)
+FROM
+	t_bas_company e
+WHERE
+	e.province = #{aid,jdbcType=INTEGER}
+    or e.city = #{aid,jdbcType=INTEGER}
+    or e.area = #{aid,jdbcType=INTEGER}
+  </select>
+  
+  <!--根据pid获取父类地区的地区类型  -->
+    <select id="selectZoneTypeByPid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  SELECT
+	e.zoneType+1
+FROM
+	t_bas_area e
+WHERE
+	e.aId = #{pid,jdbcType=INTEGER}
+	  </select>
+  
+ 
+  
+  
+  
+
+  <!--获取总记录数-->
+  <select id="selectAreaCount" parameterType="com.zrkj.ecp.dto.sys.basic.AreaDto" resultType="java.lang.Integer">
+    select count(e.aId) FROM
+    t_bas_area e
+    WHERE
+     e.isdel = 0
+   and e.zoneType = 1
+    <if test="aname!=null">
+      and
+      e.aName LIKE #{aname,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <!--根据id查找名称  -->
+   <select id="selectAnameByaid" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select e.aName from t_bas_area e WHERE
+     e.isdel = 0
+     and
+     e.aId = #{aid,jdbcType=INTEGER}
+  </select>
+</mapper>

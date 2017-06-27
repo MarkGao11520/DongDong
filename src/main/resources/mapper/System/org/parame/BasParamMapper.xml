@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.org.parame.BasParamMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.org.parame.BasParam" >
+    <id column="paraId" property="paraid" jdbcType="INTEGER" />
+    <result column="pparaId" property="pparaid" jdbcType="INTEGER" />
+    <result column="paraName" property="paraname" jdbcType="VARCHAR" />
+    <result column="paraOrder" property="paraorder" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="isEnd" property="isend" jdbcType="INTEGER" />
+    <result column="cId" property="cid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    paraId, pparaId, paraName, paraOrder, type, description, isEnd, cId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bas_parame
+    where paraId = #{paraid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bas_parame
+    where paraId = #{paraid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.org.parame.BasParam" >
+    insert into t_bas_parame (paraId, pparaId, paraName, 
+      paraOrder, type, description, 
+      isEnd, cId)
+    values (#{paraid,jdbcType=INTEGER}, #{pparaid,jdbcType=INTEGER}, #{paraname,jdbcType=VARCHAR}, 
+      #{paraorder,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{isend,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.org.parame.BasParam" >
+    insert into t_bas_parame
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paraid != null" >
+        paraId,
+      </if>
+      <if test="pparaid != null" >
+        pparaId,
+      </if>
+      <if test="paraname != null" >
+        paraName,
+      </if>
+      <if test="paraorder != null" >
+        paraOrder,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="isend != null" >
+        isEnd,
+      </if>
+      <if test="cid != null" >
+        cId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paraid != null" >
+        #{paraid,jdbcType=INTEGER},
+      </if>
+      <if test="pparaid != null" >
+        #{pparaid,jdbcType=INTEGER},
+      </if>
+      <if test="paraname != null" >
+        #{paraname,jdbcType=VARCHAR},
+      </if>
+      <if test="paraorder != null" >
+        #{paraorder,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isend != null" >
+        #{isend,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.org.parame.BasParam" >
+    update t_bas_parame
+    <set >
+      <if test="pparaid != null" >
+        pparaId = #{pparaid,jdbcType=INTEGER},
+      </if>
+      <if test="paraname != null" >
+        paraName = #{paraname,jdbcType=VARCHAR},
+      </if>
+      <if test="paraorder != null" >
+        paraOrder = #{paraorder,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isend != null" >
+        isEnd = #{isend,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cId = #{cid,jdbcType=INTEGER},
+      </if>
+       <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where paraId = #{paraid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.org.parame.BasParam" >
+    update t_bas_parame
+    set pparaId = #{pparaid,jdbcType=INTEGER},
+      paraName = #{paraname,jdbcType=VARCHAR},
+      paraOrder = #{paraorder,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      isEnd = #{isend,jdbcType=INTEGER},
+      cId = #{cid,jdbcType=INTEGER}
+    where paraId = #{paraid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!--查找最大id-->
+  <select id="selectMaxAid" resultType="java.lang.Integer">
+    select max(e.paraId) from t_bas_parame e ;
+  </select>
+  
+   <!--获取一级机构列表-->
+  <select id="selectparameList" parameterType="com.zrkj.ecp.dto.org.parame.ParameDto" resultMap="BaseResultMap">
+    SELECT
+     <include refid="Base_Column_List" />
+    FROM
+    t_bas_parame e
+    WHERE
+     e.isdel = 0
+    <if test="paraid==null">
+     and e.type= 1
+    </if>
+    <if test="paraid!=null">
+     and e.pparaId = #{paraid,jdbcType=INTEGER}
+    </if>
+     and e.cId = #{cid,jdbcType=INTEGER}
+    <if test="paraName!=null">
+      and
+      e.paraName LIKE #{paraName,jdbcType=VARCHAR}
+    </if>
+    <if test="page!=null">
+      limit #{page,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!--根据父节点选择子节点 -->
+   <select id="selectparameListByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+     <include refid="Base_Column_List" />
+    FROM
+    t_bas_parame e
+    WHERE
+     e.isdel = 0
+     and e.pparaId = #{paraid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectparameListBycid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_bas_parame e
+    WHERE
+    e.isdel = 0
+    AND e.cId = #{cid,jdbcType=INTEGER}
+    AND e.pparaId = (
+    SELECT
+    p.paraId
+    FROM
+    t_bas_parame p
+    WHERE
+    p.cId = #{cid,jdbcType=INTEGER}
+    AND p.paraName = '网点'
+    )
+  </select>
+  
+   <!--根据父节点选择子节点 -->
+   <select id="selectTypeByid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+     e.type
+    FROM
+    t_bas_parame e
+    WHERE
+     e.isdel = 0
+     and e.paraId = #{paraid,jdbcType=INTEGER}
+   
+  </select>
+  
+
+  <!--获取总记录数-->
+  <select id="selectparameCount" parameterType="com.zrkj.ecp.dto.org.parame.ParameDto" resultType="java.lang.Integer">
+    select count(e.paraId) FROM
+    t_bas_parame e
+    WHERE
+     e.isdel = 0
+     and e.type= 1
+     and e.cId = #{cid,jdbcType=INTEGER}
+    <if test="paraName!=null">
+      and
+      e.paraName LIKE #{paraName,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <!-- 查找是否有子id -->
+  <select id="selectCountByPid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.paraId)
+FROM
+	t_bas_parame e
+WHERE
+    e.isdel = 0
+	and e.pparaId = #{paraid,jdbcType=INTEGER}
+	</select>
+</mapper>

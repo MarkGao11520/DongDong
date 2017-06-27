@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.shopadv.ShopAdvPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.shopadv.ShopAdvPosition" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ap_name" property="apName" jdbcType="VARCHAR" />
+    <result column="ap_intro" property="apIntro" jdbcType="VARCHAR" />
+    <result column="ap_class" property="apClass" jdbcType="INTEGER" />
+    <result column="ap_display" property="apDisplay" jdbcType="INTEGER" />
+    <result column="is_use" property="isUse" jdbcType="INTEGER" />
+    <result column="ap_width" property="apWidth" jdbcType="INTEGER" />
+    <result column="ap_height" property="apHeight" jdbcType="INTEGER" />
+    <result column="ap_key" property="apKey" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ap_name, ap_intro, ap_class, ap_display, is_use, ap_width, ap_height, ap_key
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_adv_position
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_adv_position
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdvPosition" >
+    insert into shop_adv_position (id, ap_name, ap_intro, 
+      ap_class, ap_display, is_use, 
+      ap_width, ap_height, ap_key
+      )
+    values (#{id,jdbcType=BIGINT}, #{apName,jdbcType=VARCHAR}, #{apIntro,jdbcType=VARCHAR}, 
+      #{apClass,jdbcType=INTEGER}, #{apDisplay,jdbcType=INTEGER}, #{isUse,jdbcType=INTEGER}, 
+      #{apWidth,jdbcType=INTEGER}, #{apHeight,jdbcType=INTEGER}, #{apKey,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdvPosition" >
+    insert into shop_adv_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="apName != null" >
+        ap_name,
+      </if>
+      <if test="apIntro != null" >
+        ap_intro,
+      </if>
+      <if test="apClass != null" >
+        ap_class,
+      </if>
+      <if test="apDisplay != null" >
+        ap_display,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="apWidth != null" >
+        ap_width,
+      </if>
+      <if test="apHeight != null" >
+        ap_height,
+      </if>
+      <if test="apKey != null" >
+        ap_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="apName != null" >
+        #{apName,jdbcType=VARCHAR},
+      </if>
+      <if test="apIntro != null" >
+        #{apIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="apClass != null" >
+        #{apClass,jdbcType=INTEGER},
+      </if>
+      <if test="apDisplay != null" >
+        #{apDisplay,jdbcType=INTEGER},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="apWidth != null" >
+        #{apWidth,jdbcType=INTEGER},
+      </if>
+      <if test="apHeight != null" >
+        #{apHeight,jdbcType=INTEGER},
+      </if>
+      <if test="apKey != null" >
+        #{apKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdvPosition" >
+    update shop_adv_position
+    <set >
+      <if test="apName != null" >
+        ap_name = #{apName,jdbcType=VARCHAR},
+      </if>
+      <if test="apIntro != null" >
+        ap_intro = #{apIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="apClass != null" >
+        ap_class = #{apClass,jdbcType=INTEGER},
+      </if>
+      <if test="apDisplay != null" >
+        ap_display = #{apDisplay,jdbcType=INTEGER},
+      </if>
+      <if test="isUse != null" >
+        is_use = #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="apWidth != null" >
+        ap_width = #{apWidth,jdbcType=INTEGER},
+      </if>
+      <if test="apHeight != null" >
+        ap_height = #{apHeight,jdbcType=INTEGER},
+      </if>
+      <if test="apKey != null" >
+        ap_key = #{apKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.shopadv.ShopAdvPosition" >
+    update shop_adv_position
+    set ap_name = #{apName,jdbcType=VARCHAR},
+      ap_intro = #{apIntro,jdbcType=VARCHAR},
+      ap_class = #{apClass,jdbcType=INTEGER},
+      ap_display = #{apDisplay,jdbcType=INTEGER},
+      is_use = #{isUse,jdbcType=INTEGER},
+      ap_width = #{apWidth,jdbcType=INTEGER},
+      ap_height = #{apHeight,jdbcType=INTEGER},
+      ap_key = #{apKey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--获取广告位列表-->
+  <select id="selectShopAdvPositionList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from shop_adv_position e
+    where
+    e.ap_name LIKE #{dto.apName,jdbcType=BIGINT}
+  </select>
+</mapper>

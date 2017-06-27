@@ -1,0 +1,44 @@
+*:focus{outline:none !important;}
+.paging{margin: 0 auto;width: 300px;margin-top: 20px;}
+/*分页*/
+.search{width:200px;display: inline;margin: 0px 0;}
+/*搜索*/
+input[type="checkbox"] {
+				width: 20px;
+				height: 20px;
+				cursor: pointer;
+				margin-left: 10px;
+				position: relative;
+				border: #003366 solid 1px;
+				border-radius: 100%;
+				/*top: 5px;*/
+			}
+
+.space {padding-left: 30px;margin: 10px 0;}
+/*权限管理页面checkbox距离*/
+
+.checked-focus:checked {-webkit-animation: focus .25s ease-out;animation: focus .2s ease-out}
+@-webkit-keyframes focus {
+	0% {
+		opacity: .4;
+		-webkit-transform: scale(2);
+		transform: scale(2)
+	}
+	100% {
+		-webkit-transform: none;
+		transform: none
+	}
+}
+
+@keyframes focus {
+	0% {
+		opacity: .4;
+		-webkit-transform: scale(2);
+		transform: scale(2)
+	}
+	100% {
+		-webkit-transform: none;
+		transform: none
+	}
+}
+/*checkbox动画*/

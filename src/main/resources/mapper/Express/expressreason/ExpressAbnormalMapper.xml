@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.expressreason.ExpressAbnormalMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.expressreason.ExpressAbnormal" >
+    <id column="billID" property="billid" jdbcType="INTEGER" />
+    <result column="reasonID" property="reasonid" jdbcType="INTEGER" />
+    <result column="uId" property="uid" jdbcType="INTEGER" />
+    <result column="billCode" property="billcode" jdbcType="VARCHAR" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    billID, reasonID, uId, billCode, isdel
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_express_abnormal
+    where billID = #{billid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.expressreason.ExpressAbnormal" >
+    insert into t_express_abnormal (billID, reasonID, uId, 
+      billCode, isdel)
+    values (#{billid,jdbcType=INTEGER}, #{reasonid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{billcode,jdbcType=VARCHAR}, #{isdel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.expressreason.ExpressAbnormal" >
+    insert into t_express_abnormal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billid != null" >
+        billID,
+      </if>
+      <if test="reasonid != null" >
+        reasonID,
+      </if>
+      <if test="uid != null" >
+        uId,
+      </if>
+      <if test="billcode != null" >
+        billCode,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billid != null" >
+        #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="reasonid != null" >
+        #{reasonid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="billcode != null" >
+        #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.expressreason.ExpressAbnormal" >
+    update t_express_abnormal
+    <set >
+      <if test="reasonid != null" >
+        reasonID = #{reasonid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uId = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="billcode != null" >
+        billCode = #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where billID = #{billid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.expressreason.ExpressAbnormal" >
+    update t_express_abnormal
+    set reasonID = #{reasonid,jdbcType=INTEGER},
+      uId = #{uid,jdbcType=INTEGER},
+      billCode = #{billcode,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=INTEGER}
+    where billID = #{billid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" resultType="com.zrkj.ecp.domain.expressreason.ExpressAbnormal" parameterType="java.lang.Integer" >
+    SELECT
+    e.billID as billid,
+    e.billCode as billcode,
+    e.reasonID as reasonid,
+    e.uId as uid,
+    e.isdel as isdel,
+    t.reasonContent
+    FROM
+    t_express_abnormal e,
+    t_express_reason t
+    WHERE
+    e.isdel = 0
+    AND e.reasonID = t.reasonID
+    AND billID = #{billid,jdbcType=INTEGER}
+  </select>
+  
+  <!--获取列表  -->
+  <select id="selectExpressAbnormalList"  resultType="com.zrkj.ecp.domain.expressreason.ExpressAbnormal">
+    SELECT
+    e.billID as billid,
+    e.billCode as billcode,
+    e.reasonID as reasonid,
+    e.uId as uid,
+    e.isdel as isdel,
+    t.reasonContent as reasonname,
+    u.realName as uname
+    FROM
+    t_express_abnormal e,
+    t_express_reason t,
+    t_bas_user_property u
+    WHERE
+    e.isdel = 0
+    AND e.reasonID = t.reasonID
+    AND e.uId = u.uId
+    <if test="expressDto.rows>0">
+      limit #{expressDto.page,jdbcType=INTEGER},#{expressDto.rows,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--获取数量  -->
+  <select id="selectExpressAbnormalCount"  resultType="java.lang.Integer" >
+    SELECT
+    COUNT(e.billID)
+    FROM
+    t_express_abnormal e
+    WHERE
+    isdel = 0
+  </select>
+
+  <!--查找最大id-->
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select max(e.billID) from t_express_abnormal e ;
+  </select>
+</mapper>

@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.expressbill.ExpressBillMapper">
+    <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.expressbill.ExpressBill">
+        <id column="billID" property="billid" jdbcType="INTEGER"/>
+        <result column="billCode" property="billcode" jdbcType="VARCHAR"/>
+        <result column="revName" property="revname" jdbcType="VARCHAR"/>
+        <result column="revAddress" property="revaddress" jdbcType="VARCHAR"/>
+        <result column="revPhone" property="revphone" jdbcType="VARCHAR"/>
+        <result column="sendName" property="sendname" jdbcType="VARCHAR"/>
+        <result column="sendAddress" property="sendaddress" jdbcType="VARCHAR"/>
+        <result column="sendPhone" property="sendphone" jdbcType="VARCHAR"/>
+        <result column="cargo" property="cargo" jdbcType="VARCHAR"/>
+        <result column="isFragile" property="isfragile" jdbcType="INTEGER"/>
+        <result column="billDate" property="billdate" jdbcType="TIMESTAMP"/>
+        <result column="billDate" property="billdateString" jdbcType="VARCHAR"/>
+        <result column="freight" property="freight" jdbcType="DOUBLE"/>
+        <result column="payment" property="payment" jdbcType="INTEGER"/>
+        <result column="claimValue" property="claimvalue" jdbcType="DOUBLE"/>
+        <result column="cargoMoney" property="cargomoney" jdbcType="DOUBLE"/>
+        <result column="stauts" property="stauts" jdbcType="INTEGER"/>
+        <result column="notes" property="notes" jdbcType="VARCHAR"/>
+        <result column="revUserID" property="revuserid" jdbcType="INTEGER"/>
+        <result column="sendUserID" property="senduserid" jdbcType="INTEGER"/>
+        <result column="sendMemberID" property="sendmemberid" jdbcType="INTEGER"/>
+        <result column="revMemberID" property="revmemberid" jdbcType="INTEGER"/>
+        <result column="sginCardNum" property="sgincardnum" jdbcType="VARCHAR"/>
+        <result column="positionNo" property="positionno" jdbcType="INTEGER"/>
+        <result column="serialNo" property="serialno" jdbcType="INTEGER"/>
+        <result column="fdID" property="fdid" jdbcType="INTEGER"/>
+        <result column="cId" property="cid" jdbcType="INTEGER"/>
+        <result column="phID" property="phid" jdbcType="INTEGER"/>
+        <result column="isdel" property="isdel" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    billID, billCode, revName, revAddress, revPhone, sendName, sendAddress, sendPhone, 
+    cargo, isFragile, billDate, freight, payment, claimValue, cargoMoney, stauts, notes, 
+    revUserID, sendUserID, sendMemberID, revMemberID, sginCardNum, positionNo, serialNo, 
+    fdID, cId, phID, isdel
+  </sql>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_express_bill
+    where billID = #{billid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zrkj.ecp.domain.expressbill.ExpressBill">
+    insert into t_express_bill (billID, billCode, revName, 
+      revAddress, revPhone, sendName, 
+      sendAddress, sendPhone, cargo, 
+      isFragile, billDate, freight, 
+      payment, claimValue, cargoMoney, 
+      stauts, notes, revUserID, 
+      sendUserID, sendMemberID, revMemberID, 
+      sginCardNum, positionNo, serialNo, 
+      fdID, cId, phID, isdel
+      )
+    values (#{billid,jdbcType=INTEGER}, #{billcode,jdbcType=VARCHAR}, #{revname,jdbcType=VARCHAR}, 
+      #{revaddress,jdbcType=VARCHAR}, #{revphone,jdbcType=VARCHAR}, #{sendname,jdbcType=VARCHAR}, 
+      #{sendaddress,jdbcType=VARCHAR}, #{sendphone,jdbcType=VARCHAR}, #{cargo,jdbcType=VARCHAR}, 
+      #{isfragile,jdbcType=INTEGER}, #{billdate,jdbcType=TIMESTAMP}, #{freight,jdbcType=DOUBLE}, 
+      #{payment,jdbcType=INTEGER}, #{claimvalue,jdbcType=DOUBLE}, #{cargomoney,jdbcType=DOUBLE}, 
+      #{stauts,jdbcType=INTEGER}, #{notes,jdbcType=VARCHAR}, #{revuserid,jdbcType=INTEGER}, 
+      #{senduserid,jdbcType=INTEGER}, #{sendmemberid,jdbcType=INTEGER}, #{revmemberid,jdbcType=INTEGER}, 
+      #{sgincardnum,jdbcType=VARCHAR}, #{positionno,jdbcType=INTEGER}, #{serialno,jdbcType=INTEGER}, 
+      #{fdid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{phid,jdbcType=INTEGER}, #{isdel,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.expressbill.ExpressBill">
+        insert into t_express_bill
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="billid != null">
+                billID,
+            </if>
+            <if test="billcode != null">
+                billCode,
+            </if>
+            <if test="revname != null">
+                revName,
+            </if>
+            <if test="revaddress != null">
+                revAddress,
+            </if>
+            <if test="revphone != null">
+                revPhone,
+            </if>
+            <if test="sendname != null">
+                sendName,
+            </if>
+            <if test="sendaddress != null">
+                sendAddress,
+            </if>
+            <if test="sendphone != null">
+                sendPhone,
+            </if>
+            <if test="cargo != null">
+                cargo,
+            </if>
+            <if test="isfragile != null">
+                isFragile,
+            </if>
+            <if test="billdate != null">
+                billDate,
+            </if>
+            <if test="freight != null">
+                freight,
+            </if>
+            <if test="payment != null">
+                payment,
+            </if>
+            <if test="claimvalue != null">
+                claimValue,
+            </if>
+            <if test="cargomoney != null">
+                cargoMoney,
+            </if>
+            <if test="stauts != null">
+                stauts,
+            </if>
+            <if test="notes != null">
+                notes,
+            </if>
+            <if test="revuserid != null">
+                revUserID,
+            </if>
+            <if test="senduserid != null">
+                sendUserID,
+            </if>
+            <if test="sendmemberid != null">
+                sendMemberID,
+            </if>
+            <if test="revmemberid != null">
+                revMemberID,
+            </if>
+            <if test="sgincardnum != null">
+                sginCardNum,
+            </if>
+            <if test="positionno != null">
+                positionNo,
+            </if>
+            <if test="serialno != null">
+                serialNo,
+            </if>
+            <if test="fdid != null">
+                fdID,
+            </if>
+            <if test="cid != null">
+                cId,
+            </if>
+            <if test="phid != null">
+                phID,
+            </if>
+            <if test="isdel != null">
+                isdel,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="billid != null">
+                #{billid,jdbcType=INTEGER},
+            </if>
+            <if test="billcode != null">
+                #{billcode,jdbcType=VARCHAR},
+            </if>
+            <if test="revname != null">
+                #{revname,jdbcType=VARCHAR},
+            </if>
+            <if test="revaddress != null">
+                #{revaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="revphone != null">
+                #{revphone,jdbcType=VARCHAR},
+            </if>
+            <if test="sendname != null">
+                #{sendname,jdbcType=VARCHAR},
+            </if>
+            <if test="sendaddress != null">
+                #{sendaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sendphone != null">
+                #{sendphone,jdbcType=VARCHAR},
+            </if>
+            <if test="cargo != null">
+                #{cargo,jdbcType=VARCHAR},
+            </if>
+            <if test="isfragile != null">
+                #{isfragile,jdbcType=INTEGER},
+            </if>
+            <if test="billdate != null">
+                #{billdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="freight != null">
+                #{freight,jdbcType=DOUBLE},
+            </if>
+            <if test="payment != null">
+                #{payment,jdbcType=INTEGER},
+            </if>
+            <if test="claimvalue != null">
+                #{claimvalue,jdbcType=DOUBLE},
+            </if>
+            <if test="cargomoney != null">
+                #{cargomoney,jdbcType=DOUBLE},
+            </if>
+            <if test="stauts != null">
+                #{stauts,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="revuserid != null">
+                #{revuserid,jdbcType=INTEGER},
+            </if>
+            <if test="senduserid != null">
+                #{senduserid,jdbcType=INTEGER},
+            </if>
+            <if test="sendmemberid != null">
+                #{sendmemberid,jdbcType=INTEGER},
+            </if>
+            <if test="revmemberid != null">
+                #{revmemberid,jdbcType=INTEGER},
+            </if>
+            <if test="sgincardnum != null">
+                #{sgincardnum,jdbcType=VARCHAR},
+            </if>
+            <if test="positionno != null">
+                #{positionno,jdbcType=INTEGER},
+            </if>
+            <if test="serialno != null">
+                #{serialno,jdbcType=INTEGER},
+            </if>
+            <if test="fdid != null">
+                #{fdid,jdbcType=INTEGER},
+            </if>
+            <if test="cid != null">
+                #{cid,jdbcType=INTEGER},
+            </if>
+            <if test="phid != null">
+                #{phid,jdbcType=INTEGER},
+            </if>
+            <if test="isdel != null">
+                #{isdel,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.expressbill.ExpressBill">
+        update t_express_bill
+        <set>
+            <if test="billcode != null">
+                billCode = #{billcode,jdbcType=VARCHAR},
+            </if>
+            <if test="revname != null">
+                revName = #{revname,jdbcType=VARCHAR},
+            </if>
+            <if test="revaddress != null">
+                revAddress = #{revaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="revphone != null">
+                revPhone = #{revphone,jdbcType=VARCHAR},
+            </if>
+            <if test="sendname != null">
+                sendName = #{sendname,jdbcType=VARCHAR},
+            </if>
+            <if test="sendaddress != null">
+                sendAddress = #{sendaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sendphone != null">
+                sendPhone = #{sendphone,jdbcType=VARCHAR},
+            </if>
+            <if test="cargo != null">
+                cargo = #{cargo,jdbcType=VARCHAR},
+            </if>
+            <if test="isfragile != null">
+                isFragile = #{isfragile,jdbcType=INTEGER},
+            </if>
+            <if test="billdate != null">
+                billDate = #{billdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="freight != null">
+                freight = #{freight,jdbcType=DOUBLE},
+            </if>
+            <if test="payment != null">
+                payment = #{payment,jdbcType=INTEGER},
+            </if>
+            <if test="claimvalue != null">
+                claimValue = #{claimvalue,jdbcType=DOUBLE},
+            </if>
+            <if test="cargomoney != null">
+                cargoMoney = #{cargomoney,jdbcType=DOUBLE},
+            </if>
+            <if test="stauts != null">
+                stauts = #{stauts,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                notes = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="revuserid != null">
+                revUserID = #{revuserid,jdbcType=INTEGER},
+            </if>
+            <if test="senduserid != null">
+                sendUserID = #{senduserid,jdbcType=INTEGER},
+            </if>
+            <if test="sendmemberid != null">
+                sendMemberID = #{sendmemberid,jdbcType=INTEGER},
+            </if>
+            <if test="revmemberid != null">
+                revMemberID = #{revmemberid,jdbcType=INTEGER},
+            </if>
+            <if test="sgincardnum != null">
+                sginCardNum = #{sgincardnum,jdbcType=VARCHAR},
+            </if>
+            <if test="positionno != null">
+                positionNo = #{positionno,jdbcType=INTEGER},
+            </if>
+            <if test="serialno != null">
+                serialNo = #{serialno,jdbcType=INTEGER},
+            </if>
+            <if test="fdid != null">
+                fdID = #{fdid,jdbcType=INTEGER},
+            </if>
+            <if test="cid != null">
+                cId = #{cid,jdbcType=INTEGER},
+            </if>
+            <if test="phid != null">
+                phID = #{phid,jdbcType=INTEGER},
+            </if>
+            <if test="isdel != null">
+                isdel = #{isdel,jdbcType=INTEGER},
+            </if>
+        </set>
+        where billID = #{billid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.expressbill.ExpressBill">
+    update t_express_bill
+    set billCode = #{billcode,jdbcType=VARCHAR},
+      revName = #{revname,jdbcType=VARCHAR},
+      revAddress = #{revaddress,jdbcType=VARCHAR},
+      revPhone = #{revphone,jdbcType=VARCHAR},
+      sendName = #{sendname,jdbcType=VARCHAR},
+      sendAddress = #{sendaddress,jdbcType=VARCHAR},
+      sendPhone = #{sendphone,jdbcType=VARCHAR},
+      cargo = #{cargo,jdbcType=VARCHAR},
+      isFragile = #{isfragile,jdbcType=INTEGER},
+      billDate = #{billdate,jdbcType=TIMESTAMP},
+      freight = #{freight,jdbcType=DOUBLE},
+      payment = #{payment,jdbcType=INTEGER},
+      claimValue = #{claimvalue,jdbcType=DOUBLE},
+      cargoMoney = #{cargomoney,jdbcType=DOUBLE},
+      stauts = #{stauts,jdbcType=INTEGER},
+      notes = #{notes,jdbcType=VARCHAR},
+      revUserID = #{revuserid,jdbcType=INTEGER},
+      sendUserID = #{senduserid,jdbcType=INTEGER},
+      sendMemberID = #{sendmemberid,jdbcType=INTEGER},
+      revMemberID = #{revmemberid,jdbcType=INTEGER},
+      sginCardNum = #{sgincardnum,jdbcType=VARCHAR},
+      positionNo = #{positionno,jdbcType=INTEGER},
+      serialNo = #{serialno,jdbcType=INTEGER},
+      fdID = #{fdid,jdbcType=INTEGER},
+      cId = #{cid,jdbcType=INTEGER},
+      phID = #{phid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=INTEGER}
+    where billID = #{billid,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectByPrimaryKey" resultType="com.zrkj.ecp.domain.expressbill.ExpressBill"
+            parameterType="java.lang.Integer">
+   SELECT
+    eb.billID AS billid,
+    eb.billCode AS billcode,
+    eb.revName as revname,
+    eb.revAddress as revaddress,
+    eb.revPhone as revphone,
+    eb.sendName as sendname,
+    eb.sendAddress as sendaddress,
+    eb.sendPhone as sendphone,
+    eb.cargo AS cargo,
+    eb.isFragile AS isfragile,
+    eb.billDate as billdate,
+    eb.billDate as billdateString,
+    eb.freight as freight,
+    eb.payment as payment,
+    eb.claimValue as claimvalue,
+    eb.cargoMoney as cargomoney,
+    eb.stauts AS stauts,
+    eb.notes AS notes,
+    eb.revUserID as revuseriD,
+    eb.sendUserID as senduserid,
+    eb.sendMemberID as sendmemberid,
+    eb.revMemberID as revmemberid,
+    eb.sginCardNum as sgincardnum,
+    eb.positionNo as positionno,
+    eb.serialNo as serialno,
+    eb.fdID as fdid,
+    eb.cId as cid,
+    eb.phID as phid,
+    eb.isdel as isdel,
+    up1.realName as revusername,
+    up2.realName as sendusername,
+    mp1.realName as revmembername,
+    mp2.realName as sendmembername,
+    c.`name` as cname,
+    ef.fdName as fdname,
+	sp.phName as phname,
+	sp.phURL as phurl
+     FROM
+    t_express_bill eb left join
+    t_bas_user_property up1 on up1.uId = eb.revUserID left join
+    t_bas_user_property up2 on	eb.sendUserID = up2.uId left join
+    t_member_member_property mp1 on mp1.mId = eb.revMemberID left join
+    t_member_member_property mp2 on eb.sendMemberID = mp2.mId left join
+    t_bas_company c on eb.cId = c.cId left join
+    t_express_fdex ef on eb.fdId = ef.fdId left join
+    t_express_signphoto sp on eb.phID = sp.phID
+    WHERE
+    eb.isdel = 0
+    AND eb.billID = #{billid,jdbcType=INTEGER}
+  </select>
+
+    <!--获取列表  -->
+    <select id="selectExpressBillList" resultType="com.zrkj.ecp.domain.expressbill.ExpressBill">
+        SELECT
+        eb.billID AS billid,
+        eb.billCode AS billcode,
+        eb.revName as revname,
+        eb.revAddress as revaddress,
+        eb.revPhone as revphone,
+        eb.sendName as sendname,
+        eb.sendAddress as sendaddress,
+        eb.sendPhone as sendphone,
+        eb.cargo AS cargo,
+        eb.isFragile AS isfragile,
+        eb.billDate as billdate,
+        eb.billDate as billdateString,
+        eb.freight as freight,
+        eb.payment as payment,
+        eb.claimValue as claimvalue,
+        eb.cargoMoney as cargomoney,
+        eb.stauts AS stauts,
+        eb.notes AS notes,
+        eb.revUserID as revuseriD,
+        eb.sendUserID as senduserid,
+        eb.sendMemberID as sendmemberid,
+        eb.revMemberID as revmemberid,
+        eb.sginCardNum as sgincardnum,
+        eb.positionNo as positionno,
+        eb.serialNo as serialno,
+        eb.fdID as fdid,
+        eb.cId as cid,
+        eb.phID as phid,
+        eb.isdel as isdel,
+        up1.realName as revusername,
+        up2.realName as sendusername,
+        mp1.realName as revmembername,
+        mp2.realName as sendmembername,
+        c.`name` as cname,
+        ef.fdName as fdname,
+        sp.phName as phname,
+        sp.phURL as phurl
+        FROM
+        t_express_bill eb left join
+        t_bas_user_property up1 on up1.uId = eb.revUserID left join
+        t_bas_user_property up2 on eb.sendUserID = up2.uId left join
+        t_member_member_property mp1 on mp1.mId = eb.revMemberID left join
+        t_member_member_property mp2 on eb.sendMemberID = mp2.mId left join
+        t_bas_company c on eb.cId = c.cId left join
+        t_express_fdex ef on eb.fdId = ef.fdId left join
+        t_express_signphoto sp on eb.phID = sp.phID
+        WHERE
+        eb.isdel = 0
+        <if test="expressBillDto.billStauts!=null">
+            <if test="expressBillDto.billStauts==1">
+                AND eb.stauts &lt;= 400
+            </if>
+            <if test="expressBillDto.billStauts==2">
+                AND eb.stauts &gt;= 500
+            </if>
+            <if test="expressBillDto.billStauts==3">
+                AND eb.stauts = #{expressBillDto.status,jdbcType=INTEGER}
+            </if>
+        </if>
+        <if test="expressBillDto.uid!=null">
+            AND eb.revUserID = #{expressBillDto.uid,jdbcType=INTEGER}
+            OR eb.sendUserID = #{expressBillDto.uid,jdbcType=INTEGER}
+        </if>
+        <if test="expressBillDto.startDate!=null">
+            <if test="expressBillDto.startDate!=''">
+                <if test="expressBillDto.endDate!=null">
+                    <if test="expressBillDto.endDate!=''">
+                        AND DATE(eb.billDate) BETWEEN #{expressBillDto.startDate,jdbcType=VARCHAR} AND
+                        #{expressBillDto.endDate,jdbcType=VARCHAR}
+                    </if>
+                </if>
+            </if>
+        </if>
+        <if test="expressBillDto.revname!=null">
+            AND eb.revName like #{expressBillDto.revname,jdbcType=VARCHAR}
+        </if>
+        <if test="expressBillDto.revphone!=null">
+            AND eb.revPhone like #{expressBillDto.revphone,jdbcType=VARCHAR}
+        </if>
+        <if test="expressBillDto.billCode!=null">
+            AND eb.billCode LIKE #{expressBillDto.billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="expressBillDto.fdedid!=null">
+            AND eb.fdID = #{expressBillDto.fdedid,jdbcType=VARCHAR}
+        </if>
+        <if test="expressBillDto.revmemberid!=null">
+            AND eb.revMemberID = #{expressBillDto.revmemberid,jdbcType=INTEGER}
+        </if>
+        <if test="expressBillDto.sendmemberid!=null">
+            AND eb.sendMemberID = #{expressBillDto.sendmemberid,jdbcType=INTEGER}
+        </if>
+        ORDER BY eb.stauts
+        <if test="expressBillDto.rows>0">
+            limit #{expressBillDto.page,jdbcType=INTEGER},#{expressBillDto.rows,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--获取数量  -->
+    <select id="selectExpressBillCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(e.billID)
+        FROM
+        t_express_bill e
+        WHERE
+        e.isdel = 0
+        <if test="expressBillDto.billStauts!=null">
+            <if test="expressBillDto.billStauts==1">
+                AND e.stauts &lt;= 400
+            </if>
+            <if test="expressBillDto.billStauts==2">
+                AND e.stauts &gt;= 500
+            </if>
+            <if test="expressBillDto.billStauts==3">
+                AND e.stauts = #{expressBillDto.status,jdbcType=INTEGER}
+            </if>
+        </if>
+        <if test="expressBillDto.uid!=null">
+            AND e.revUserID = #{expressBillDto.uid,jdbcType=INTEGER}
+            OR e.sendUserID = #{expressBillDto.uid,jdbcType=INTEGER}
+        </if>
+        <if test="expressBillDto.revmemberid!=null">
+            AND e.revMemberID = #{expressBillDto.revmemberid,jdbcType=INTEGER}
+        </if>
+        <if test="expressBillDto.sendmemberid!=null">
+            AND e.sendMemberID = #{expressBillDto.sendmemberid,jdbcType=INTEGER}
+        </if>
+        <if test="expressBillDto.startDate!=null">
+            <if test="expressBillDto.endDate!=null">
+                AND DATE(e.billDate) BETWEEN #{expressBillDto.startDate,jdbcType=TIMESTAMP} AND
+                #{expressBillDto.endDate,jdbcType=TIMESTAMP}
+            </if>
+        </if>
+        <if test="expressBillDto.revname!=null">
+            AND e.revName like #{expressBillDto.revname,jdbcType=VARCHAR}
+        </if>
+        <if test="expressBillDto.revphone!=null">
+            AND e.revPhone like #{expressBillDto.revphone,jdbcType=VARCHAR}
+        </if>
+        <if test="expressBillDto.billCode!=null">
+            AND e.billCode like #{expressBillDto.billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="expressBillDto.fdedid!=null">
+            AND e.fdID = #{expressBillDto.fdedid,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+    <!--查找最大id-->
+    <select id="selectMaxId" resultType="java.lang.Integer">
+    select max(e.billID) from t_express_bill e ;
+  </select>
+
+    <!--获取版本号-->
+    <select id="findVersion" resultType="com.zrkj.ecp.domain.app.BasApp">
+    SELECT
+        a.appVer as appver,
+        a.appUrl as appurl,
+        a.notes as notes
+    FROM
+        t_bas_app a
+    WHERE
+        a.appShortName = '快递';
+  </select>
+
+    <!--根据单号查找当前状态-->
+    <select id="selectStatusByBillCode" resultType="java.lang.Integer">
+    SELECT
+        b.stauts
+    FROM
+        t_express_bill b
+    WHERE
+        b.billCode = #{billcode,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectStatusByBillId" resultType="java.lang.Integer">
+    SELECT
+    b.stauts
+    FROM
+    t_express_bill b
+    WHERE
+    b.billId = #{billid,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectBillIdByBillCode" resultType="java.lang.Integer">
+    SELECT
+    b.billId
+    FROM
+    t_express_bill b
+    WHERE
+        b.billCode = #{billcode,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

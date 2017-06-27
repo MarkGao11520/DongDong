@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.shoporder.ShopOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.shoporder.ShopOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="buyer_id" property="buyerId" jdbcType="BIGINT" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="buyer_email" property="buyerEmail" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="order_type" property="orderType" jdbcType="BIT" />
+    <result column="payment_id" property="paymentId" jdbcType="BIGINT" />
+    <result column="payment_name" property="paymentName" jdbcType="VARCHAR" />
+    <result column="payment_code" property="paymentCode" jdbcType="VARCHAR" />
+    <result column="payment_branch" property="paymentBranch" jdbcType="VARCHAR" />
+    <result column="payment_direct" property="paymentDirect" jdbcType="CHAR" />
+    <result column="payment_state" property="paymentState" jdbcType="BIT" />
+    <result column="out_sn" property="outSn" jdbcType="VARCHAR" />
+    <result column="trade_sn" property="tradeSn" jdbcType="VARCHAR" />
+    <result column="payment_time" property="paymentTime" jdbcType="BIGINT" />
+    <result column="shipping_time" property="shippingTime" jdbcType="BIGINT" />
+    <result column="shipping_express_id" property="shippingExpressId" jdbcType="BIT" />
+    <result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
+    <result column="out_payment_code" property="outPaymentCode" jdbcType="VARCHAR" />
+    <result column="finnshed_time" property="finnshedTime" jdbcType="BIGINT" />
+    <result column="invoice" property="invoice" jdbcType="VARCHAR" />
+    <result column="goods_amount" property="goodsAmount" jdbcType="DECIMAL" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="order_total_price" property="orderTotalPrice" jdbcType="DECIMAL" />
+    <result column="shipping_fee" property="shippingFee" jdbcType="DECIMAL" />
+    <result column="shipping_name" property="shippingName" jdbcType="VARCHAR" />
+    <result column="evaluation_status" property="evaluationStatus" jdbcType="BIT" />
+    <result column="evaluation_time" property="evaluationTime" jdbcType="BIGINT" />
+    <result column="evalseller_status" property="evalsellerStatus" jdbcType="BIT" />
+    <result column="evalseller_time" property="evalsellerTime" jdbcType="BIGINT" />
+    <result column="order_message" property="orderMessage" jdbcType="VARCHAR" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="order_pointscount" property="orderPointscount" jdbcType="INTEGER" />
+    <result column="voucher_id" property="voucherId" jdbcType="INTEGER" />
+    <result column="voucher_price" property="voucherPrice" jdbcType="DECIMAL" />
+    <result column="voucher_code" property="voucherCode" jdbcType="VARCHAR" />
+    <result column="refund_state" property="refundState" jdbcType="BIT" />
+    <result column="return_state" property="returnState" jdbcType="BIT" />
+    <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="return_num" property="returnNum" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="BIGINT" />
+    <result column="group_count" property="groupCount" jdbcType="INTEGER" />
+    <result column="xianshi_id" property="xianshiId" jdbcType="BIGINT" />
+    <result column="xianshi_explain" property="xianshiExplain" jdbcType="VARCHAR" />
+    <result column="mansong_id" property="mansongId" jdbcType="BIGINT" />
+    <result column="mansong_explain" property="mansongExplain" jdbcType="VARCHAR" />
+    <result column="bundling_id" property="bundlingId" jdbcType="INTEGER" />
+    <result column="bundling_explain" property="bundlingExplain" jdbcType="VARCHAR" />
+    <result column="order_from" property="orderFrom" jdbcType="CHAR" />
+    <result column="daddress_id" property="daddressId" jdbcType="INTEGER" />
+    <result column="address_id" property="addressId" jdbcType="BIGINT" />
+    <result column="pay_id" property="payId" jdbcType="BIGINT" />
+    <result column="pay_sn" property="paySn" jdbcType="VARCHAR" />
+    <result column="balance_state" property="balanceState" jdbcType="BIT" />
+    <result column="balance_time" property="balanceTime" jdbcType="BIGINT" />
+    <result column="shipping_express_code" property="shippingExpressCode" jdbcType="VARCHAR" />
+    <result column="predeposit_amount" property="predepositAmount" jdbcType="DECIMAL" />
+    <result column="cancel_cause" property="cancelCause" jdbcType="VARCHAR" />
+    <result column="coupon_id" property="couponId" jdbcType="BIGINT" />
+    <result column="coupon_price" property="couponPrice" jdbcType="DECIMAL" />
+    <result column="promo_price" property="promoPrice" jdbcType="DECIMAL" />
+    <result column="lock_state" property="lockState" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zrkj.ecp.domain.shoporder.ShopOrderWithBLOBs" extends="BaseResultMap" >
+    <result column="pay_message" property="payMessage" jdbcType="LONGVARCHAR" />
+    <result column="deliver_explain" property="deliverExplain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_sn, store_id, store_name, buyer_id, buyer_name, buyer_email, create_time, 
+    order_type, payment_id, payment_name, payment_code, payment_branch, payment_direct, 
+    payment_state, out_sn, trade_sn, payment_time, shipping_time, shipping_express_id, 
+    shipping_code, out_payment_code, finnshed_time, invoice, goods_amount, discount, 
+    order_amount, order_total_price, shipping_fee, shipping_name, evaluation_status, 
+    evaluation_time, evalseller_status, evalseller_time, order_message, order_state, 
+    order_pointscount, voucher_id, voucher_price, voucher_code, refund_state, return_state, 
+    refund_amount, return_num, group_id, group_count, xianshi_id, xianshi_explain, mansong_id, 
+    mansong_explain, bundling_id, bundling_explain, order_from, daddress_id, address_id, 
+    pay_id, pay_sn, balance_state, balance_time, shipping_express_code, predeposit_amount, 
+    cancel_cause, coupon_id, coupon_price, promo_price, lock_state
+  </sql>
+  <sql id="Blob_Column_List" >
+    pay_message, deliver_explain
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shop_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderWithBLOBs" >
+    insert into shop_order (id, order_sn, store_id, 
+      store_name, buyer_id, buyer_name, 
+      buyer_email, create_time, order_type, 
+      payment_id, payment_name, payment_code, 
+      payment_branch, payment_direct, payment_state, 
+      out_sn, trade_sn, payment_time, 
+      shipping_time, shipping_express_id, shipping_code, 
+      out_payment_code, finnshed_time, invoice, 
+      goods_amount, discount, order_amount, 
+      order_total_price, shipping_fee, shipping_name, 
+      evaluation_status, evaluation_time, evalseller_status, 
+      evalseller_time, order_message, order_state, 
+      order_pointscount, voucher_id, voucher_price, 
+      voucher_code, refund_state, return_state, 
+      refund_amount, return_num, group_id, 
+      group_count, xianshi_id, xianshi_explain, 
+      mansong_id, mansong_explain, bundling_id, 
+      bundling_explain, order_from, daddress_id, 
+      address_id, pay_id, pay_sn, 
+      balance_state, balance_time, shipping_express_code, 
+      predeposit_amount, cancel_cause, coupon_id, 
+      coupon_price, promo_price, lock_state, 
+      pay_message, deliver_explain)
+    values (#{id,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{storeId,jdbcType=BIGINT}, 
+      #{storeName,jdbcType=VARCHAR}, #{buyerId,jdbcType=BIGINT}, #{buyerName,jdbcType=VARCHAR}, 
+      #{buyerEmail,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{orderType,jdbcType=BIT}, 
+      #{paymentId,jdbcType=BIGINT}, #{paymentName,jdbcType=VARCHAR}, #{paymentCode,jdbcType=VARCHAR}, 
+      #{paymentBranch,jdbcType=VARCHAR}, #{paymentDirect,jdbcType=CHAR}, #{paymentState,jdbcType=BIT}, 
+      #{outSn,jdbcType=VARCHAR}, #{tradeSn,jdbcType=VARCHAR}, #{paymentTime,jdbcType=BIGINT}, 
+      #{shippingTime,jdbcType=BIGINT}, #{shippingExpressId,jdbcType=BIT}, #{shippingCode,jdbcType=VARCHAR}, 
+      #{outPaymentCode,jdbcType=VARCHAR}, #{finnshedTime,jdbcType=BIGINT}, #{invoice,jdbcType=VARCHAR}, 
+      #{goodsAmount,jdbcType=DECIMAL}, #{discount,jdbcType=DECIMAL}, #{orderAmount,jdbcType=DECIMAL}, 
+      #{orderTotalPrice,jdbcType=DECIMAL}, #{shippingFee,jdbcType=DECIMAL}, #{shippingName,jdbcType=VARCHAR}, 
+      #{evaluationStatus,jdbcType=BIT}, #{evaluationTime,jdbcType=BIGINT}, #{evalsellerStatus,jdbcType=BIT}, 
+      #{evalsellerTime,jdbcType=BIGINT}, #{orderMessage,jdbcType=VARCHAR}, #{orderState,jdbcType=INTEGER}, 
+      #{orderPointscount,jdbcType=INTEGER}, #{voucherId,jdbcType=INTEGER}, #{voucherPrice,jdbcType=DECIMAL}, 
+      #{voucherCode,jdbcType=VARCHAR}, #{refundState,jdbcType=BIT}, #{returnState,jdbcType=BIT}, 
+      #{refundAmount,jdbcType=DECIMAL}, #{returnNum,jdbcType=INTEGER}, #{groupId,jdbcType=BIGINT}, 
+      #{groupCount,jdbcType=INTEGER}, #{xianshiId,jdbcType=BIGINT}, #{xianshiExplain,jdbcType=VARCHAR}, 
+      #{mansongId,jdbcType=BIGINT}, #{mansongExplain,jdbcType=VARCHAR}, #{bundlingId,jdbcType=INTEGER}, 
+      #{bundlingExplain,jdbcType=VARCHAR}, #{orderFrom,jdbcType=CHAR}, #{daddressId,jdbcType=INTEGER}, 
+      #{addressId,jdbcType=BIGINT}, #{payId,jdbcType=BIGINT}, #{paySn,jdbcType=VARCHAR}, 
+      #{balanceState,jdbcType=BIT}, #{balanceTime,jdbcType=BIGINT}, #{shippingExpressCode,jdbcType=VARCHAR}, 
+      #{predepositAmount,jdbcType=DECIMAL}, #{cancelCause,jdbcType=VARCHAR}, #{couponId,jdbcType=BIGINT}, 
+      #{couponPrice,jdbcType=DECIMAL}, #{promoPrice,jdbcType=DECIMAL}, #{lockState,jdbcType=BIT}, 
+      #{payMessage,jdbcType=LONGVARCHAR}, #{deliverExplain,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderWithBLOBs" >
+    insert into shop_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="buyerName != null" >
+        buyer_name,
+      </if>
+      <if test="buyerEmail != null" >
+        buyer_email,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="paymentId != null" >
+        payment_id,
+      </if>
+      <if test="paymentName != null" >
+        payment_name,
+      </if>
+      <if test="paymentCode != null" >
+        payment_code,
+      </if>
+      <if test="paymentBranch != null" >
+        payment_branch,
+      </if>
+      <if test="paymentDirect != null" >
+        payment_direct,
+      </if>
+      <if test="paymentState != null" >
+        payment_state,
+      </if>
+      <if test="outSn != null" >
+        out_sn,
+      </if>
+      <if test="tradeSn != null" >
+        trade_sn,
+      </if>
+      <if test="paymentTime != null" >
+        payment_time,
+      </if>
+      <if test="shippingTime != null" >
+        shipping_time,
+      </if>
+      <if test="shippingExpressId != null" >
+        shipping_express_id,
+      </if>
+      <if test="shippingCode != null" >
+        shipping_code,
+      </if>
+      <if test="outPaymentCode != null" >
+        out_payment_code,
+      </if>
+      <if test="finnshedTime != null" >
+        finnshed_time,
+      </if>
+      <if test="invoice != null" >
+        invoice,
+      </if>
+      <if test="goodsAmount != null" >
+        goods_amount,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="orderAmount != null" >
+        order_amount,
+      </if>
+      <if test="orderTotalPrice != null" >
+        order_total_price,
+      </if>
+      <if test="shippingFee != null" >
+        shipping_fee,
+      </if>
+      <if test="shippingName != null" >
+        shipping_name,
+      </if>
+      <if test="evaluationStatus != null" >
+        evaluation_status,
+      </if>
+      <if test="evaluationTime != null" >
+        evaluation_time,
+      </if>
+      <if test="evalsellerStatus != null" >
+        evalseller_status,
+      </if>
+      <if test="evalsellerTime != null" >
+        evalseller_time,
+      </if>
+      <if test="orderMessage != null" >
+        order_message,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="orderPointscount != null" >
+        order_pointscount,
+      </if>
+      <if test="voucherId != null" >
+        voucher_id,
+      </if>
+      <if test="voucherPrice != null" >
+        voucher_price,
+      </if>
+      <if test="voucherCode != null" >
+        voucher_code,
+      </if>
+      <if test="refundState != null" >
+        refund_state,
+      </if>
+      <if test="returnState != null" >
+        return_state,
+      </if>
+      <if test="refundAmount != null" >
+        refund_amount,
+      </if>
+      <if test="returnNum != null" >
+        return_num,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupCount != null" >
+        group_count,
+      </if>
+      <if test="xianshiId != null" >
+        xianshi_id,
+      </if>
+      <if test="xianshiExplain != null" >
+        xianshi_explain,
+      </if>
+      <if test="mansongId != null" >
+        mansong_id,
+      </if>
+      <if test="mansongExplain != null" >
+        mansong_explain,
+      </if>
+      <if test="bundlingId != null" >
+        bundling_id,
+      </if>
+      <if test="bundlingExplain != null" >
+        bundling_explain,
+      </if>
+      <if test="orderFrom != null" >
+        order_from,
+      </if>
+      <if test="daddressId != null" >
+        daddress_id,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="paySn != null" >
+        pay_sn,
+      </if>
+      <if test="balanceState != null" >
+        balance_state,
+      </if>
+      <if test="balanceTime != null" >
+        balance_time,
+      </if>
+      <if test="shippingExpressCode != null" >
+        shipping_express_code,
+      </if>
+      <if test="predepositAmount != null" >
+        predeposit_amount,
+      </if>
+      <if test="cancelCause != null" >
+        cancel_cause,
+      </if>
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="couponPrice != null" >
+        coupon_price,
+      </if>
+      <if test="promoPrice != null" >
+        promo_price,
+      </if>
+      <if test="lockState != null" >
+        lock_state,
+      </if>
+      <if test="payMessage != null" >
+        pay_message,
+      </if>
+      <if test="deliverExplain != null" >
+        deliver_explain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="buyerName != null" >
+        #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerEmail != null" >
+        #{buyerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=BIT},
+      </if>
+      <if test="paymentId != null" >
+        #{paymentId,jdbcType=BIGINT},
+      </if>
+      <if test="paymentName != null" >
+        #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentCode != null" >
+        #{paymentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentBranch != null" >
+        #{paymentBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentDirect != null" >
+        #{paymentDirect,jdbcType=CHAR},
+      </if>
+      <if test="paymentState != null" >
+        #{paymentState,jdbcType=BIT},
+      </if>
+      <if test="outSn != null" >
+        #{outSn,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeSn != null" >
+        #{tradeSn,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null" >
+        #{paymentTime,jdbcType=BIGINT},
+      </if>
+      <if test="shippingTime != null" >
+        #{shippingTime,jdbcType=BIGINT},
+      </if>
+      <if test="shippingExpressId != null" >
+        #{shippingExpressId,jdbcType=BIT},
+      </if>
+      <if test="shippingCode != null" >
+        #{shippingCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outPaymentCode != null" >
+        #{outPaymentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="finnshedTime != null" >
+        #{finnshedTime,jdbcType=BIGINT},
+      </if>
+      <if test="invoice != null" >
+        #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAmount != null" >
+        #{goodsAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalPrice != null" >
+        #{orderTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingFee != null" >
+        #{shippingFee,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingName != null" >
+        #{shippingName,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationStatus != null" >
+        #{evaluationStatus,jdbcType=BIT},
+      </if>
+      <if test="evaluationTime != null" >
+        #{evaluationTime,jdbcType=BIGINT},
+      </if>
+      <if test="evalsellerStatus != null" >
+        #{evalsellerStatus,jdbcType=BIT},
+      </if>
+      <if test="evalsellerTime != null" >
+        #{evalsellerTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderMessage != null" >
+        #{orderMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderPointscount != null" >
+        #{orderPointscount,jdbcType=INTEGER},
+      </if>
+      <if test="voucherId != null" >
+        #{voucherId,jdbcType=INTEGER},
+      </if>
+      <if test="voucherPrice != null" >
+        #{voucherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherCode != null" >
+        #{voucherCode,jdbcType=VARCHAR},
+      </if>
+      <if test="refundState != null" >
+        #{refundState,jdbcType=BIT},
+      </if>
+      <if test="returnState != null" >
+        #{returnState,jdbcType=BIT},
+      </if>
+      <if test="refundAmount != null" >
+        #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnNum != null" >
+        #{returnNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="groupCount != null" >
+        #{groupCount,jdbcType=INTEGER},
+      </if>
+      <if test="xianshiId != null" >
+        #{xianshiId,jdbcType=BIGINT},
+      </if>
+      <if test="xianshiExplain != null" >
+        #{xianshiExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="mansongId != null" >
+        #{mansongId,jdbcType=BIGINT},
+      </if>
+      <if test="mansongExplain != null" >
+        #{mansongExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="bundlingId != null" >
+        #{bundlingId,jdbcType=INTEGER},
+      </if>
+      <if test="bundlingExplain != null" >
+        #{bundlingExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFrom != null" >
+        #{orderFrom,jdbcType=CHAR},
+      </if>
+      <if test="daddressId != null" >
+        #{daddressId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="payId != null" >
+        #{payId,jdbcType=BIGINT},
+      </if>
+      <if test="paySn != null" >
+        #{paySn,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceState != null" >
+        #{balanceState,jdbcType=BIT},
+      </if>
+      <if test="balanceTime != null" >
+        #{balanceTime,jdbcType=BIGINT},
+      </if>
+      <if test="shippingExpressCode != null" >
+        #{shippingExpressCode,jdbcType=VARCHAR},
+      </if>
+      <if test="predepositAmount != null" >
+        #{predepositAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cancelCause != null" >
+        #{cancelCause,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null" >
+        #{couponId,jdbcType=BIGINT},
+      </if>
+      <if test="couponPrice != null" >
+        #{couponPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="promoPrice != null" >
+        #{promoPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="lockState != null" >
+        #{lockState,jdbcType=BIT},
+      </if>
+      <if test="payMessage != null" >
+        #{payMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="deliverExplain != null" >
+        #{deliverExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderWithBLOBs" >
+    update shop_order
+    <set >
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="buyerName != null" >
+        buyer_name = #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerEmail != null" >
+        buyer_email = #{buyerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=BIT},
+      </if>
+      <if test="paymentId != null" >
+        payment_id = #{paymentId,jdbcType=BIGINT},
+      </if>
+      <if test="paymentName != null" >
+        payment_name = #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentCode != null" >
+        payment_code = #{paymentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentBranch != null" >
+        payment_branch = #{paymentBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentDirect != null" >
+        payment_direct = #{paymentDirect,jdbcType=CHAR},
+      </if>
+      <if test="paymentState != null" >
+        payment_state = #{paymentState,jdbcType=BIT},
+      </if>
+      <if test="outSn != null" >
+        out_sn = #{outSn,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeSn != null" >
+        trade_sn = #{tradeSn,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null" >
+        payment_time = #{paymentTime,jdbcType=BIGINT},
+      </if>
+      <if test="shippingTime != null" >
+        shipping_time = #{shippingTime,jdbcType=BIGINT},
+      </if>
+      <if test="shippingExpressId != null" >
+        shipping_express_id = #{shippingExpressId,jdbcType=BIT},
+      </if>
+      <if test="shippingCode != null" >
+        shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outPaymentCode != null" >
+        out_payment_code = #{outPaymentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="finnshedTime != null" >
+        finnshed_time = #{finnshedTime,jdbcType=BIGINT},
+      </if>
+      <if test="invoice != null" >
+        invoice = #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAmount != null" >
+        goods_amount = #{goodsAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalPrice != null" >
+        order_total_price = #{orderTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingFee != null" >
+        shipping_fee = #{shippingFee,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingName != null" >
+        shipping_name = #{shippingName,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationStatus != null" >
+        evaluation_status = #{evaluationStatus,jdbcType=BIT},
+      </if>
+      <if test="evaluationTime != null" >
+        evaluation_time = #{evaluationTime,jdbcType=BIGINT},
+      </if>
+      <if test="evalsellerStatus != null" >
+        evalseller_status = #{evalsellerStatus,jdbcType=BIT},
+      </if>
+      <if test="evalsellerTime != null" >
+        evalseller_time = #{evalsellerTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderMessage != null" >
+        order_message = #{orderMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderPointscount != null" >
+        order_pointscount = #{orderPointscount,jdbcType=INTEGER},
+      </if>
+      <if test="voucherId != null" >
+        voucher_id = #{voucherId,jdbcType=INTEGER},
+      </if>
+      <if test="voucherPrice != null" >
+        voucher_price = #{voucherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherCode != null" >
+        voucher_code = #{voucherCode,jdbcType=VARCHAR},
+      </if>
+      <if test="refundState != null" >
+        refund_state = #{refundState,jdbcType=BIT},
+      </if>
+      <if test="returnState != null" >
+        return_state = #{returnState,jdbcType=BIT},
+      </if>
+      <if test="refundAmount != null" >
+        refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnNum != null" >
+        return_num = #{returnNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="groupCount != null" >
+        group_count = #{groupCount,jdbcType=INTEGER},
+      </if>
+      <if test="xianshiId != null" >
+        xianshi_id = #{xianshiId,jdbcType=BIGINT},
+      </if>
+      <if test="xianshiExplain != null" >
+        xianshi_explain = #{xianshiExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="mansongId != null" >
+        mansong_id = #{mansongId,jdbcType=BIGINT},
+      </if>
+      <if test="mansongExplain != null" >
+        mansong_explain = #{mansongExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="bundlingId != null" >
+        bundling_id = #{bundlingId,jdbcType=INTEGER},
+      </if>
+      <if test="bundlingExplain != null" >
+        bundling_explain = #{bundlingExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFrom != null" >
+        order_from = #{orderFrom,jdbcType=CHAR},
+      </if>
+      <if test="daddressId != null" >
+        daddress_id = #{daddressId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="payId != null" >
+        pay_id = #{payId,jdbcType=BIGINT},
+      </if>
+      <if test="paySn != null" >
+        pay_sn = #{paySn,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceState != null" >
+        balance_state = #{balanceState,jdbcType=BIT},
+      </if>
+      <if test="balanceTime != null" >
+        balance_time = #{balanceTime,jdbcType=BIGINT},
+      </if>
+      <if test="shippingExpressCode != null" >
+        shipping_express_code = #{shippingExpressCode,jdbcType=VARCHAR},
+      </if>
+      <if test="predepositAmount != null" >
+        predeposit_amount = #{predepositAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cancelCause != null" >
+        cancel_cause = #{cancelCause,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null" >
+        coupon_id = #{couponId,jdbcType=BIGINT},
+      </if>
+      <if test="couponPrice != null" >
+        coupon_price = #{couponPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="promoPrice != null" >
+        promo_price = #{promoPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="lockState != null" >
+        lock_state = #{lockState,jdbcType=BIT},
+      </if>
+      <if test="payMessage != null" >
+        pay_message = #{payMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="deliverExplain != null" >
+        deliver_explain = #{deliverExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderWithBLOBs" >
+    update shop_order
+    set order_sn = #{orderSn,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=BIGINT},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=BIGINT},
+      buyer_name = #{buyerName,jdbcType=VARCHAR},
+      buyer_email = #{buyerEmail,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      order_type = #{orderType,jdbcType=BIT},
+      payment_id = #{paymentId,jdbcType=BIGINT},
+      payment_name = #{paymentName,jdbcType=VARCHAR},
+      payment_code = #{paymentCode,jdbcType=VARCHAR},
+      payment_branch = #{paymentBranch,jdbcType=VARCHAR},
+      payment_direct = #{paymentDirect,jdbcType=CHAR},
+      payment_state = #{paymentState,jdbcType=BIT},
+      out_sn = #{outSn,jdbcType=VARCHAR},
+      trade_sn = #{tradeSn,jdbcType=VARCHAR},
+      payment_time = #{paymentTime,jdbcType=BIGINT},
+      shipping_time = #{shippingTime,jdbcType=BIGINT},
+      shipping_express_id = #{shippingExpressId,jdbcType=BIT},
+      shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      out_payment_code = #{outPaymentCode,jdbcType=VARCHAR},
+      finnshed_time = #{finnshedTime,jdbcType=BIGINT},
+      invoice = #{invoice,jdbcType=VARCHAR},
+      goods_amount = #{goodsAmount,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      order_total_price = #{orderTotalPrice,jdbcType=DECIMAL},
+      shipping_fee = #{shippingFee,jdbcType=DECIMAL},
+      shipping_name = #{shippingName,jdbcType=VARCHAR},
+      evaluation_status = #{evaluationStatus,jdbcType=BIT},
+      evaluation_time = #{evaluationTime,jdbcType=BIGINT},
+      evalseller_status = #{evalsellerStatus,jdbcType=BIT},
+      evalseller_time = #{evalsellerTime,jdbcType=BIGINT},
+      order_message = #{orderMessage,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=INTEGER},
+      order_pointscount = #{orderPointscount,jdbcType=INTEGER},
+      voucher_id = #{voucherId,jdbcType=INTEGER},
+      voucher_price = #{voucherPrice,jdbcType=DECIMAL},
+      voucher_code = #{voucherCode,jdbcType=VARCHAR},
+      refund_state = #{refundState,jdbcType=BIT},
+      return_state = #{returnState,jdbcType=BIT},
+      refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      return_num = #{returnNum,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=BIGINT},
+      group_count = #{groupCount,jdbcType=INTEGER},
+      xianshi_id = #{xianshiId,jdbcType=BIGINT},
+      xianshi_explain = #{xianshiExplain,jdbcType=VARCHAR},
+      mansong_id = #{mansongId,jdbcType=BIGINT},
+      mansong_explain = #{mansongExplain,jdbcType=VARCHAR},
+      bundling_id = #{bundlingId,jdbcType=INTEGER},
+      bundling_explain = #{bundlingExplain,jdbcType=VARCHAR},
+      order_from = #{orderFrom,jdbcType=CHAR},
+      daddress_id = #{daddressId,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=BIGINT},
+      pay_id = #{payId,jdbcType=BIGINT},
+      pay_sn = #{paySn,jdbcType=VARCHAR},
+      balance_state = #{balanceState,jdbcType=BIT},
+      balance_time = #{balanceTime,jdbcType=BIGINT},
+      shipping_express_code = #{shippingExpressCode,jdbcType=VARCHAR},
+      predeposit_amount = #{predepositAmount,jdbcType=DECIMAL},
+      cancel_cause = #{cancelCause,jdbcType=VARCHAR},
+      coupon_id = #{couponId,jdbcType=BIGINT},
+      coupon_price = #{couponPrice,jdbcType=DECIMAL},
+      promo_price = #{promoPrice,jdbcType=DECIMAL},
+      lock_state = #{lockState,jdbcType=BIT},
+      pay_message = #{payMessage,jdbcType=LONGVARCHAR},
+      deliver_explain = #{deliverExplain,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrder" >
+    update shop_order
+    set order_sn = #{orderSn,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=BIGINT},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=BIGINT},
+      buyer_name = #{buyerName,jdbcType=VARCHAR},
+      buyer_email = #{buyerEmail,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      order_type = #{orderType,jdbcType=BIT},
+      payment_id = #{paymentId,jdbcType=BIGINT},
+      payment_name = #{paymentName,jdbcType=VARCHAR},
+      payment_code = #{paymentCode,jdbcType=VARCHAR},
+      payment_branch = #{paymentBranch,jdbcType=VARCHAR},
+      payment_direct = #{paymentDirect,jdbcType=CHAR},
+      payment_state = #{paymentState,jdbcType=BIT},
+      out_sn = #{outSn,jdbcType=VARCHAR},
+      trade_sn = #{tradeSn,jdbcType=VARCHAR},
+      payment_time = #{paymentTime,jdbcType=BIGINT},
+      shipping_time = #{shippingTime,jdbcType=BIGINT},
+      shipping_express_id = #{shippingExpressId,jdbcType=BIT},
+      shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      out_payment_code = #{outPaymentCode,jdbcType=VARCHAR},
+      finnshed_time = #{finnshedTime,jdbcType=BIGINT},
+      invoice = #{invoice,jdbcType=VARCHAR},
+      goods_amount = #{goodsAmount,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      order_total_price = #{orderTotalPrice,jdbcType=DECIMAL},
+      shipping_fee = #{shippingFee,jdbcType=DECIMAL},
+      shipping_name = #{shippingName,jdbcType=VARCHAR},
+      evaluation_status = #{evaluationStatus,jdbcType=BIT},
+      evaluation_time = #{evaluationTime,jdbcType=BIGINT},
+      evalseller_status = #{evalsellerStatus,jdbcType=BIT},
+      evalseller_time = #{evalsellerTime,jdbcType=BIGINT},
+      order_message = #{orderMessage,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=INTEGER},
+      order_pointscount = #{orderPointscount,jdbcType=INTEGER},
+      voucher_id = #{voucherId,jdbcType=INTEGER},
+      voucher_price = #{voucherPrice,jdbcType=DECIMAL},
+      voucher_code = #{voucherCode,jdbcType=VARCHAR},
+      refund_state = #{refundState,jdbcType=BIT},
+      return_state = #{returnState,jdbcType=BIT},
+      refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      return_num = #{returnNum,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=BIGINT},
+      group_count = #{groupCount,jdbcType=INTEGER},
+      xianshi_id = #{xianshiId,jdbcType=BIGINT},
+      xianshi_explain = #{xianshiExplain,jdbcType=VARCHAR},
+      mansong_id = #{mansongId,jdbcType=BIGINT},
+      mansong_explain = #{mansongExplain,jdbcType=VARCHAR},
+      bundling_id = #{bundlingId,jdbcType=INTEGER},
+      bundling_explain = #{bundlingExplain,jdbcType=VARCHAR},
+      order_from = #{orderFrom,jdbcType=CHAR},
+      daddress_id = #{daddressId,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=BIGINT},
+      pay_id = #{payId,jdbcType=BIGINT},
+      pay_sn = #{paySn,jdbcType=VARCHAR},
+      balance_state = #{balanceState,jdbcType=BIT},
+      balance_time = #{balanceTime,jdbcType=BIGINT},
+      shipping_express_code = #{shippingExpressCode,jdbcType=VARCHAR},
+      predeposit_amount = #{predepositAmount,jdbcType=DECIMAL},
+      cancel_cause = #{cancelCause,jdbcType=VARCHAR},
+      coupon_id = #{couponId,jdbcType=BIGINT},
+      coupon_price = #{couponPrice,jdbcType=DECIMAL},
+      promo_price = #{promoPrice,jdbcType=DECIMAL},
+      lock_state = #{lockState,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--获取订单列表-->
+  <select id="selectShopOrderList" resultMap="ResultMapWithBLOBs"  >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shop_order
+    where order_sn like #{dto.orderSn,jdbcType=VARCHAR}
+  </select>
+</mapper>

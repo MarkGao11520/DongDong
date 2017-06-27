@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.expresssms.SmsRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.expresssms.SmsRecord" >
+    <id column="recordID" property="recordid" jdbcType="INTEGER" />
+    <result column="revID" property="revid" jdbcType="INTEGER" />
+    <result column="revName" property="revname" jdbcType="VARCHAR" />
+    <result column="revPhone" property="revphone" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="addDate" property="adddate" jdbcType="TIMESTAMP" />
+    <result column="addDate" property="adddateString" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="cId" property="cid" jdbcType="INTEGER" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recordID, revID, revName, revPhone, content, addDate, status, cId, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sms_record
+    where recordID = #{recordid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sms_record
+    where recordID = #{recordid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.expresssms.SmsRecord" >
+    insert into t_sms_record (recordID, revID, revName, 
+      revPhone, content, addDate, 
+      status, cId, isdel)
+    values (#{recordid,jdbcType=INTEGER}, #{revid,jdbcType=INTEGER}, #{revname,jdbcType=VARCHAR}, 
+      #{revphone,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{adddate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{isdel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.expresssms.SmsRecord" >
+    insert into t_sms_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordid != null" >
+        recordID,
+      </if>
+      <if test="revid != null" >
+        revID,
+      </if>
+      <if test="revname != null" >
+        revName,
+      </if>
+      <if test="revphone != null" >
+        revPhone,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="adddate != null" >
+        addDate,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="cid != null" >
+        cId,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordid != null" >
+        #{recordid,jdbcType=INTEGER},
+      </if>
+      <if test="revid != null" >
+        #{revid,jdbcType=INTEGER},
+      </if>
+      <if test="revname != null" >
+        #{revname,jdbcType=VARCHAR},
+      </if>
+      <if test="revphone != null" >
+        #{revphone,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="adddate != null" >
+        #{adddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.expresssms.SmsRecord" >
+    update t_sms_record
+    <set >
+      <if test="revid != null" >
+        revID = #{revid,jdbcType=INTEGER},
+      </if>
+      <if test="revname != null" >
+        revName = #{revname,jdbcType=VARCHAR},
+      </if>
+      <if test="revphone != null" >
+        revPhone = #{revphone,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="adddate != null" >
+        addDate = #{adddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cId = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where recordID = #{recordid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.expresssms.SmsRecord" >
+    update t_sms_record
+    set revID = #{revid,jdbcType=INTEGER},
+      revName = #{revname,jdbcType=VARCHAR},
+      revPhone = #{revphone,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      addDate = #{adddate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      cId = #{cid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=INTEGER}
+    where recordID = #{recordid,jdbcType=INTEGER}
+  </update>
+  <!--获取列表  -->
+  <select id="selectSmsRecordList"  resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_sms_record e
+    WHERE
+    isdel = 0
+    <if test="smsTemplateDto.cid!=null">
+      AND e.cId = #{smsTemplateDto.cid,jdbcType=INTEGER}
+    </if>
+    <if test="expressDto.rows>0">
+      limit #{expressDto.page,jdbcType=INTEGER},#{expressDto.rows,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--获取数量  -->
+  <select id="selectSmsRecordCount"  resultType="java.lang.Integer" >
+    SELECT
+    COUNT(e.recordID)
+    FROM
+    t_sms_record e
+    WHERE
+    isdel = 0
+    <if test="smsTemplateDto.cid!=null">
+      AND e.cId = #{smsTemplateDto.cid,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--查找最大id-->
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select max(e.recordID) from t_sms_record e ;
+  </select>
+</mapper>

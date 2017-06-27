@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>会员信息管理</title>
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+<script>
+	function importExl() {
+		temp="importExcelToDB";
+		$("#importexcel").window("open");
+	}
+
+	function confirmExportAndImport() {
+
+		if(temp=="importExcelToDB"){
+			var importfile = $("#importFile").filebox("getValue");
+			if (importfile.length == 0) {
+				$.messager.show({
+					title : "提示消息",
+					msg : "请选择要导入的Excel文件模板"
+				});
+				return;
+			}
+//			alert(importfile.split('.')[1]);
+			if (importfile.split('.')[1] != 'xls') {
+				$.messager.show({
+					title : "提示消息",
+					msg : "你选择的文件有误，请重新选择导入的Excel文件"
+				});
+				return;
+			}
+			$.messager.progress();
+			$("#importform").form("submit", {
+				url : "../memberController/excelImport",
+				onSubmit : function() {
+					var isValid = $(this).form('validate');
+					if (!isValid) {
+						$.messager.progress('close'); // 如果表单是无效的则隐藏进度条
+					}
+					return isValid; // 返回false终止表单提交
+				},
+				success : function(result) {
+					$.messager.progress('close');
+					$.messager.show({
+						title : "提示消息",
+						msg : result
+					});
+					$('#datagrid').datagrid("reload");
+					// 如果提交成功则隐藏进度条
+				},
+				error : function() {
+					$.messager.show({
+						title : "提示消息",
+						msg : "请求服务器失败，请重试"
+					});
+				}
+
+			});
+			$("#importexcel").window("close");
+		}
+	}
+</script>
+
+
+<body>
+<div id="importexcel" class="easyui-window"
+	 data-options="closed:true,title:'导入导出Excel数据',modal:true">
+	<form id="importform" enctype="multipart/form-data" method="post">
+		<input  type="hidden" name="filePath" id="filePath"/>
+		<input id="importFile" name="importFile" class="easyui-filebox" data-options="required:true,missingMessage:'请选择巡查员信息Excel模板',width:'200px',buttonText:'选择Excel模板',buttonAligh:'left'" />
+		<a href="javascript:confirmExportAndImport()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">确认</a>
+	</form>
+</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+
+			<div class="pull-left">
+				<a
+					href="javascript:throughReview()"><input type="button"
+					class="btn btn-danger" value="一键审核" /></a>
+				<a
+						href="javascript:importExl()"><input type="button"
+																 class="btn btn-primary" value="excel导入" /></a>
+
+
+			</div>
+			<div class="pull-right">
+				<form class="form-search" >
+					<input type="text" class="form-control search" id="uname"
+						placeholder="请输入关键字/或者用户名" />
+					<button type="button"  onclick="javascript:obtainMemberByUName()" class="btn " style="width: 60px;">搜索</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+	<table  id="datagrid" class="easyui-datagrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true,toolbar:'#btn',url:'jsonMemberList'
+				,rownumbers:true,idField:'mid',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'mid',width:'5%',formatter:checkboxs"></th>
+			<th data-options="field:'uname',width:'10%'">用户名</th>
+			<th data-options="field:'lastlogintime',width:'10%'">最后登录时间</th>
+			<th data-options="field:'status',width:'5%',formatter:format">状态</th>
+			<th data-options="field:'isdel',width:'70%' ,formatter:option">操作</th>
+		</tr>
+		</thead>
+	</table>
+</body>
+
+<script type="text/javascript" src="../crm/js/Member/member/memberList.js">
+
+</script>
+</html>

@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.org.BasCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.org.BasCompany" >
+    <id column="cId" property="cid" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="regEmail" property="regemail" jdbcType="VARCHAR" />
+    <result column="regDate" property="regdate" jdbcType="TIMESTAMP" />
+    <result column="regDate" property="regdateString" jdbcType="VARCHAR" />
+    <result column="expiryDate" property="expirydate" jdbcType="TIMESTAMP" />
+    <result column="expiryDate" property="expirydateString" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="fileStorageSize" property="filestoragesize" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="provinceName" property="provincename" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="cityName" property="cityname" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="areaName" property="areaname" jdbcType="VARCHAR" />
+    <result column="wx_appid" property="wxAppid" jdbcType="VARCHAR" />
+    <result column="wx_secret" property="wxSecret" jdbcType="VARCHAR" />
+    <result column="wxid" property="wxid" jdbcType="VARCHAR" />
+    <result column="wx_account" property="wxAccount" jdbcType="VARCHAR" />
+    <result column="wx_type" property="wxType" jdbcType="INTEGER" />
+    <result column="wx_qrcode" property="wxQrcode" jdbcType="VARCHAR" />
+    <result column="treeOrder" property="treeorder" jdbcType="INTEGER" />
+    <result column="pId" property="pid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zrkj.ecp.domain.org.BasCompanyWithBLOBs" extends="BaseResultMap" >
+    <result column="shortName" property="shortname" jdbcType="VARCHAR" />
+    <result column="config" property="config" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cId, code, name, industry, telephone, fax, address, regEmail, regDate, expiryDate, 
+    status, fileStorageSize, province, provinceName, city, cityName, area, areaName, 
+    wx_appid, wx_secret, wxid, wx_account, wx_type, wx_qrcode, treeOrder, pId
+  </sql>
+  <sql id="Blob_Column_List" >
+    shortName, config
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,
+    DATE_FORMAT(regDate,'%Y-%c-%d')
+    ,
+    DATE_FORMAT(expirydate,'%Y-%c-%d')
+    from t_bas_company
+    where cId = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bas_company
+    where cId = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.org.BasCompanyWithBLOBs" >
+    insert into t_bas_company (cId, code, name, 
+      industry, telephone, fax, 
+      address, regEmail, regDate, 
+      expiryDate, status, fileStorageSize, 
+      province, provinceName, city, 
+      cityName, area, areaName, 
+      wx_appid, wx_secret, wxid, 
+      wx_account, wx_type, wx_qrcode, 
+      treeOrder, pId, shortName, 
+      config)
+    values (#{cid,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR}, #{regdate,jdbcType=TIMESTAMP}, 
+      #{expirydate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{filestoragesize,jdbcType=INTEGER}, 
+      #{province,jdbcType=VARCHAR}, #{provincename,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{cityname,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{areaname,jdbcType=VARCHAR}, 
+      #{wxAppid,jdbcType=VARCHAR}, #{wxSecret,jdbcType=VARCHAR}, #{wxid,jdbcType=VARCHAR}, 
+      #{wxAccount,jdbcType=VARCHAR}, #{wxType,jdbcType=INTEGER}, #{wxQrcode,jdbcType=VARCHAR}, 
+      #{treeorder,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{shortname,jdbcType=VARCHAR},
+      #{config,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.org.BasCompanyWithBLOBs" >
+    insert into t_bas_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cId,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="regemail != null" >
+        regEmail,
+      </if>
+      <if test="regdate != null" >
+        regDate,
+      </if>
+      <if test="expirydate != null" >
+        expiryDate,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="filestoragesize != null" >
+        fileStorageSize,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="provincename != null" >
+        provinceName,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="cityname != null" >
+        cityName,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="areaname != null" >
+        areaName,
+      </if>
+      <if test="wxAppid != null" >
+        wx_appid,
+      </if>
+      <if test="wxSecret != null" >
+        wx_secret,
+      </if>
+      <if test="wxid != null" >
+        wxid,
+      </if>
+      <if test="wxAccount != null" >
+        wx_account,
+      </if>
+      <if test="wxType != null" >
+        wx_type,
+      </if>
+      <if test="wxQrcode != null" >
+        wx_qrcode,
+      </if>
+      <if test="treeorder != null" >
+        treeOrder,
+      </if>
+      <if test="pid != null" >
+        pId,
+      </if>
+      <if test="shortname != null" >
+        shortName,
+      </if>
+      <if test="config != null" >
+        config,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="regemail != null" >
+        #{regemail,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null" >
+        #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirydate != null" >
+        #{expirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="filestoragesize != null" >
+        #{filestoragesize,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="provincename != null" >
+        #{provincename,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="cityname != null" >
+        #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null" >
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAppid != null" >
+        #{wxAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxSecret != null" >
+        #{wxSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="wxid != null" >
+        #{wxid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccount != null" >
+        #{wxAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="wxType != null" >
+        #{wxType,jdbcType=INTEGER},
+      </if>
+      <if test="wxQrcode != null" >
+        #{wxQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="treeorder != null" >
+        #{treeorder,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="shortname != null" >
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="config != null" >
+        #{config,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.org.BasCompanyWithBLOBs" >
+    update t_bas_company
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="regemail != null" >
+        regEmail = #{regemail,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null" >
+        regDate = #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirydate != null" >
+        expiryDate = #{expirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="filestoragesize != null" >
+        fileStorageSize = #{filestoragesize,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="provincename != null" >
+        provinceName = #{provincename,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="cityname != null" >
+        cityName = #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null" >
+        areaName = #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAppid != null" >
+        wx_appid = #{wxAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxSecret != null" >
+        wx_secret = #{wxSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="wxid != null" >
+        wxid = #{wxid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccount != null" >
+        wx_account = #{wxAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="wxType != null" >
+        wx_type = #{wxType,jdbcType=INTEGER},
+      </if>
+      <if test="wxQrcode != null" >
+        wx_qrcode = #{wxQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="treeorder != null" >
+        treeOrder = #{treeorder,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pId = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="shortname != null" >
+        shortName = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="config != null" >
+        config = #{config,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cId = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zrkj.ecp.domain.org.BasCompanyWithBLOBs" >
+    update t_bas_company
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      regEmail = #{regemail,jdbcType=VARCHAR},
+      regDate = #{regdate,jdbcType=TIMESTAMP},
+      expiryDate = #{expirydate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      fileStorageSize = #{filestoragesize,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      provinceName = #{provincename,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      cityName = #{cityname,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      areaName = #{areaname,jdbcType=VARCHAR},
+      wx_appid = #{wxAppid,jdbcType=VARCHAR},
+      wx_secret = #{wxSecret,jdbcType=VARCHAR},
+      wxid = #{wxid,jdbcType=VARCHAR},
+      wx_account = #{wxAccount,jdbcType=VARCHAR},
+      wx_type = #{wxType,jdbcType=INTEGER},
+      wx_qrcode = #{wxQrcode,jdbcType=VARCHAR},
+      treeOrder = #{treeorder,jdbcType=INTEGER},
+      pId = #{pid,jdbcType=INTEGER},
+      shortName = #{shortname,jdbcType=VARCHAR},
+      config = #{config,jdbcType=LONGVARCHAR}
+    where cId = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.org.BasCompany" >
+    update t_bas_company
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      regEmail = #{regemail,jdbcType=VARCHAR},
+      regDate = #{regdate,jdbcType=TIMESTAMP},
+      expiryDate = #{expirydate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      fileStorageSize = #{filestoragesize,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      provinceName = #{provincename,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      cityName = #{cityname,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      areaName = #{areaname,jdbcType=VARCHAR},
+      wx_appid = #{wxAppid,jdbcType=VARCHAR},
+      wx_secret = #{wxSecret,jdbcType=VARCHAR},
+      wxid = #{wxid,jdbcType=VARCHAR},
+      wx_account = #{wxAccount,jdbcType=VARCHAR},
+      wx_type = #{wxType,jdbcType=INTEGER},
+      wx_qrcode = #{wxQrcode,jdbcType=VARCHAR},
+      treeOrder = #{treeorder,jdbcType=INTEGER},
+      pId = #{pid,jdbcType=INTEGER},
+      isdel =  #{isdel,jdbcType=INTEGER}
+    where cId = #{cid,jdbcType=INTEGER}
+  </update>
+  
+  <!--获取父节点机构  -->
+  <select id="selectPCompanyList" parameterType="java.lang.Integer"  resultType="com.zrkj.ecp.dto.org.PCompanyDto">
+	SELECT
+		e.cId AS cid,
+		e.`name` AS cname
+	FROM
+		t_bas_company e
+		where
+		e.isdel =0
+		and  e.cId = #{cid,jdbcType=INTEGER}
+  </select>
+   <select id="selectFirestCompanyList" parameterType="java.lang.Integer"  resultType="com.zrkj.ecp.dto.org.PCompanyDto">
+	SELECT
+		e.cId AS cid,
+		e.`name` AS cname
+	FROM
+		t_bas_company e
+		where
+		e.isdel =0
+		and e.treeOrder=1
+  </select>
+  
+  <!-- 根据pid获取父节点机构 -->
+    <select id="selectPCompanyListBypid" resultType="com.zrkj.ecp.dto.org.PCompanyDto" parameterType="java.lang.Integer" >
+	SELECT
+		e.cId AS cid,
+		e.`name` AS cname
+	FROM
+		t_bas_company e
+		where e.isdel=0
+		and e.pId = #{pid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectSchoolList" resultType="com.zrkj.ecp.dto.org.PCompanyDto">
+      SELECT
+		e.cId AS cid,
+		e.`name` AS cname
+	FROM
+		t_bas_company e
+		where e.isdel=0
+		and e.pId = 8
+  </select>
+  
+  <select id="selectAllCompanyListBycid" resultType="com.zrkj.ecp.dto.org.PCompanyDto" parameterType="java.lang.Integer" >
+  			SELECT
+		e.cId AS cid,
+		e.`name` AS cname
+	FROM
+		t_bas_company e
+		WHERE
+	e.isdel = 0
+AND e.pId = #{cid,jdbcType=INTEGER}
+OR e.cId = #{cid,jdbcType=INTEGER}
+OR e.cId = (select t.pId from t_bas_company t where t.cId = #{cid,jdbcType=INTEGER})
+or e.pId = (select t.pId from t_bas_company t where t.cId = #{cid,jdbcType=INTEGER})
+  </select>
+  
+  <!--查找最大id-->
+  <select id="selectMaxAid" resultType="java.lang.Integer">
+    select max(e.cId) from t_bas_company e ;
+  </select>
+  
+   <!--获取一级机构列表-->
+  <select id="selectCompanyList" parameterType="com.zrkj.ecp.dto.org.CompDto" resultMap="ResultMapWithBLOBs">
+    SELECT
+     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM
+    t_bas_company e
+    WHERE
+     e.isdel = 0
+    <if test="cid==null">
+     and e.treeOrder= 1
+    </if>
+    <if test="cid!=null">
+     and e.pId = #{cid,jdbcType=INTEGER}
+    </if>
+    <if test="cname!=null">
+      and
+      e.name LIKE #{cname,jdbcType=VARCHAR}
+    </if>
+    <if test="page!=null">
+      limit #{page,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!--根据父节点选择子节点 -->
+   <select id="selectCompanyListByPid" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    SELECT
+     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM
+    t_bas_company e
+    WHERE
+     e.isdel = 0
+     and e.pId = #{aid,jdbcType=INTEGER}
+   
+  </select>
+  
+
+  <!--获取总记录数-->
+  <select id="selectCompanyCount" parameterType="com.zrkj.ecp.dto.org.CompDto" resultType="java.lang.Integer">
+    select count(e.cId) FROM
+    t_bas_company e
+    WHERE
+     e.isdel = 0
+     and e.treeOrder= 1
+    <if test="cname!=null">
+      and
+      e.name LIKE #{cname,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <!-- 查找是否有子id -->
+  <select id="selectCountByPid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.cId)
+FROM
+	t_bas_company e
+WHERE
+	e.pId = #{cid,jdbcType=INTEGER}
+  </select>
+   <select id="selectCountBydFK" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.cId)
+FROM
+	t_bas_dept e
+WHERE
+	e.cid = #{cid,jdbcType=INTEGER}
+  </select>
+   <select id="selectCountByuFK" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.cId)
+FROM
+	t_bas_user e
+WHERE
+	e.cid = #{cid,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

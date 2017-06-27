@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+		</div>
+	</div>
+
+	<table  id="datagrid" class="easyui-datagrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true,toolbar:'#btn',url:'jsonExpressLogList'
+				,rownumbers:true,idField:'logid',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'logcontent',width:'18%'">日志内容</th>
+			<th data-options="field:'adddateString',width:'18%'">操作时间</th>
+			<th data-options="field:'notes',width:'18%'">备注</th>
+			<th data-options="field:'billid',width:'18%'">单id</th>
+			<th data-options="field:'uid',width:'18%'">用户id</th>
+		</tr>
+		</thead>
+	</table>
+</body>
+<script type="text/javascript">
+
+	function format(isfragile) {
+		if(isfragile == 0){
+			return "非易碎";
+		}else if(isfragile == 1){
+			return "易碎";
+		}
+	}
+
+	function formatdef(stauts) {
+		if(stauts == 100){
+			return "待收件";
+		}else if(stauts == 200){
+			return "已收件";
+		}else if(stauts == 300){
+			return "快递员收件";
+		}else if(stauts == 400){
+			return "退回件";
+		}else if(stauts == 500){
+			return "货物到达仓库";
+		}else if(stauts == 600){
+			return "派送中";
+		}else if(stauts == 700){
+			return "已签收";
+		}
+	}
+</script>
+
+</html>

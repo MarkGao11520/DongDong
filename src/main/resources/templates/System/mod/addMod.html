@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+		<style type="text/css">
+			body {
+				margin: 30px;
+			}
+			*:focus{outline: none !important;}
+		</style>
+	</head>
+
+	<body>
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<form th:action="${code.url}+'Mod'" method="post" th:object="${updateMod}">
+				    <input name="modid" type="text"  hidden="hidden" th:value="${updateMod.modid}"/>
+					<div class="form-group">
+						<label>功能名称</label>
+						<input name="modname" type="text" class="form-control" th:value="${updateMod.modname}"/>
+					</div>
+					<div class="form-group">
+						<label>实例化方法</label>
+						<input name="instantiatemethod" type="text" class="form-control" th:value="${updateMod.instantiatemethod}" />
+					</div>
+					<div class="form-group">
+						<label>类型名称</label>
+						<input name="typename" type="text" class="form-control" th:value="${updateMod.typename}"/>
+					</div>
+					<div class="form-group">
+						<label>附加数据</label>
+						<input name="extradata" type="text" class="form-control" th:value="${updateMod.extradata}"/>
+					</div>
+					<div class="form-group">
+						<label>是否禁用</label>
+						<select name="disabled">
+							<div th:if="${updateMod.disabled == 1 }">
+								<option value="1" selected="selected">是</option>
+								<option value="0">否</option>
+							</div>
+							<div th:if="${updateMod.disabled != 1 }">
+								<option value="0" selected="selected">否</option>
+								<option value="1">是</option>
+							</div>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>url</label>
+						<input name="url" type="text" class="form-control" th:value="${updateMod.url}"/>
+					</div>
+					<div class="form-group">
+						<label>备注</label>
+						<input name="notes" type="text" class="form-control" th:value="${updateMod.notes}"/>
+					</div>
+					<div class="form-group">
+						<label>应用</label>
+						<select name="appid">
+							<div th:each="var:${applist}">
+									<option th:if="${var.appid==updateMod.appid}" th:selected = "selected" th:value="${var.appid}"><span th:text="${var.appname}"></span></option>
+								<option th:if="${var.appid!=updateMod.appid}" th:value="${var.appid}"><span th:text="${var.appname}"></span></option>
+								</div>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>父节点</label>
+						<select name="pid">
+							<div th:each="var:${plist}">
+									<option  th:if="${var.modid==updateMod.pid}" th:selected = "selected" th:value="${var.modid}"><span th:text="${var.modname}"></span></option>
+								<option th:if="${var.modid!=updateMod.pid}" th:value="${var.modid}"><span th:text="${var.modname}"></span></option>
+								</div>
+						</select>
+					</div>
+					<input type="submit" class="btn btn-primary" value="提交" />
+					<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+					<script>
+                        function back() {
+                            window.history.go(-1);
+                        }
+					</script>
+				</form>
+			</div>
+		</div>
+	</body>
+
+</html>

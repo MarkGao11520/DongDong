@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.dept.BasDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.dept.BasDept" >
+    <id column="dId" property="did" jdbcType="INTEGER" />
+    <result column="deptName" property="deptname" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="header" property="header" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="disabled" property="disabled" jdbcType="INTEGER" />
+    <result column="sortSum" property="sortsum" jdbcType="INTEGER" />
+    <result column="cId" property="cid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dId, deptName, address, telephone, header, notes, disabled, sortSum, cId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bas_dept
+    where dId = #{did,jdbcType=INTEGER}
+  </select>
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bas_dept
+    where dId = #{did,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.dept.BasDept" >
+    insert into t_bas_dept (dId, deptName, address, 
+      telephone, header, notes, 
+      disabled, sortSum, cId
+      )
+    values (#{did,jdbcType=INTEGER}, #{deptname,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{header,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{disabled,jdbcType=INTEGER}, #{sortsum,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.dept.BasDept" >
+    insert into t_bas_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        dId,
+      </if>
+      <if test="deptname != null" >
+        deptName,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="header != null" >
+        header,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="sortsum != null" >
+        sortSum,
+      </if>
+      <if test="cid != null" >
+        cId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="deptname != null" >
+        #{deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null" >
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="sortsum != null" >
+        #{sortsum,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.dept.BasDept" >
+    update t_bas_dept
+    <set >
+      <if test="deptname != null" >
+        deptName = #{deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null" >
+        header = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="sortsum != null" >
+        sortSum = #{sortsum,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cId = #{cid,jdbcType=INTEGER},
+      </if>
+        <if test="isdel != null" >
+        isdel = 1
+      </if>
+    </set>
+    where dId = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.dept.BasDept" >
+    update t_bas_dept
+    set deptName = #{deptname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
+      notes = #{notes,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      sortSum = #{sortsum,jdbcType=INTEGER},
+      cId = #{cid,jdbcType=INTEGER}
+    where dId = #{did,jdbcType=INTEGER}
+  </update> 
+  
+   <!--查找最大id-->
+  <select id="selectMaxAid" resultType="java.lang.Integer">
+    select max(e.dId) from t_bas_dept e ;
+  </select>
+  
+   <!--获取地区列表-->
+  <select id="selectDeptList" parameterType="com.zrkj.ecp.dto.dept.DeptDto" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    t_bas_dept e
+    WHERE
+     e.isdel = 0
+     and e.cId = #{cid,jdbcType=INTEGER}
+    <if test="dname!=null">
+      and
+      e.deptName LIKE #{dname,jdbcType=VARCHAR}
+    </if>
+    <if test="page!=null">
+      limit #{page,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+ <!--获取地区dto  -->
+<select id="selectDeptDtoList" parameterType="java.lang.Integer" resultType="com.zrkj.ecp.dto.dept.PdeptDto">  
+  SELECT
+	e.dId AS did,
+	e.deptName AS dname
+FROM
+	t_bas_dept e
+WHERE
+	e.cId = #{cid,jdbcType=INTEGER}
+	</select>
+  
+   <!--获取总记录数-->
+  <select id="selectDeptCount"  parameterType="com.zrkj.ecp.dto.dept.DeptDto"   resultType="java.lang.Integer">
+    select count(e.dId) 
+     FROM
+    t_bas_dept e
+    WHERE
+     e.isdel = 0
+     and e.cId = #{cid,jdbcType=INTEGER}
+    <if test="dname!=null">
+      and
+      e.deptName LIKE #{dname,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+   <select id="selectDeptNameByDid" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select e.deptName from t_bas_dept e WHERE
+     e.isdel = 0 and e.dId =#{did,jdbcType=INTEGER}
+  </select>
+  
+ <!--  查看是否有子关联 -->
+    <select id="selectCountByuFK" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT
+	count(e.cId)
+FROM
+	t_bas_user e
+WHERE
+	e.did = #{did,jdbcType=INTEGER}
+  </select>
+  
+  
+</mapper>

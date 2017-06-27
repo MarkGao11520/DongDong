@@ -1,0 +1,170 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+	<style type="text/css">
+body {
+	margin: 30px;
+}
+
+</style>
+</head>
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form th:action="${code.url}+'Company'" method="post" th:object="${updateCompany}">
+				<input  type="text" hidden = "hidden" name="cid"   th:value="${updateCompany.cid}" />
+					
+				<div class="form-group">
+					<label>机构名称</label> <input name="name" type="text"
+						class="form-control" th:value="${updateCompany.name}" />
+				</div>
+				<div class="form-group">
+					<label>编码</label> <input name="code" type="text"
+						class="form-control" th:value="${updateCompany.code}" />
+				</div>
+				<div class="form-group">
+					<label>简称</label> <input name="shortname" type="text"
+						class="form-control" th:value="${updateCompany.shortname}" />
+				</div>
+				<div class="form-group">
+					<label>行业</label> <input name="industry" type="text"
+						class="form-control" th:value="${updateCompany.industry}" />
+				</div>
+				<div class="form-group">
+					<label>电话</label> <input name="telephone" type="text"
+						class="form-control" th:value="${updateCompany.telephone}" />
+				</div>
+				<div class="form-group">
+					<label>传真</label> <input name="fax" type="text"
+						class="form-control" th:value="${updateCompany.fax}" />
+				</div>
+				<div class="form-group">
+					<label>地址</label> <input name="address" type="text"
+						class="form-control" th:value="${updateCompany.address}" />
+				</div>
+				<div class="form-group">
+					<label>注册邮箱</label> <input name="regemail" type="text"
+						class="form-control" th:value="${updateCompany.regemail}" />
+				</div>
+				<div class="form-group">
+					<label>注册日期</label> <input name="regdate" id="regdate" class="easyui-datebox"  th:value="${updateCompany.regdateString}" />
+				</div>
+				<div class="form-group">
+					<label>失效日期</label> <input name="expirydate" id="expirydate"
+											   class="easyui-datebox" th:value="${updateCompany.expirydateString}" />
+				</div>
+				<div class="form-group">
+					<label>状态</label> <input name="status1" type="text"
+						class="form-control" th:value="${updateCompany.status}" />
+				</div>
+				<div class="form-group">
+					<label>文件存储大小</label> <input name="filestoragesize" type="text"
+						class="form-control" th:value="${updateCompany.filestoragesize}" />
+				</div>
+
+				
+				<div class="form-group">
+					省<input id="province" name = "province" class="easyui-combobox" 
+						style="width:132px;height:30px;"/>
+       				 市<input id="city" name = "city" class="easyui-combobox" 
+						style="width:132px;height:30px;"/>
+       				 县<input id="area" name = "area" class="easyui-combobox" 
+						style="width:132px;height:30px;"
+						data-options="    
+
+       				 " />
+				</div>
+
+				<script th:inline="javascript">
+					$(function () {
+						$('#province').combobox({
+							valueField: 'pid',
+							textField: 'pname' ,
+							url: url3([[${code.url}]],[[${updateCompany.province }]]),
+							onSelect: function(rec){
+								var url = 'JsonAreaList?pid='+rec.pid;
+								$('#city').combobox('reload', url); }
+						})
+						$('#city').combobox({
+							valueField: 'pid',
+							textField: 'pname' ,
+							url: url4([[${code.url }]],[[${updateCompany.city }]],[[${updateCompany.province }]]),
+							onSelect: function(rec) {
+								var url = 'JsonAreaList?pid=' + rec.pid;
+								$('#area').combobox('reload', url);
+							}
+						})
+						$('#area').combobox({
+							valueField: 'pid',
+							textField: 'pname' ,
+							url: url4([[${code.url }]],[[${updateCompany.area }]],[[${updateCompany.city }]]),
+						})
+					})
+				</script>
+				
+				<div class="form-group">
+					<label>微信开发凭证APPID</label> <input name="wxAppid" type="text"
+						class="form-control" th:value="${updateCompany.wxAppid}" />
+				</div>
+				<div class="form-group">
+					<label>微信开发凭证Secret</label> <input name="wxSecret" type="text"
+						class="form-control" th:value="${updateCompany.wxSecret}" />
+				</div>
+				<div class="form-group">
+					<label>微信原始id</label> <input name="wxid" type="text"
+						class="form-control" th:value="${updateCompany.wxid}" />
+				</div>
+				<div class="form-group">
+					<label>微信号</label> <input name="wxAccount" type="text"
+						class="form-control" th:value="${updateCompany.wxAccount}" />
+				</div>
+				<div class="form-group">
+					<label>微信类型</label> <input name="wxType" type="text"
+						class="form-control" th:value="${updateCompany.wxType}" />
+				</div>
+				<div class="form-group">
+					<label>排序方式</label> <select name="treeorder">
+								<option th:if="${updateCompany.treeorder==1}" selected="selected" value="1">1级排序</option>
+								<option th:if="${updateCompany.treeorder!=1}" selected="selected" value="2">2级排序</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>系统配置</label> <input name="config" type="text"
+						class="form-control" th:value="${updateCompany.config}" />
+				</div>
+				<div class="form-group">
+					<label>父机构节点</label> <select name="pid">
+					<div th:each="var:${pcompList}">
+								<option th:if="${var.cid==updateCompany.pid}" selected="selected" th:value="${var.cid}"><span th:text="${var.cname}"></span> </option>
+								<option th:if="${var.cid!=updateCompany.pid}" th:value="${var.cid}"><span th:text="${var.cname}"></span></option>
+					</div>
+					</select>
+				</div>
+				
+				<input type="submit" class="btn btn-primary" value="提交"/>
+				<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+				<script>
+                    function back() {
+                        window.history.go(-1);
+                    }
+				</script>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../crm/js/System/org/companyList.js"></script>
+
+</html>

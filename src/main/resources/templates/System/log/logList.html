@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>操作日志</title>
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="pull-right">
+				<form class="form-search" >
+					<input type="text" class="easyui-datebox" id="date1"
+						placeholder="请输入日期" /> <input type="text" hidden="hidden"
+						id="uid" th:value="${uid}" />
+					<button type="button"  onclick="obtainLogByYear()" class="btn " style="width: 60px;">搜索</button>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+
+	<table id="datagrid" class="easyui-datagrid"
+		data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true
+				,rownumbers:true,idField:'lid',fitColumns:true,method:'post',pagination:true,singleSelect:true,sortName:'birthday',sortOrder:'desc',showHeader:true">
+		<thead>
+			<tr>
+				<th data-options="field:'modname',width:'15%'">模块名称</th>
+				<th data-options="field:'actionname',width:'15%'">操作名称</th>
+				<th data-options="field:'content',width:'15%',formatter:option">操作内容</th>
+				<th data-options="field:'createDateString',width:'18%'">创建时间</th>
+				<th data-options="field:'ip',width:'18%'">ip</th>
+				<th data-options="field:'uname',width:'15%'">用户id</th>
+			</tr>
+		</thead>
+	</table>
+	<script th:inline="javascript">
+		var uid = [[${uid }]];
+		var url;
+		if(uid!=null){
+			url = '../UserManagent/JsonlogList?uid='+uid;
+		}else {
+			url = '../UserManagent/JsonlogList'
+		}
+		$(function(){
+			$('#datagrid').datagrid({
+				url:url
+			});
+		})
+	</script>
+
+
+
+
+
+
+
+</body>
+<script src="../crm/js/System/log/loglist.js"></script>
+<script src="../crm/js/bootstrap.js" type="text/javascript"
+	charset="utf-8"></script>
+</html>

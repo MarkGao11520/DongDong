@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.memberaddress.MemberAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.memberaddress.MemberAddress" >
+    <id column="amId" property="amid" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mId" property="mid" jdbcType="INTEGER" />
+    <result column="schoolid" property="schoolid" jdbcType="INTEGER" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+    <result column="addDate" property="adddate" jdbcType="TIMESTAMP" />
+    <result column="addDate" property="adddateString" jdbcType="VARCHAR" />
+    <result column="isDefault" property="isdefault" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    amId, address, phone, name, mId, isdel, addDate,schoolid,isDefault
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_member_address
+    where amId = #{amid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_member_address
+    where amId = #{amid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.memberaddress.MemberAddress" >
+    insert into t_member_member_address (amId, address, phone, 
+      name, mId, isdel, addDate, schoolid,
+      isDefault)
+    values (#{amid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, #{isdel,jdbcType=INTEGER}, #{adddate,jdbcType=TIMESTAMP}, #{schoolid,jdbcType=INTEGER},
+      #{isdefault,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.memberaddress.MemberAddress" >
+    insert into t_member_member_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="amid != null" >
+        amId,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="mid != null" >
+        mId,
+      </if>
+      <if test="schoolid != null" >
+        schoolid,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+      <if test="adddate != null" >
+        addDate,
+      </if>
+      <if test="isdefault != null" >
+        isDefault,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="amid != null" >
+        #{amid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null" >
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="adddate != null" >
+        #{adddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdefault != null" >
+        #{isdefault,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.memberaddress.MemberAddress" >
+    update t_member_member_address
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        mId = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null" >
+        schoolid = #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="adddate != null" >
+        addDate = #{adddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdefault != null" >
+        isDefault = #{isdefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    where amId = #{amid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.memberaddress.MemberAddress" >
+    update t_member_member_address
+    set address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      mId = #{mid,jdbcType=INTEGER},
+      schoolid = #{schoolid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=INTEGER},
+      addDate = #{adddate,jdbcType=TIMESTAMP},
+      isDefault = #{isdefault,jdbcType=INTEGER}
+    where amId = #{amid,jdbcType=INTEGER}
+  </update>
+
+  <!--获取会员地址列表  -->
+  <select id="selectMemberAddressList" parameterType="com.zrkj.ecp.dto.memberaddress.MemberAddressdDto" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_member_member_address e
+    WHERE
+    e.isdel = 0
+    <if test="mid != null">
+      AND e.mId = #{mid,jdbcType=INTEGER}
+    </if>
+    <if test="rows>0">
+      limit #{page,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--获取会员地址数量  -->
+  <select id="selectMemberAddressCount"  parameterType="com.zrkj.ecp.dto.memberaddress.MemberAddressdDto" resultType="java.lang.Integer" >
+    SELECT
+    COUNT(e.amId)
+    FROM
+    t_member_member_address e
+    WHERE
+    e.isdel = 0
+    <if test="mid != null">
+      AND e.mId = #{mid,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!--查找最大id-->
+  <select id="selectMaxAid" resultType="java.lang.Integer">
+    select max(e.amId) from t_member_member_address e ;
+  </select>
+
+  <!--根据会员id获取会员地址列表 -->
+  <select id="selectMemberAddressListByMid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_member_member_address e
+    WHERE
+    e.isdel = 0
+    AND
+    e.mId = #{mid,jdbcType=INTEGER}
+  </select>
+
+  <!--更改默认地址-->
+  <select id="updateDefaultAddress" parameterType="java.lang.Integer">
+    UPDATE t_member_member_address ma
+    SET ma.isDefault = 1
+    WHERE
+        ma.mId = #{mid,jdbcType=INTEGER}
+  </select>
+</mapper>

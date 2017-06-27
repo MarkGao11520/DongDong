@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.expressorder.ExpressOrderMapper">
+    <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.expressorder.ExpressOrder">
+        <id column="orderID" property="orderid" jdbcType="INTEGER"/>
+        <result column="cId" property="cid" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="orderCode" property="ordercode" jdbcType="VARCHAR"/>
+        <result column="orderContent" property="ordercontent" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DOUBLE"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="payDate" property="paydate" jdbcType="TIMESTAMP"/>
+        <result column="payDate" property="paydateString" jdbcType="VARCHAR"/>
+
+        <result column="userName" property="username" jdbcType="VARCHAR"/>
+        <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
+        <result column="createDate" property="createdateString" jdbcType="VARCHAR"/>
+
+        <result column="billIDs" property="billids" jdbcType="VARCHAR"/>
+        <result column="mName" property="mname" jdbcType="CHAR"/>
+        <result column="seller_id" property="seller_id" jdbcType="VARCHAR"/>
+        <result column="result" property="result" jdbcType="INTEGER"/>
+        <result column="uId" property="uid" jdbcType="INTEGER"/>
+        <result column="mId" property="mid" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    orderID, cId, type, orderCode, orderContent, money, description, payDate, userName, 
+    createDate, billIDs, mName,seller_id,result, uId, mId
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_express_order
+        where orderID = #{orderid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_express_order
+    where orderID = #{orderid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zrkj.ecp.domain.expressorder.ExpressOrder">
+    insert into t_express_order (orderID, cId, type, 
+      orderCode, orderContent, money, 
+      description, payDate, userName, 
+      createDate, billIDs, mName, seller_id,result,
+      uId, mId)
+    values (#{orderid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{ordercode,jdbcType=VARCHAR}, #{ordercontent,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, 
+      #{description,jdbcType=VARCHAR}, #{paydate,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{billids,jdbcType=VARCHAR}, #{mname,jdbcType=CHAR}, #{seller_id,jdbcType=VARCHAR},#{result,jdbcType=INTEGER},
+      #{uid,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.expressorder.ExpressOrder">
+        insert into t_express_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderid != null">
+                orderID,
+            </if>
+            <if test="cid != null">
+                cId,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="ordercode != null">
+                orderCode,
+            </if>
+            <if test="ordercontent != null">
+                orderContent,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="paydate != null">
+                payDate,
+            </if>
+            <if test="username != null">
+                userName,
+            </if>
+            <if test="createdate != null">
+                createDate,
+            </if>
+            <if test="billids != null">
+                billIDs,
+            </if>
+            <if test="mname != null">
+                mName,
+            </if>
+            <if test="seller_id != null">
+                seller_id,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+            <if test="uid != null">
+                uId,
+            </if>
+            <if test="mid != null">
+                mId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderid != null">
+                #{orderid,jdbcType=INTEGER},
+            </if>
+            <if test="cid != null">
+                #{cid,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="ordercode != null">
+                #{ordercode,jdbcType=VARCHAR},
+            </if>
+            <if test="ordercontent != null">
+                #{ordercontent,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DOUBLE},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="paydate != null">
+                #{paydate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate != null">
+                #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="billids != null">
+                #{billids,jdbcType=VARCHAR},
+            </if>
+            <if test="mname != null">
+                #{mname,jdbcType=CHAR},
+            </if>
+            <if test="seller_id != null">
+                #{seller_id,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="mid != null">
+                #{mid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.expressorder.ExpressOrder">
+        update t_express_order
+        <set>
+            <if test="cid != null">
+                cId = #{cid,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="ordercode != null">
+                orderCode = #{ordercode,jdbcType=VARCHAR},
+            </if>
+            <if test="ordercontent != null">
+                orderContent = #{ordercontent,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=DOUBLE},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="paydate != null">
+                payDate = #{paydate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="username != null">
+                userName = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate != null">
+                createDate = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="billids != null">
+                billIDs = #{billids,jdbcType=VARCHAR},
+            </if>
+            <if test="mname != null">
+                mName = #{mname,jdbcType=CHAR},
+            </if>
+            <if test="seller_id != null">
+                seller_id = #{seller_id,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                result = #{result,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                uId = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="mid != null">
+                mId = #{mid,jdbcType=INTEGER},
+            </if>
+        </set>
+        where orderID = #{orderid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.expressorder.ExpressOrder">
+    update t_express_order
+    set cId = #{cid,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      orderCode = #{ordercode,jdbcType=VARCHAR},
+      orderContent = #{ordercontent,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      description = #{description,jdbcType=VARCHAR},
+      payDate = #{paydate,jdbcType=TIMESTAMP},
+      userName = #{username,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      billIDs = #{billids,jdbcType=VARCHAR},
+      mName = #{mname,jdbcType=CHAR},
+      seller_id = #{seller_id,jdbcType=VARCHAR},
+      result = #{result,jdbcType=INTEGER},
+      uId = #{uid,jdbcType=INTEGER},
+      mId = #{mid,jdbcType=INTEGER}
+    where orderID = #{orderid,jdbcType=INTEGER}
+  </update>
+
+    <!--获取列表  -->
+    <select id="selectExpressOrderList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        t_express_order e
+        WHERE
+        1=1
+        <if test="expressDto.rows>0">
+            limit #{expressDto.page,jdbcType=INTEGER},#{expressDto.rows,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--根据mid获取列表  -->
+    <select id="selectExpressOrderListByMid" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        t_express_order e
+        WHERE
+        1=1
+        AND e.mId = #{mid,jdbcType=INTEGER}
+        AND e.result = 0
+    </select>
+
+    <!--获取数量  -->
+    <select id="selectExpressOrderCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(e.orderID)
+    FROM
+    t_express_order e
+    WHERE
+    1=1
+  </select>
+
+
+    <!--查找最大id-->
+    <select id="selectMaxId" resultType="java.lang.Integer">
+    select max(e.orderID) from t_express_order e ;
+  </select>
+
+    <select id="selectOrderByOrderCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_express_order
+        where orderCode = #{orderCode,jdbcType=VARCHAR}
+    </select>
+</mapper>

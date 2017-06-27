@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.shopgoods.ShopGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.shopgoods.ShopGoods" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_subtitle" property="goodsSubtitle" jdbcType="VARCHAR" />
+    <result column="gc_id" property="gcId" jdbcType="BIGINT" />
+    <result column="gc_name" property="gcName" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="BIGINT" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="spec_open" property="specOpen" jdbcType="INTEGER" />
+    <result column="spec_id" property="specId" jdbcType="INTEGER" />
+    <result column="goods_image" property="goodsImage" jdbcType="VARCHAR" />
+    <result column="goods_store_price" property="goodsStorePrice" jdbcType="DECIMAL" />
+    <result column="goods_serial" property="goodsSerial" jdbcType="VARCHAR" />
+    <result column="goods_show" property="goodsShow" jdbcType="INTEGER" />
+    <result column="goods_click" property="goodsClick" jdbcType="INTEGER" />
+    <result column="goods_state" property="goodsState" jdbcType="INTEGER" />
+    <result column="goods_commend" property="goodsCommend" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="goods_keywords" property="goodsKeywords" jdbcType="VARCHAR" />
+    <result column="goods_description" property="goodsDescription" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+    <result column="goods_form" property="goodsForm" jdbcType="INTEGER" />
+    <result column="transport_id" property="transportId" jdbcType="INTEGER" />
+    <result column="py_price" property="pyPrice" jdbcType="DECIMAL" />
+    <result column="kd_price" property="kdPrice" jdbcType="DECIMAL" />
+    <result column="es_price" property="esPrice" jdbcType="DECIMAL" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="commentnum" property="commentnum" jdbcType="INTEGER" />
+    <result column="salenum" property="salenum" jdbcType="INTEGER" />
+    <result column="goods_collect" property="goodsCollect" jdbcType="INTEGER" />
+    <result column="goods_transfee_charge" property="goodsTransfeeCharge" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="goods_market_price" property="goodsMarketPrice" jdbcType="DECIMAL" />
+    <result column="goods_cost_price" property="goodsCostPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zrkj.ecp.domain.shopgoods.ShopGoodsWithBLOBs" extends="BaseResultMap" >
+    <result column="spec_name" property="specName" jdbcType="LONGVARCHAR" />
+    <result column="goods_image_more" property="goodsImageMore" jdbcType="LONGVARCHAR" />
+    <result column="goods_body" property="goodsBody" jdbcType="LONGVARCHAR" />
+    <result column="goods_attr" property="goodsAttr" jdbcType="LONGVARCHAR" />
+    <result column="goods_spec" property="goodsSpec" jdbcType="LONGVARCHAR" />
+    <result column="goods_col_img" property="goodsColImg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_name, goods_subtitle, gc_id, gc_name, brand_id, brand_name, type_id, store_name, 
+    spec_open, spec_id, goods_image, goods_store_price, goods_serial, goods_show, goods_click, 
+    goods_state, goods_commend, create_time, goods_keywords, goods_description, update_time, 
+    start_time, end_time, goods_form, transport_id, py_price, kd_price, es_price, city_id, 
+    city_name, province_id, province_name, commentnum, salenum, goods_collect, goods_transfee_charge, 
+    is_del, goods_market_price, goods_cost_price
+  </sql>
+  <!--spec_name,  goods_body, goods_spec, goods_col_img,-->
+  <sql id="Blob_Column_List" >
+    goods_image_more, goods_attr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shop_goods
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_goods
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.shopgoods.ShopGoodsWithBLOBs" >
+    insert into shop_goods (id, goods_name, goods_subtitle, 
+      gc_id, gc_name, brand_id, 
+      brand_name, type_id, store_name, 
+      spec_open, spec_id, goods_image, 
+      goods_store_price, goods_serial, goods_show, 
+      goods_click, goods_state, goods_commend, 
+      create_time, goods_keywords, goods_description, 
+      update_time, start_time, end_time, 
+      goods_form, transport_id, py_price, 
+      kd_price, es_price, city_id, 
+      city_name, province_id, province_name, 
+      commentnum, salenum, goods_collect, 
+      goods_transfee_charge, is_del, goods_market_price, 
+      goods_cost_price, spec_name, goods_image_more, 
+      goods_body, goods_attr, goods_spec, 
+      goods_col_img)
+    values (#{id,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR}, #{goodsSubtitle,jdbcType=VARCHAR}, 
+      #{gcId,jdbcType=BIGINT}, #{gcName,jdbcType=VARCHAR}, #{brandId,jdbcType=BIGINT}, 
+      #{brandName,jdbcType=VARCHAR}, #{typeId,jdbcType=BIGINT}, #{storeName,jdbcType=VARCHAR}, 
+      #{specOpen,jdbcType=INTEGER}, #{specId,jdbcType=INTEGER}, #{goodsImage,jdbcType=VARCHAR}, 
+      #{goodsStorePrice,jdbcType=DECIMAL}, #{goodsSerial,jdbcType=VARCHAR}, #{goodsShow,jdbcType=INTEGER}, 
+      #{goodsClick,jdbcType=INTEGER}, #{goodsState,jdbcType=INTEGER}, #{goodsCommend,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT}, #{goodsKeywords,jdbcType=VARCHAR}, #{goodsDescription,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=BIGINT}, #{startTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, 
+      #{goodsForm,jdbcType=INTEGER}, #{transportId,jdbcType=INTEGER}, #{pyPrice,jdbcType=DECIMAL}, 
+      #{kdPrice,jdbcType=DECIMAL}, #{esPrice,jdbcType=DECIMAL}, #{cityId,jdbcType=INTEGER}, 
+      #{cityName,jdbcType=VARCHAR}, #{provinceId,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR}, 
+      #{commentnum,jdbcType=INTEGER}, #{salenum,jdbcType=INTEGER}, #{goodsCollect,jdbcType=INTEGER}, 
+      #{goodsTransfeeCharge,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{goodsMarketPrice,jdbcType=DECIMAL}, 
+      #{goodsCostPrice,jdbcType=DECIMAL}, #{specName,jdbcType=LONGVARCHAR}, #{goodsImageMore,jdbcType=LONGVARCHAR}, 
+      #{goodsBody,jdbcType=LONGVARCHAR}, #{goodsAttr,jdbcType=LONGVARCHAR}, #{goodsSpec,jdbcType=LONGVARCHAR}, 
+      #{goodsColImg,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.shopgoods.ShopGoodsWithBLOBs" >
+    insert into shop_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsSubtitle != null" >
+        goods_subtitle,
+      </if>
+      <if test="gcId != null" >
+        gc_id,
+      </if>
+      <if test="gcName != null" >
+        gc_name,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="specOpen != null" >
+        spec_open,
+      </if>
+      <if test="specId != null" >
+        spec_id,
+      </if>
+      <if test="goodsImage != null" >
+        goods_image,
+      </if>
+      <if test="goodsStorePrice != null" >
+        goods_store_price,
+      </if>
+      <if test="goodsSerial != null" >
+        goods_serial,
+      </if>
+      <if test="goodsShow != null" >
+        goods_show,
+      </if>
+      <if test="goodsClick != null" >
+        goods_click,
+      </if>
+      <if test="goodsState != null" >
+        goods_state,
+      </if>
+      <if test="goodsCommend != null" >
+        goods_commend,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="goodsKeywords != null" >
+        goods_keywords,
+      </if>
+      <if test="goodsDescription != null" >
+        goods_description,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="goodsForm != null" >
+        goods_form,
+      </if>
+      <if test="transportId != null" >
+        transport_id,
+      </if>
+      <if test="pyPrice != null" >
+        py_price,
+      </if>
+      <if test="kdPrice != null" >
+        kd_price,
+      </if>
+      <if test="esPrice != null" >
+        es_price,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="commentnum != null" >
+        commentnum,
+      </if>
+      <if test="salenum != null" >
+        salenum,
+      </if>
+      <if test="goodsCollect != null" >
+        goods_collect,
+      </if>
+      <if test="goodsTransfeeCharge != null" >
+        goods_transfee_charge,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="goodsMarketPrice != null" >
+        goods_market_price,
+      </if>
+      <if test="goodsCostPrice != null" >
+        goods_cost_price,
+      </if>
+      <if test="specName != null" >
+        spec_name,
+      </if>
+      <if test="goodsImageMore != null" >
+        goods_image_more,
+      </if>
+      <if test="goodsBody != null" >
+        goods_body,
+      </if>
+      <if test="goodsAttr != null" >
+        goods_attr,
+      </if>
+      <if test="goodsSpec != null" >
+        goods_spec,
+      </if>
+      <if test="goodsColImg != null" >
+        goods_col_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSubtitle != null" >
+        #{goodsSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gcId != null" >
+        #{gcId,jdbcType=BIGINT},
+      </if>
+      <if test="gcName != null" >
+        #{gcName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="specOpen != null" >
+        #{specOpen,jdbcType=INTEGER},
+      </if>
+      <if test="specId != null" >
+        #{specId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImage != null" >
+        #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStorePrice != null" >
+        #{goodsStorePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSerial != null" >
+        #{goodsSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsShow != null" >
+        #{goodsShow,jdbcType=INTEGER},
+      </if>
+      <if test="goodsClick != null" >
+        #{goodsClick,jdbcType=INTEGER},
+      </if>
+      <if test="goodsState != null" >
+        #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCommend != null" >
+        #{goodsCommend,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="goodsKeywords != null" >
+        #{goodsKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDescription != null" >
+        #{goodsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="goodsForm != null" >
+        #{goodsForm,jdbcType=INTEGER},
+      </if>
+      <if test="transportId != null" >
+        #{transportId,jdbcType=INTEGER},
+      </if>
+      <if test="pyPrice != null" >
+        #{pyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="kdPrice != null" >
+        #{kdPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="esPrice != null" >
+        #{esPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentnum != null" >
+        #{commentnum,jdbcType=INTEGER},
+      </if>
+      <if test="salenum != null" >
+        #{salenum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCollect != null" >
+        #{goodsCollect,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTransfeeCharge != null" >
+        #{goodsTransfeeCharge,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="goodsMarketPrice != null" >
+        #{goodsMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsCostPrice != null" >
+        #{goodsCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="specName != null" >
+        #{specName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsImageMore != null" >
+        #{goodsImageMore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsBody != null" >
+        #{goodsBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsAttr != null" >
+        #{goodsAttr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsSpec != null" >
+        #{goodsSpec,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsColImg != null" >
+        #{goodsColImg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.shopgoods.ShopGoodsWithBLOBs" >
+    update shop_goods
+    <set >
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSubtitle != null" >
+        goods_subtitle = #{goodsSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gcId != null" >
+        gc_id = #{gcId,jdbcType=BIGINT},
+      </if>
+      <if test="gcName != null" >
+        gc_name = #{gcName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="specOpen != null" >
+        spec_open = #{specOpen,jdbcType=INTEGER},
+      </if>
+      <if test="specId != null" >
+        spec_id = #{specId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImage != null" >
+        goods_image = #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStorePrice != null" >
+        goods_store_price = #{goodsStorePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSerial != null" >
+        goods_serial = #{goodsSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsShow != null" >
+        goods_show = #{goodsShow,jdbcType=INTEGER},
+      </if>
+      <if test="goodsClick != null" >
+        goods_click = #{goodsClick,jdbcType=INTEGER},
+      </if>
+      <if test="goodsState != null" >
+        goods_state = #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCommend != null" >
+        goods_commend = #{goodsCommend,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="goodsKeywords != null" >
+        goods_keywords = #{goodsKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDescription != null" >
+        goods_description = #{goodsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="goodsForm != null" >
+        goods_form = #{goodsForm,jdbcType=INTEGER},
+      </if>
+      <if test="transportId != null" >
+        transport_id = #{transportId,jdbcType=INTEGER},
+      </if>
+      <if test="pyPrice != null" >
+        py_price = #{pyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="kdPrice != null" >
+        kd_price = #{kdPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="esPrice != null" >
+        es_price = #{esPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentnum != null" >
+        commentnum = #{commentnum,jdbcType=INTEGER},
+      </if>
+      <if test="salenum != null" >
+        salenum = #{salenum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCollect != null" >
+        goods_collect = #{goodsCollect,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTransfeeCharge != null" >
+        goods_transfee_charge = #{goodsTransfeeCharge,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="goodsMarketPrice != null" >
+        goods_market_price = #{goodsMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsCostPrice != null" >
+        goods_cost_price = #{goodsCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="specName != null" >
+        spec_name = #{specName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsImageMore != null" >
+        goods_image_more = #{goodsImageMore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsBody != null" >
+        goods_body = #{goodsBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsAttr != null" >
+        goods_attr = #{goodsAttr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsSpec != null" >
+        goods_spec = #{goodsSpec,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsColImg != null" >
+        goods_col_img = #{goodsColImg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zrkj.ecp.domain.shopgoods.ShopGoodsWithBLOBs" >
+    update shop_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_subtitle = #{goodsSubtitle,jdbcType=VARCHAR},
+      gc_id = #{gcId,jdbcType=BIGINT},
+      gc_name = #{gcName,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=BIGINT},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      spec_open = #{specOpen,jdbcType=INTEGER},
+      spec_id = #{specId,jdbcType=INTEGER},
+      goods_image = #{goodsImage,jdbcType=VARCHAR},
+      goods_store_price = #{goodsStorePrice,jdbcType=DECIMAL},
+      goods_serial = #{goodsSerial,jdbcType=VARCHAR},
+      goods_show = #{goodsShow,jdbcType=INTEGER},
+      goods_click = #{goodsClick,jdbcType=INTEGER},
+      goods_state = #{goodsState,jdbcType=INTEGER},
+      goods_commend = #{goodsCommend,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      goods_keywords = #{goodsKeywords,jdbcType=VARCHAR},
+      goods_description = #{goodsDescription,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      goods_form = #{goodsForm,jdbcType=INTEGER},
+      transport_id = #{transportId,jdbcType=INTEGER},
+      py_price = #{pyPrice,jdbcType=DECIMAL},
+      kd_price = #{kdPrice,jdbcType=DECIMAL},
+      es_price = #{esPrice,jdbcType=DECIMAL},
+      city_id = #{cityId,jdbcType=INTEGER},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      commentnum = #{commentnum,jdbcType=INTEGER},
+      salenum = #{salenum,jdbcType=INTEGER},
+      goods_collect = #{goodsCollect,jdbcType=INTEGER},
+      goods_transfee_charge = #{goodsTransfeeCharge,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      goods_market_price = #{goodsMarketPrice,jdbcType=DECIMAL},
+      goods_cost_price = #{goodsCostPrice,jdbcType=DECIMAL},
+      spec_name = #{specName,jdbcType=LONGVARCHAR},
+      goods_image_more = #{goodsImageMore,jdbcType=LONGVARCHAR},
+      goods_body = #{goodsBody,jdbcType=LONGVARCHAR},
+      goods_attr = #{goodsAttr,jdbcType=LONGVARCHAR},
+      goods_spec = #{goodsSpec,jdbcType=LONGVARCHAR},
+      goods_col_img = #{goodsColImg,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.shopgoods.ShopGoods" >
+    update shop_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_subtitle = #{goodsSubtitle,jdbcType=VARCHAR},
+      gc_id = #{gcId,jdbcType=BIGINT},
+      gc_name = #{gcName,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=BIGINT},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      spec_open = #{specOpen,jdbcType=INTEGER},
+      spec_id = #{specId,jdbcType=INTEGER},
+      goods_image = #{goodsImage,jdbcType=VARCHAR},
+      goods_store_price = #{goodsStorePrice,jdbcType=DECIMAL},
+      goods_serial = #{goodsSerial,jdbcType=VARCHAR},
+      goods_show = #{goodsShow,jdbcType=INTEGER},
+      goods_click = #{goodsClick,jdbcType=INTEGER},
+      goods_state = #{goodsState,jdbcType=INTEGER},
+      goods_commend = #{goodsCommend,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      goods_keywords = #{goodsKeywords,jdbcType=VARCHAR},
+      goods_description = #{goodsDescription,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      goods_form = #{goodsForm,jdbcType=INTEGER},
+      transport_id = #{transportId,jdbcType=INTEGER},
+      py_price = #{pyPrice,jdbcType=DECIMAL},
+      kd_price = #{kdPrice,jdbcType=DECIMAL},
+      es_price = #{esPrice,jdbcType=DECIMAL},
+      city_id = #{cityId,jdbcType=INTEGER},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      commentnum = #{commentnum,jdbcType=INTEGER},
+      salenum = #{salenum,jdbcType=INTEGER},
+      goods_collect = #{goodsCollect,jdbcType=INTEGER},
+      goods_transfee_charge = #{goodsTransfeeCharge,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      goods_market_price = #{goodsMarketPrice,jdbcType=DECIMAL},
+      goods_cost_price = #{goodsCostPrice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectShopGoodsListByGcId" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shop_goods
+    where  gc_id = #{dto.gcId,jdbcType=INTEGER}
+    AND  is_del = 0
+    AND  goods_name LIKE #{dto.goodsName,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

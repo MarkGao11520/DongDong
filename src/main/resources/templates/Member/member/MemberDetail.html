@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+	<style type="text/css">
+body {
+	margin: 30px;
+}
+
+*:focus {
+	outline: none !important;
+}
+</style>
+</head>
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form th:object="${updateUser}">
+				
+				<div class="form-group">
+					<label>用户名</label> <input name="uname" type="text"
+						class="form-control" th:value="${updateUser.uname}" />
+				</div>
+				<div class="form-group">
+					<label>备注</label> <input name="notes" type="text"
+						class="form-control" th:value="${updateUser.notes}" />
+				</div>
+				
+				<div class="form-group">
+					<label>真实姓名</label> <input name="realname" type="text"
+						class="form-control" th:value="${updateUserPro.realname}" />
+				</div>
+				<div class="form-group">
+				  <label>性别</label> <select name="sex">
+							<div th:if="${updateUserPro.sex==1}">
+								<option selected="selected" value="1">男</option>
+								<option  value="2">女</option>
+							</div>
+							<div th:if="${updateUserPro.sex!=1}">
+								<option selected="selected" value="2">女</option>
+								<option  value="1">男</option>
+							</div>
+					</select>
+				</div>
+				<div class="form-group">
+				<label>邮箱</label> <input name="email" type="text"
+						class="form-control" th:value="${updateUserPro.email}" />
+				</div>
+				<div class="form-group">
+					<label>手机</label> <input name="mobile" type="text"
+						class="form-control" th:value="${updateUserPro.mobile}" />
+				</div>
+				<div class="form-group">
+					<label>电话</label> <input name="telephone" type="text"
+						class="form-control" th:value="${updateUserPro.telephone}" />
+				</div>
+				<div class="form-group">
+					<label>地址</label> <input name="address" type="text"
+						class="form-control" th:value="${updateUserPro.address}" />
+				</div>
+				<div class="form-group">
+					<label>微信号</label> <input name="weixinid" type="text"
+						class="form-control" th:value="${updateUserPro.weixinid}" />
+				</div>
+				<div class="form-group">
+					<label>称呼</label> <input name="nikename" type="text"
+						class="form-control" th:value="${updateUserPro.nikename}" />
+				</div>
+				<div class="form-group">
+					<label>qq</label> <input name="qq" type="text"
+						class="form-control" th:value="${updateUserPro.qq}" />
+				</div>
+				<div class="form-group">
+					<label>星座</label> <input name="xinzuo" type="text"
+						class="form-control" th:value="${updateUserPro.xinzuo}" />
+				</div>
+				<div class="form-group">
+					<label>血型</label> <input name="bloodtype" type="text"
+						class="form-control" th:value="${updateUserPro.bloodtype}" />
+				</div>
+				<div class="form-group">
+					<label>性格</label> <input name="personality" type="text"
+						class="form-control" th:value="${updateUserPro.personality}" />
+				</div>
+				<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+				<script>
+                    function back() {
+                        window.history.go(-1);
+                    }
+				</script>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

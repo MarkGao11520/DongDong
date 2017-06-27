@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>机构管理</title>
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<body>
+	<div class="row clearfix">
+			<div class="col-md-12 column">
+
+				<div class="pull-left">
+					<a href="javascript:addPositionInput()"><input type="button" class="btn btn-primary" value="添加根岗位" /></a>
+					<a th:href="'javascript:deleteall(\''+${cid}+'\',\''+${did}+'\')'"><input type="button" class="btn btn-danger" value="删除" /></a>
+				</div>
+				<script th:inline="javascript">
+					function addPositionInput() {
+						window.location.href= url7([[${cid}]],[[${did}]]);
+					}
+				</script>
+				<div class="pull-right">
+					<form class="form-search" >
+						<input type="text" class="form-control search" id="positionName" placeholder="请输入关键字/或者用户名" />
+						<input type="text" hidden="hidden" id="cid" th:value="${cid}" />
+						<input type="text" hidden="hidden" id="did" th:value="${did}" />
+						<button type="button" onclick="javascript:obtainPositionBypositionName()" class="btn " style="width: 60px;">搜索</button>
+					</form>
+				</div>
+
+		</div>
+	</div>
+	<table  id="datagrid" class="easyui-treegrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true,toolbar:'#btn'
+				,rownumbers:true,idField:'positionid',treeField:'positionname',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'positionid',width:'5%',formatter:checkboxs"></th>
+			<th data-options="field:'positionname',width:'25%'">岗位名</th>
+			<th data-options="field:'industry',width:'25%'">配额</th>
+
+			<th data-options="field:'isdel',width:'45%' ,formatter:option">操作</th>
+		</tr>
+		</thead>
+	</table>
+
+	<script th:inline="javascript">
+		$(function(){
+			$('#datagrid').treegrid({
+				onBeforeLoad:function(row,param) {
+					if (row) {
+						$(this).treegrid('options').url = url5([[${cid}]],[[${did}]],row.positionid);
+						<!-- alert(row.id+' '+row.code+'  '+row.name+'  '+row.col4); -->
+					} else {
+						$(this).treegrid('options').url = url6([[${cid}]],[[${did}]]);
+					}
+				}
+			});
+
+		})
+	</script>
+</body>
+
+<script th:inline="javascript">
+	function add(){
+		var row = $("#datagrid").datagrid("getSelected");
+		window.location.href = url8([[${cid}]],[[${did}]],row.positionid);
+	}
+</script>
+<script th:inline="javascript" type="text/javascript" src="../crm/js/System/position/position.js"></script>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>余额变动管理</title>
+<link rel="stylesheet" type="text/css" href="../crm/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../crm/css/style.css" />
+
+<style type="text/css">
+body {
+	margin: 30px;
+}
+
+p {
+	display: inline;
+}
+</style>
+</head>
+
+
+<link rel="stylesheet" href="../easyui/themes/metro/easyui.css" />
+<link rel="stylesheet" href="../easyui/themes/icon.css" />
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+		src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+<body>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<input type="button" onclick="back()" class="btn btn-danger" value="返回"/>
+			<script>
+                function back() {
+                    window.history.go(-1);
+                }
+			</script>
+		</div>
+	</div>
+
+	<table  id="datagrid" class="easyui-datagrid"
+			data-options="pageNumber:1,pageSize:10,pageList:[10,20,30,40],pagePosition:'bottom',nowrap:true,striped:true,toolbar:'#btn'
+				,rownumbers:true,idField:'acid',fitColumns:true,method:'post',pagination:true,singleSelect:true,showHeader:true">
+		<thead>
+		<tr>
+			<th data-options="field:'operators',width:'10%'">操作</th>
+			<th data-options="field:'money',width:'10%'">金额</th>
+			<th data-options="field:'balances',width:'15%'">余额</th>
+			<th data-options="field:'contents',width:'15%'">内容</th>
+			<th data-options="field:'agent',width:'15%'">代理说明</th>
+			<th data-options="field:'ip',width:'15%'">ip</th>
+			<th data-options="field:'adddateString',width:'20%'">添加日期</th>
+		</tr>
+		</thead>
+	</table>
+
+	<script th:inline="javascript">
+		$(function() {
+			$('#datagrid').datagrid({
+				url:'jsonBalanceActicityList?baId='+[[${baid}]],
+			})
+		})
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrkj.ecp.dao.shoporder.ShopOrderGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.zrkj.ecp.domain.shoporder.ShopOrderGoods" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="spec_id" property="specId" jdbcType="BIGINT" />
+    <result column="spec_info" property="specInfo" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="goods_num" property="goodsNum" jdbcType="SMALLINT" />
+    <result column="goods_image" property="goodsImage" jdbcType="VARCHAR" />
+    <result column="goods_returnnum" property="goodsReturnnum" jdbcType="SMALLINT" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="evaluation_status" property="evaluationStatus" jdbcType="BIT" />
+    <result column="evaluation_time" property="evaluationTime" jdbcType="BIGINT" />
+    <result column="goods_pay_price" property="goodsPayPrice" jdbcType="DECIMAL" />
+    <result column="buyer_id" property="buyerId" jdbcType="BIGINT" />
+    <result column="commis_rate" property="commisRate" jdbcType="REAL" />
+    <result column="gc_id" property="gcId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, goods_id, goods_name, spec_id, spec_info, goods_price, goods_num, goods_image, 
+    goods_returnnum, stores_id, evaluation_status, evaluation_time, goods_pay_price, 
+    buyer_id, commis_rate, gc_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_order_goods
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_order_goods
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderGoods" >
+    insert into shop_order_goods (id, order_id, goods_id, 
+      goods_name, spec_id, spec_info, 
+      goods_price, goods_num, goods_image, 
+      goods_returnnum, stores_id, evaluation_status, 
+      evaluation_time, goods_pay_price, buyer_id, 
+      commis_rate, gc_id)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
+      #{goodsName,jdbcType=VARCHAR}, #{specId,jdbcType=BIGINT}, #{specInfo,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=DECIMAL}, #{goodsNum,jdbcType=SMALLINT}, #{goodsImage,jdbcType=VARCHAR}, 
+      #{goodsReturnnum,jdbcType=SMALLINT}, #{storesId,jdbcType=INTEGER}, #{evaluationStatus,jdbcType=BIT}, 
+      #{evaluationTime,jdbcType=BIGINT}, #{goodsPayPrice,jdbcType=DECIMAL}, #{buyerId,jdbcType=BIGINT}, 
+      #{commisRate,jdbcType=REAL}, #{gcId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderGoods" >
+    insert into shop_order_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="specId != null" >
+        spec_id,
+      </if>
+      <if test="specInfo != null" >
+        spec_info,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="goodsImage != null" >
+        goods_image,
+      </if>
+      <if test="goodsReturnnum != null" >
+        goods_returnnum,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="evaluationStatus != null" >
+        evaluation_status,
+      </if>
+      <if test="evaluationTime != null" >
+        evaluation_time,
+      </if>
+      <if test="goodsPayPrice != null" >
+        goods_pay_price,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="commisRate != null" >
+        commis_rate,
+      </if>
+      <if test="gcId != null" >
+        gc_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="specId != null" >
+        #{specId,jdbcType=BIGINT},
+      </if>
+      <if test="specInfo != null" >
+        #{specInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsImage != null" >
+        #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsReturnnum != null" >
+        #{goodsReturnnum,jdbcType=SMALLINT},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationStatus != null" >
+        #{evaluationStatus,jdbcType=BIT},
+      </if>
+      <if test="evaluationTime != null" >
+        #{evaluationTime,jdbcType=BIGINT},
+      </if>
+      <if test="goodsPayPrice != null" >
+        #{goodsPayPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="commisRate != null" >
+        #{commisRate,jdbcType=REAL},
+      </if>
+      <if test="gcId != null" >
+        #{gcId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderGoods" >
+    update shop_order_goods
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="specId != null" >
+        spec_id = #{specId,jdbcType=BIGINT},
+      </if>
+      <if test="specInfo != null" >
+        spec_info = #{specInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsImage != null" >
+        goods_image = #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsReturnnum != null" >
+        goods_returnnum = #{goodsReturnnum,jdbcType=SMALLINT},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationStatus != null" >
+        evaluation_status = #{evaluationStatus,jdbcType=BIT},
+      </if>
+      <if test="evaluationTime != null" >
+        evaluation_time = #{evaluationTime,jdbcType=BIGINT},
+      </if>
+      <if test="goodsPayPrice != null" >
+        goods_pay_price = #{goodsPayPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="commisRate != null" >
+        commis_rate = #{commisRate,jdbcType=REAL},
+      </if>
+      <if test="gcId != null" >
+        gc_id = #{gcId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zrkj.ecp.domain.shoporder.ShopOrderGoods" >
+    update shop_order_goods
+    set order_id = #{orderId,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      spec_id = #{specId,jdbcType=BIGINT},
+      spec_info = #{specInfo,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_num = #{goodsNum,jdbcType=SMALLINT},
+      goods_image = #{goodsImage,jdbcType=VARCHAR},
+      goods_returnnum = #{goodsReturnnum,jdbcType=SMALLINT},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      evaluation_status = #{evaluationStatus,jdbcType=BIT},
+      evaluation_time = #{evaluationTime,jdbcType=BIGINT},
+      goods_pay_price = #{goodsPayPrice,jdbcType=DECIMAL},
+      buyer_id = #{buyerId,jdbcType=BIGINT},
+      commis_rate = #{commisRate,jdbcType=REAL},
+      gc_id = #{gcId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--获取订单商品列表-->
+  <select id="selectShopOrderGoodsList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from shop_order_goods
+    where order_id = #{dto.orderId,jdbcType=INTEGER}
+    AND goods_name LIKE #{dto.goodsName,jdbcType=VARCHAR}
+  </select>
+</mapper>
